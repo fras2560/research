@@ -10,6 +10,7 @@ Version: 2014-09-10
 -------------------------------------------------------
 """
 import networkx as nx
+import helper
 class DalGraph():
     def __init__(self, graph=None):
         '''
@@ -21,6 +22,9 @@ class DalGraph():
             self._g = nx.Graph()
         else:
             self._g = graph
+        self.claw = helper.make_claw()
+        self.co_claw = helper.make_co_claw()
+        
 
     def clique_number(self):
         '''
@@ -64,3 +68,76 @@ class DalGraph():
                     hole = None
                 vertex += 1
         return hole
+
+    def k_critical(self):
+        '''
+        k_critical
+        tells if graph G is k-critical for some k
+        Parameters:
+            None
+        Returns:
+            int: the k-critical
+            None: if graph is not k-critical
+        '''
+        claw_free = self.induced_subgraph(self.claw)
+        co_claw_free = self.induced_subgraph(self.co_claw)
+        if claw_free and co_claw_free:
+            return self._claw_and_co_free()
+
+    def _claw_and_co_free(self):
+        '''
+        _claw_and_co_free
+        finds if graph G is k-critical for some k
+        requires the G to be claw and co-claw free
+        Parameters:
+            None
+        Returns:
+            int: the k-critical graph
+            None: if graph is not k-critical
+        '''
+        clique = self.clique_number()
+        k = None
+        if clique is None:
+            #is not a clique
+            c5 = self.induced_subgraph(helper.make_cycle(5))
+            if c5 is not None:
+                #special case C5
+                #recursively call function on subgraph
+                h = self._g.copy()
+                subgraph = DalGraph(h)
+                subgraph.remove_vertices(c5)
+                return 3 + subgraph._claw_and_co_free()
+            else:
+                hole = self.hole_number()
+                if hole % 2 ==0:
+                    #odd cycle
+                    k = 3
+        else:
+            k = clique
+        return k
+
+    def remove_vertices(self,vertices):
+        '''
+        remove_vertices
+        remove a list of vertices
+        Parameters:
+            vertices: the list of vertices (int)
+        Returns:
+            None
+        '''
+        for vertex in vertices:
+            self._g.remove_node(vertex)
+
+    def induced_subgraph(self, H):
+        '''
+        induced_subgraph
+        returns vertices of G which make an induced subgraph H
+        Parameters:
+            H: the induced subgraph (Graph)
+        Returns:
+            list: the list of vertices which make up induced subgraph (int)
+            None if no induced subgraph
+        '''
+        induced = None
+        # TODO
+        return induced
