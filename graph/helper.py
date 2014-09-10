@@ -39,7 +39,7 @@ def make_co_claw():
     '''
     return nx.complement(make_claw())
 
-def make_cycle(self, n):
+def make_cycle(n):
     '''
     make_cycle
     assembles a cycle with n vertices
@@ -57,3 +57,33 @@ def make_cycle(self, n):
         cycle.add_edge(vertex, (vertex+1) % n)
         cycle.add_edge(vertex, (vertex-1) % n)
     return cycle
+
+import unittest
+class tester(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def testMakeClaw(self):
+        g = make_claw()
+        edges = [(0, 1), (0, 2), (0, 3)]
+        vertices =[0, 1, 2, 3]
+        self.assertEqual(edges, g.edges(), "Make Claw: failed on edges")
+        self.assertEqual(vertices, g.nodes(), "Make Claw: failed on vertices")
+
+    def testMakeCoClaw(self):
+        g = make_co_claw()
+        edges = [(1, 2), (1, 3), (2, 3)]
+        vertices =[0, 1, 2, 3]
+        self.assertEqual(edges, g.edges(), "Make Co-Claw: failed on edges")
+        self.assertEqual(vertices, g.nodes(),
+                         "Make Co-Claw: failed on vertices")
+
+    def testMakeCycle(self):
+        g = make_cycle(3)
+        edges = [(0,1), (0,2), (1,2)]
+        vertices = [0, 1, 2]
+        self.assertEqual(edges, g.edges(), "Make Cycle: failed on edges")
+        self.assertEqual(vertices, g.nodes(), "Make Cycle: failed on vertices")
