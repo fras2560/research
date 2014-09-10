@@ -12,6 +12,7 @@ Version: 2014-09-10
 import unittest
 import networkx as nx
 from graph import DalGraph
+from helper import make_cycle
 class testDalGraph(unittest.TestCase):
     def setUp(self):
         pass
@@ -19,28 +20,17 @@ class testDalGraph(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def createCycle(self, n):
-        cycle = nx.Graph()
-        for vertex in range(0,n):
-            #add all the vertices
-            cycle.add_node(vertex)
-        for vertex in range(0,n):
-            #add all the edges
-            cycle.add_edge(vertex, (vertex+1) % n)
-            cycle.add_edge(vertex, (vertex-1) % n)
-        return cycle
-
     def testHoleNumber(self):
         # test C3
-        c3 = self.createCycle(3)
+        c3 = make_cycle(3)
         hole = DalGraph(c3).hole_number()
         self.assertEqual(hole, 3, "Hole Number on C3")
         # test C5
-        c5 = self.createCycle(5)
+        c5 = make_cycle(5)
         hole = DalGraph(c5).hole_number()
         self.assertEqual(hole, 5, "Hole Number on C5")
         # test C8
-        c8 = self.createCycle(8)
+        c8 = make_cycle(8)
         hole = DalGraph(c8).hole_number()
         self.assertEqual(hole, 8, "Hole Number on C8")
         # test K4
@@ -66,7 +56,7 @@ class testDalGraph(unittest.TestCase):
         clique = DalGraph(k8).clique_number()
         self.assertEqual(clique, 8, "Clique Number on K8")
         # test C4
-        c4 = self.createCycle(4)
+        c4 = make_cycle(4)
         clique = DalGraph(c4).clique_number()
         self.assertEqual(clique, None, "Clique Number on C4")
         # test random graph
