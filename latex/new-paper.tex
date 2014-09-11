@@ -18,8 +18,7 @@
 \newtheorem{Observation}[Theorem]{Observation}
 
 \def\inst#1{$^{#1}$}
-\def\PP{($claw, co-claw$)}
-
+\def\CCO{($claw, co-claw$)}
 \title{On k-critical ($claw, co-claw$)-free graphs}
 
 \author{
@@ -41,15 +40,9 @@ University, \\ Waterloo, Ontario, Canada
 %
 \begin{abstract}
 A graph is $k$-critical if it is $k$-chromatic but each of its proper
-induced subgraphs is ($k-1$)-colorable. There is an infinite number of k-critical $(claw, co-claw)$ for each $k \geq 5$. We show that the number of $k$-critical $(claw, co-claw)$ It is known that the number
-of $4$-critical $P_5$-free graphs is finite, but there is an infinite
-number of $k$-critical $P_5$-free graphs for each $k \geq 5$.  We show
-that the number of $k$-critical $(P_5, \overline{P}_5)$-free graphs is
-finite for every fixed $k$.  Our result implies the existence of a
-certifying algorithm for $k$-coloring $(P_5, \overline{P}_5)$-free
-graphs.
+induced subgraphs is ($k-1$)-colorable. There is an infinite number of k-critical (\CCO} for each $k \geq 3$. We show that the set of $k$-critical {\CCO} for some $k \geq 3$ is a clique $K_k$ or the join of $k-2$ set with a $C5$  
 
-\noindent{\em Keywords}: Graph coloring, $P_5$-free graphs
+\noindent{\em Keywords}: Graph coloring, $claw$-free,$co-claw$-free graphs
 \end{abstract}
 
 
@@ -59,23 +52,9 @@ Graph coloring is a well-studied problem in computer science and
 discrete mathematics.  Determining the chromatic number of a graph
 is a NP-hard problem.  But for many classes of graphs, such as
 perfect graphs, the problem can be solved in polynomial time.
-Recently, much research has been done on coloring $P_5$-free
-graphs.  Finding the chromatic number of a $P_5$-free graphs is
-NP-hard \cite{KraKra2001}, but for every fixed $k$, the problem of
-coloring a graph with $k$ colors admits a polynomial-time
-algorithm \cite{HoaKam2008, HoaKam2010}.  Research has also been
-done on ($P_5, \overline{P}_5$)-free graphs (graphs without $P_5$
-and its complement $\overline{P}_5$).  In \cite{GiaRus1997}, a
-polynomial-time algorithm is found for finding an approximate
-weighted coloring of a ($P_5, \overline{P}_5$)-free graph
-(definitions not given here will be given later).  Recently,
-\cite{HoaLaz2013} gave a polynomial time algorithm for finding a
-minimum weighted coloring of a ($P_5, \overline{P}_5$)-free graph.
+The a polynomial time algorithm in \cite{BraFud2002}  algorithm for finding a maximum weight stable set of a {\CCO}-free graph
 
-The algorithms in \cite{HoaKam2008, HoaKam2010, HoaLaz2013} produce a
-$k$-coloring if the input graph is $k$-colorable.  However, when the
-graph is not, the algorithms do not produce an easily verified
-certificate for a ``NO'' answer.  The point of view in this article is
+The point of view in this article is
 motivated by the idea of a ``certifying algorithm''.  An algorithm is
 {\it certifying} if it returns with each output a simple and easily
 verifiable certificate that the particular output is correct.  For
@@ -87,22 +66,13 @@ the graph in a plane, or one of the two Kuratowski subgraphs proving
 the input graph is not planar.
 
 A graph is $k$-critical if it is $k$-chromatic but each of its proper
-induced subgraphs is $(k-1)$-colorable.  In \cite{BruHoa2009} and also
-\cite{MafMor}, a certifying algorithm for $3$-colorability of
-$P_5$-free graphs is provided by showing that the number of
-$4$-critical $P_5$-free graphs is finite.  Given this result, one may
-ask whether the same statement holds for $k$-critical $P_5$-free
-graphs for any $k \geq 4$.  However, \cite{HoaMoo2013} shows the
-number of $k$-critical $P_5$-free graphs is infinite for $k \geq 5$.
-Here we prove that the number of $k$-critical ($P_5,
-\overline{P}_5$)-free graphs is finite for every fixed $k$, thereby
-establishing a certifying algorithm for $k$-colorability of ($P_5,
-\overline{P}_5$)-free graphs.  In section~\ref{sec:definitions}, we
+induced subgraphs is $(k-1)$-colorable.
+Here we prove that the number of $k$-critical {\CCO}-free graphs is infinite for every fixed $k \geq 2$, but NOT SURE ON WORDING
+In section~\ref{sec:definitions}, we
 give definitions and background on our problem.  In
 section~\ref{sec:characterization}, we give the proofs of our main
-results.  In section~\ref{sec:5-critical}, we give the exact number of
-$k$-critical {\PP}-free graphs for $k \leq 8$; in particular, we will
-construct a list of all 5-critical {\PP}-free graphs.
+results.  In section~\ref{sec:5-critical}, we demostrate how  
+$k$-critical {\CCO}-free graphs are constrcuted for $k \leq 5$.
 
 \section{Definitions and background}\label{sec:definitions}
 A $k$-coloring of a graph $G=(V,E)$ is a mapping $f: V \rightarrow
@@ -128,140 +98,57 @@ all edges between $A$ and $B$.  Given two graphs $G$ and $ H$, the
 graph $F$ is the {\it join} of $G$ and $H$ if $F$ is obtained by
 taking $G$ and $H$ and joining every vertex in $G$ to every vertex
 in $H$ by an edge.  As usual, $K_t$ denotes the clique on $t$
-vertices; and $C_t$ denotes the induced cycle on $t$ vertices. The
-complement of $G$ is denoted by $\overline{G}$.
+vertices; and $C_t$ denotes the induced cycle on $t$ vertices. 
+The complement of $G$ is denoted by $\overline{G}$. 
 
-Let $G$ be a graph with a module $M$, where $M$ needs not be
-non-trivial.  Consider the graph $G'$ obtained from $G$ by
-removing $M$, adding another graph $H$, and adding all edges
-between a vertex $x \in G-M$ and all vertices of $H$ whenever $x$
-has a neighbor in $M$ in the graph $G$.  We say that $G'$ is
-obtained from $G$ by {\it substituting} $H$ for $M$.  A {\em buoy}
-is a graph $B$ obtained from a $C_5$ by, for each vertex $x$ of
-the $C_5$, substituting a graph $B_x$ for $x$.  The graph $B_x$ is
-a {\em bag} of the buoy.  Thus, the buoy will have $5$ bags, and
-we label these $B_1, B_2, B_3, B_4, B_5$ in the cyclic order.
-Without loss of generality, we will start with $B_1$ when
-discussing bags.  Note each $B_i$ is a module of $B$.  The buoy
-$B$ is {\it full} if $B$ contains all vertices of $G$; $B$ is {\it
-universal} if every vertex in $G-B$ is universal; $B$ is a {\it
-join buoy} if every vertex of $B$ is adjacent to every vertex of
-$G-B$.  A \emph{pseudo-buoy} is defined as a buoy except that any
-of the sets $B_1, \ldots, B_5$ may be empty.  The following two
-lemmas are folklore and are easy to establish.
+A claw refers to a graph G with vertices with one vertex $X$ is universal to {$y1,y2,y3$} which is a stable set. A co-claw refers to a graph $G$ which is the complement of a claw. For $U \subseteq V$ let $G(U)$ denote the subgrpah of $G$ induced by $U$. Throughout this paper, all subgrpahs are understood to be induced. If $H$ is a subgraph of F then a vertex $v$ not in $H$ is called a $k-vertex$ for $H$ if $v$ has exactly $k$ neighbors in $H$. For a vertex set $U$ in $H$ with $|U| = k$, let $N_U$ denote the set of $k-vertices$ for $H$ being adjacent to all vertices in $U$.  The following lemmas have been previously established.
 
-\begin{Lemma}\label{lem:neighbor}
-In a critical graph there do not exist two comparable vertices.
-$\Box$
-\end{Lemma}
-
-\begin{Lemma}\label{lem:connected}
-A critical graph is connected. $\Box$
-\end{Lemma}
-%
-The following lemma is also well known and we will rely on it for
-our proofs.
-\begin{Lemma}\label{lem:cliqueCutset}
-A critical graph that is not a clique does not contain a clique
-cutset.
-\end{Lemma}
-{\it Proof.} Let $G$ be a $k$-critical graph with a clique cutset
-$C$.  Thus, $G-C$ can be partitioned into two sets $A, B$ such
-that there are no edges between $A$ and $B$.  Let $G_A$ (resp.,
-$G_B$) be the subgraph of $G$ induced by $C \cup A$ (resp., $C
-\cup B$).  Consider a coloring of $G_A$ (resp., $G_B$) with
-$\chi(G_A)$ (resp., $\chi(G_B)$) colors.  Since $G$ is critical,
-we have $\chi(G_A) < k$ and $\chi(G_B) < k$.  Without loss of
-generality, we may assume $\chi(G_A) \geq \chi(G_B)$.  Then a
-$\chi(G_A)$-coloring of $G$ can be obtained by identifying the
-colors of $G_A$ and $G_B$ on $C$.  But this implies $\chi(G) =
-\chi(G_A) < k$, a contradiction. $\Box$
-
-\begin{Lemma}\label{thm:FG}{\rm \cite{FouGia1995}}
-Given a $(P_5, \overline{P}_5)$--free graph $G$, every $C_5$ of $G$ is
-contained in a buoy which is either full or a module of $G$.  $\Box$
-\end{Lemma}
-
-Let $\omega(G)$ denotes the {\it clique number} of $G$, ie. the number of vertices in a largest clique of
-$G$. A graph $G$ is {\it perfect} if for each induced subgraph $H$ of $G$,
-we have $\chi(H)=\omega(H)$.
-\begin{Observation}\label{obs:perfect}
-If $G$ is perfect and $k$-critical,
-then $G$ is the graph $K_k$, the clique on $k$ vertices.
-\end{Observation}
-%
-{\it Proof.} Let $G$ be a perfect $k$-critical graph. Thus, we have $\chi(G)=\omega(G)=k$.
-For a vertex $v$ of $G$, we have
-$\chi(G-v) = k -1$ by definition. Since $G$ is perfect, we have $\omega(G-v)=k-1$. It follows that any largest clique of $G$ must contain $v$. Since $v$ was chosen arbitrarily, a largest clique of $G$ must contain all vertices of $G$, that is, $G$ is a clique on $k$ vertices. $\Box$
-
-We will also need the following result.
 \begin{Lemma}\label{lem:CHMW}{\rm \cite{ChvHoa1987}}
 $(P_5, \overline{P}_5, C_5)$-free graphs are perfect.  $\Box$
 \end{Lemma}
 
-\section{The structure of $k$-critical {\PP}-free
-graphs}\label{sec:characterization}
-%
-In this section, we study properties of maximal buoys in
-{\PP}-free graphs and we show that every critical {\PP}-free graph
-$G$ can be constructed by two simple operations: (i) $G$ is the
-join of two smaller critical graphs, or (ii) $G$ is obtained from
-the $C_5$ by substituting some smaller critical graphs for each
-vertex on the $C_5$. As a consequence, we obtain a certifying
-algorithm for $k$-colorability of {\PP}-free graphs.
-%
-\subsection{Structural results}
-
-We begin by  establishing a number of preliminary results.
-\begin{Lemma}\label{lem:module-critical}
-If $G$ is $k$--critical with a non-trivial module $M$, then $M$ is
-$\ell$--critical for some $\ell < k$.
-%\label{thm:ellcritical}
-\end{Lemma}
-\noindent {\it Proof}.  As $M$ is a module, we can partition the
-vertices of $G$ into three sets: $M$; $N$, the set of vertices in
-$G-M$ adjacent to the vertices of $M$; and $R$, the set of
-vertices in $G-M$ having no neighbors in $M$.
-
-Let $\chi(M)=\ell$ for some $\ell\leq k$.  If $\ell=k$, then $N$ must
-be empty since any color assigned to a vertex in $N$ must be different
-from the colors assigned to vertices in $M$ (and so $G$ would require
-more than $k$ colors).  This would imply that $G$ is not connected, a
-contradiction to Lemma~\ref{lem:connected}.  So, we know $\ell < k$.
-
-Now, we need to  show that $M$ is $\ell$-critical; that is, we must
-show that  $M-y$ is $(\ell-1)$-colorable for any vertex $y\in M$.
-
-Suppose on the contrary that there is a vertex $x \in M$ with $\chi(M-x)
-= \ell$.  Now consider a $(k-1)$-coloring $\beta$ of the graph $G-x$
-which we know must exist because $G$ is $k$-critical.  Then at least
-$\ell$ colors of $\beta$ appear in $M-x$, because $\chi (M-x) = \ell$.
-Let $C_M$ be the set of colors of $\beta$ that appear in $M$, and let
-$C_N$ be the set of colors of $\beta$ that appear in $N$.  We have
-$C_M \cap C_N = \emptyset$ since there are all edges between $M$ and
-$N$.
-
-Let $\theta$ be an $\ell$-coloring of $M$ that uses the colors of
-$C_M$; such a coloring exists because $M$ is $\ell$-colorable. Now
-consider an assignment $\gamma$ of colors to $G$ which uses the
-same colors for $R$ and $N$ as in $\beta$ but uses the coloring of
-$\theta$ for $M$, that is, for a vertex $x$, if $x \in R \cup N$,
-then $\gamma(x) = \beta(x)$; and if $x \in M$, then $\gamma(x)=
-\theta(x)$. Then $\gamma$ is a valid coloring because for any two
-adjacent vertices $x,y$, we have $\gamma(x) \not= \gamma(y)$; in
-particular, if $x \in M$ and $y \in N$ then $\gamma(x) \in C_M$
-and $\gamma(y) \in C_N$ and so $\gamma(x) \not= \gamma(y)$.  So,
-$\gamma$ uses the same number of colors as $\beta$; that is, $G$
-is $(k-1)$-colorable, a contradiction. $\Box$
-
-\begin{Lemma}\label{lem:join-critical}
+\begin{Lemma}\label{lem:join-critical}{\rm \cite{DhaHam2014}}
 Let $G=(V,E)$ be any graph.  Suppose that $V$ admits a partition into
 two non-empty sets $V_1$ and $V_2$ such that $V_1$ is complete to
 $V_2$.  Then $G$ is critical if and only if the two graphs $G[V_1]$
 and $G[V_2]$ are critical.
 \end{Lemma}
-\noindent{\it Proof.} Let $k=\chi(G)$.  Write $G_i=G[V_i]$ for
-each $i\in\{1,2\}$.
+
+\section{The structure of $k$-critical {\CCO}-free
+graphs}\label{sec:characterization}
+%
+In this section, we prove 5 properties of {\CCO}-free graphs and we show that $k$-critical {\CCO}-free graph is infinite for $k \geq 2$
+%
+\subsection{Structural results}
+
+We begin by  establishing a number of preliminary results.
+\begin{Lemma}\label{lem:C7Cycle}
+If $G$ is a connect graph which contains an induced $C_l,$ $l \geq 7$, then $G$ itself is such a cycle.
+%\label{thm:ellcritical}
+\end{Lemma}
+\noindent {\it Proof}.  Let $C$ be a $C_l,$ $l \geq 7$, with vertices 1, 2,...,$l$. Note that $C$ has no 1-vertex since $G$ is claw-free, and $C$ has no 2-vertex since $G$ is $claw$- and $co-claw$-free. Assume now that $x$ is a $k$-vertex for $C$ with $k geq 3$. Since $G$ is $claw$-free
+, at least two of the neighbours of $X$ in $C$ are consecutive in $C$ ; without lost of generality let $x$ be adjacent to 1 and 2. Since 1, 2, $x$,4 is no $co-claw$, $x4 \in E$, and since 1, 2, $x$, $l$-1 is no co-claw, $xl-1 \in E$ but now 1,4,$l$-1, $x$ is a claw since $l \geq 7$; contradiction. Thus C has no $k$-vertex with $k \geq 3$. Note that $C$ has no 0-vertex since $G$ is connected. $\Box$
+
+\medskip
+
+
+
+\begin{Lemma}\label{lem:C69V}
+If $G$ contains a $C_6$ then $G$ has at most 9 vertices.
+\end{Lemma}
+\noindent{\it Proof.} Let $C$ be a $C_6$ with vertices 1,2,...,6. note that $C$ has no $k$-vertex for $k \in {1,2,3,5,6}$ since $G$ is $claw$-- and $co-claw$-free, and $N_1,2,4,5$, $N_2,3,5,6$, $N_3,4,6,1$ is a partition of the set of 4-vertices since $G$ is $co-claw$-free. Since $G$ is claw-free, there are no edges between these sets, and there are no 0-vertices to a 4-vertex whichs means that these sets are modules and thus have at most one vertex. Now $G$ has at most 9 vertices. $\Box$
+
+\medskip
+
+\begin{Lemma}\label{lem:C5Join}
+If $G$ contains a $C_5$ then:
+\begin{itemize}
+\item[(i)]
+$G$ is a $C_5$
+\item[(i)]
+$G$ is the join of a $C5$ and $H$
+\end{itemize}
+\end{Lemma}
 
 First suppose that $G$ is $k$-critical.  If $V_i$ is a single vertex
 then it is 1-critical; otherwise, $V_i$ is a module of $G$ and so by
@@ -825,7 +712,13 @@ Grant of author C.T.H.
 \bibitem{MafMor}
     F.~Maffray and G.~Morel.  On $3$-colorable $P_5$-free graphs.  {\sl SIAM
      Journal on Discrete Mathematics} 26 (2012) 1682--1708.
-
+\bibitem{BraFud2002}
+	A.~Brandstadt and S.~Mahfud, Maximum Weight Stable Set on graphs without claw and co-claw can be solved in linear time
+	{\s1 XXX} (2002)
+\bibitem{DhaHam2014}
+	H. Dhaliwal, A. Hamel, C. Ho\'{a}ng, F. Maffray, T. McConnel and S. Panait,
+	On Color-critical ($P_5, \overline{P}_5$)-free graphs.
+	{\s1 XXX} (2014)
 \end{thebibliography}
 
 \end{document}
