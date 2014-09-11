@@ -99,8 +99,8 @@ class DalGraph():
         k = None
         if clique is None:
             #is not a clique
-            c5 = self.induced_subgraph(helper.make_cycle(5))
-            if c5 is not None:
+            c5 = self.find_c5(self._g)
+            if len is not None:
                 #special case C5
                 #recursively call function on subgraph
                 h = self._g.copy()
@@ -115,6 +115,26 @@ class DalGraph():
         else:
             k = clique
         return k
+
+    def find_c5(self):
+        '''
+        find_c5
+        finds one cycle of with 5 vertices
+        Parameters:
+            None
+        Returns:
+            list: a list of the C5
+            None: otherwise
+        '''
+        c5 = None
+        cycles = nx.cycle_basis(self._g)
+        index = 0
+        while c5 is None and index <  len(cycles):
+            if len(cycles[index]) == 5:
+                # is a cycle with 5 vertices
+                c5 = cycles[index]
+            index += 1
+        return c5
 
     def remove_vertices(self,vertices):
         '''
