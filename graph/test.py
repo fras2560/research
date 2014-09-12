@@ -63,3 +63,18 @@ class testDalGraph(unittest.TestCase):
         rando = nx.barbell_graph(10, 10)
         clique = DalGraph(rando).clique_number()
         self.assertEqual(clique, None, "Clique Number on random graph")
+
+    def testFind_C5(self):
+        # just a C5
+        c5 = make_cycle(5)
+        g = DalGraph(c5)
+        c = g.find_c5()
+        self.assertEqual(c, [0, 1, 2, 3, 4],
+                         "find_c5: Failed to find the trivial C5")
+        w5 = nx.wheel_graph(6)
+        g = DalGraph(w5)
+        c = g.find_c5()
+        self.assertEqual(c, [0, 1, 2, 3, 4],
+                         "find_c5: Failed to find c5 in a wheel")
+
+

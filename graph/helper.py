@@ -50,13 +50,40 @@ def make_cycle(n):
     '''
     cycle = nx.Graph()
     for vertex in range(0,n):
-        #add all the vertices
+        # add all the vertices
         cycle.add_node(vertex)
     for vertex in range(0,n):
-        #add all the edges
+        # add all the edges
         cycle.add_edge(vertex, (vertex+1) % n)
         cycle.add_edge(vertex, (vertex-1) % n)
     return cycle
+
+def join(G, H):
+    '''
+    join
+    a function which (complete) joins one graph G to graph H
+    Parameters:
+        G: Graph with at least one vertice (Graph)
+        H: Graph with at least one vertice (Graph)
+    Returns:
+        F: The join of G and H (Graph)
+    '''
+    # add all of
+    F = nx.Graph()
+    F.add_nodes_from(G.nodes())
+    F.add_edges_from(G.edges())
+    shift = G.number_of_nodes()
+    # add all nodes of H
+    for vertex in H.nodes():
+        F.add_node(vertex)
+    # add all of F edges
+    for e1, e2 in H.edges():
+        F.add_edge(e1 + shift, e2 + shift)
+    # join the two sets of nodes
+    for v1 in G.nodes():
+        for v2 in H.nodes():
+            F.add_edge(v1,v2+shift)
+    return F
 
 import unittest
 class tester(unittest.TestCase):
@@ -87,3 +114,24 @@ class tester(unittest.TestCase):
         vertices = [0, 1, 2]
         self.assertEqual(edges, g.edges(), "Make Cycle: failed on edges")
         self.assertEqual(vertices, g.nodes(), "Make Cycle: failed on vertices")
+
+    def testJoin(self):
+        # wheel test
+        g = make_cycle(5)
+        h = nx.Graph()
+        h.add_node(0)
+        f = join(g, h)
+        expect = nx.wheel_graph(6) # expect a wheel
+        self.assertEqual(expect.nodes(), f.nodes(),
+                         " Join: nodes failed on wheel test")
+        self.assertEqual(nx.is_isomorphic(f, expect), True,
+                         " Join: edges failed on wheel test")
+        # join of two trianges = K6
+        g = nx.complete_graph(3)
+        h = nx.complete_graph(3)
+        f = join(g, h)
+        expect = nx.complete_graph(6)
+        self.assertEqual(expect.nodes(), f.nodes(), 
+                         "Join: nodes failed for K6 test")
+        self.assertEqual(nx.is_isomorphic(f, expect), True,
+                         " Join: edges failed on wheel K6 test")

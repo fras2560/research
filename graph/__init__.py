@@ -128,11 +128,12 @@ class DalGraph():
         '''
         c5 = None
         cycles = nx.cycle_basis(self._g)
+        print(cycles)
         index = 0
         while c5 is None and index <  len(cycles):
             if len(cycles[index]) == 5:
                 # is a cycle with 5 vertices
-                c5 = cycles[index]
+                c5 = sorted(cycles[index])
             index += 1
         return c5
 
