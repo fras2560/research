@@ -111,7 +111,7 @@ If $G$ contains a $C_6$ then $G$ has at most 9 vertices or is disconnected.
 
 \medskip
 
-\begin{Lemma}\label{lem:C5Join}
+\begin{Lemma}\label{lem:c5join}
 If $G$ contains a $C_5$ then:
 \begin{itemize}
 \item[(i)]
@@ -142,16 +142,32 @@ If $G$ contains a $P5$ then $G$ has at most 8 vertices or it is disconnected.
 \noindent {\it Proof.} Expanding \cite{BraFud2002} where it was shown $P_5$ has no 1-vertex, 2-vertex, 5-vertex and possible $k$-vertices for $P$ with $k \geq 3$ are the sets $A$ = $N_1,_2,_4,_5$, $B$ = $N_1,_3,_4$, and $C$ = $N_2,_3,_5$. Moreover since $G$ is $claw$-free, there are no edges between $A$ and $B$ ($AB$, $A$2, $A$5), between $A$ and $C$ ($AC$, $A$1, $A$4), and between $B$ and $C$ ($BC$, $B$1, $B4$). The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then $claw$ ($1x$, $1y$, $16$)$-$contradiction. The same argument applies to $B$ and $C$. 3,4-vertex and 0-vertex sets cannot both $!= \phi$ esle there would be a $co$-$claw$. If the set of 3,4-vertex $!= \phi$ then $G$ has at most 8 vertices. If the set of 0-vertex $!= \phi$ then $G$ is a disconnected.
 
 
-\section{The structure of $k$-critical {\PP}-free
-graphs}\label{sec:characterization}
+\section{The structure of $k$-critical {\CCO}-free graphs}\label{sec:characterization}
 %
-In this section, we look at {\CCO}-free graphs that contain a $C_5$ and $co$-$C_l$ for $l \geq 7$. We show that every $k$-critical {\CCO}-free graph $G$ is a clique $K_k$, cycle $C_n$ where $n \geq 5$, a join of a $C_5$ with a critical graph except $C_n$ where $n \geq 5$, a join of a $co$-$cl$ with a critical graph except $C_n$ where $n \geq 5$. 
+In this section, we look at {\CCO}-free graphs that contain a $C_5$ and $co$-$C_l$ for $l \geq 7$. We show that every $k$-critical {\CCO}-free graph $G$ is a clique $K_k$, cycle $C_l$, $\overline{C_l}$ where $l \geq 5$, a join of a $C_5$ with a critical graph except $C_l$ where $l \geq 5$, or a join of a $\overline{C_l}$ where $l \geq 7$ with a critical graph except $C_l$ where $l \geq 5$. 
 
-\begin{Lemma}\label{lem:module-c5critical}
-If $G$ contains a $C_5$ then $G$ is $k$-critical for $k \geq 3$ only if $C_5$ is joined on a critical graph except $C_n$ where $n \geq 5$.
-%\label{thm:ellcritical}
+\begin{Lemma}\label{lem:c5critical}
+If $G$ contains a $C_5$ then $G$ is $k$-critical for $k \geq 3$ only if $C_5$ is joined on a critical graph except $C_l$ where $l \geq 5$.
 \end{Lemma}
-\noindent {\it Proof.} From {}
+\noindent {\it Proof.} Lemma \ref{lem:c5join} showed that there three cases for $G$ when it contains a $C_5$. Case (1) $G$ is a $C_5$ and is only 3-critical. Case (2) $G$ is a join of $C_5$ and $H$. By Lemma \ref{lem:join-critical} $G$ is only $k$-critical if $H$ is some $k2$-critical where $k2 = k - 3$. However $H$ cannot be any $C_l$, $l \geq 7$ since by Lemma \ref{lem:C7Cycle} showed $C_l$ has no $k$-vertex so it cannot be complete to $G$. Case (3) $G$ is not connected and by Lemma \ref{lem:connected} it cannot be $k$-critical.
+
+
+\begin{Lemma}\label{lem:co-cl}
+If $G$ contains a $\overline{C_l}$ where $l \geq 7$ then:
+\begin{itemize}
+\item[(i)]
+$G$ is a $\overline{C_l}$
+\item[(i)]
+$G$ is the join of a $\overline{C_l}$ and $H$
+\end{itemize}
+\end{Lemma}
+\noindent {\it Proof.} Lemma \ref{lem:C7Cycle} showed all $G$ containing a $C_l$ has no $k$-vertex for $k \in {1, 2, 3, 4, 5, 6}$. So $\overline{C_l}$ has no $k$-vertex for $k \in {0, 1, 2, 3, 4, 5,}$by Lemma \ref{lem:k-vertex-complement} . So if the 6-vertex set $= \phi$ then $G$ is a $\overline{C_l}$ else $G$ is a join of $\overline{C_l}$ and $H$ where $H$ is the set of 6-vertex.
+
+\begin{Lemma}\label{lem:co-cl-critical}
+If $G$ contains a $\overline{C_l}$ then $G$ is $k$-critical for $k \geq 7$ only if $\overline{C_l}$ where $l < k and odd$, is a join on a $k2$critical graph where $k2 = k - l + 3$ SOMETHING ALONGS THOSE LINES. 
+\end{Lemma}
+\noindent {\it Proof.} Lemma \ref{lem:co-cl} showed that there are two cases for $G$ when it contains a $\overline{C_l}$. Case (1) $G$ is a $\overline{C_l}$
+
 \begin{center}
 {\bf Acknowledgement}
 \end{center}
