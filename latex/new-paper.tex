@@ -17,6 +17,8 @@
 \newtheorem{Lemma}[Theorem]{Lemma}
 \newtheorem{Observation}[Theorem]{Observation}
 
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
 \def\inst#1{$^{#1}$}
 \def\CCO{($claw$, $co$-$claw$)}
 
@@ -44,7 +46,7 @@ University, \\ Waterloo, Ontario, Canada}
 A graph is $k$-critical if it is $k$-chromatic but each of its proper
 induced subgraphs is ($k-1$)-colorable. There is an finite number of k-critical {\CCO} when $k = 3$. We show that the set of $k$-critical {\CCO} for some $k \geq 3$ is  finite. Our result implies the existence of a certifying alogirthm for $k$-coloring {\CCO}-free graphs. 
 
-\noindent{\em Keywords}: Graph coloring, $claw$-free,$co$-$claw$-free graphs
+\noindent{\em Keywords}: Graph coloring, $claw$-free, $co$-$claw$-free graphs
 \end{abstract}
 
 
@@ -58,12 +60,8 @@ In 2002 \cite{BraFud2002}, research was done on  prime {\CCO}-free graphs and pr
 
 The point of view in this article is motivated by the idea of a ``certifying algorithm''.  An algorithm is {\it certifying} if it returns with each output a simple and easily verifiable certificate that the particular output is correct.  For example, a certifying algorithm for the bipartite graph recognition would return either a 2-coloring of the input graph, thus proving that it is bipartite, or an odd cycle, thus proving it is not bipartite.  A certifying algorithm for planarity would return either an embedding of the graph in a plane, or one of the two Kuratowski subgraphs proving the input graph is not planar.
 
-A graph is $k$-critical if it is $k$-chromatic but each of its proper
-induced subgraphs is $(k-1)$-colorable.
-Here we prove that the number of $k$-critical {\CCO}-free graphs is infinite for every fixed $k \geq 2$, but NOT SURE ON WORDING
-In section~\ref{sec:definitions}, we
-give definitions and background on our problem.  In
-section~\ref{sec:updates}, we expand upon previous Lemmas \cite{BraFud2002}. In section!\ref{sec:characterization} , we give the proofs or our main results.  In section~\ref{sec:5-critical}, we demostrate how  
+A graph is $k$-critical if it is $k$-chromatic but each of its proper induced subgraphs is $(k-1)$-colorable. Here we prove that the number of $k$-critical {\CCO}-free graphs is finite for every fixed $k$ $!= 3$.
+In section~\ref{sec:definitions}, we give definitions and background on our problem. In section~\ref{sec:updates}, we expand upon previous Lemmas \cite{BraFud2002}. In section!\ref{sec:characterization} , we give the proofs or our main results.  In section~\ref{sec:5-critical}, we demostrate how  
 $k$-critical {\CCO}-free graphs are constructed for $k \in {4,5, 6}$.
 
 \section{Definitions and background}\label{sec:definitions} 
@@ -71,9 +69,9 @@ A $k$-coloring of a graph $G=(V,E)$ is a mapping $f: V \rightarrow \{1,\ldots, k
 
 A $claw$ refers to a graph G with vertices with one vertex $X$ is universal to {$y1,y2,y3$} which is a stable set. A $co$-$claw$ refers to a graph $G$ which is the complement of a $claw$. For $U \subseteq V$ let $G(U)$ denote the subgrpah of $G$ induced by $U$. Throughout this paper, all subgrpahs are understood to be induced. If $H$ is a subgraph of F then a vertex $v$ not in $H$ is called a $k-vertex$ for $H$ if $v$ has exactly $k$ neighbors in $H$. For a vertex set $U$ in $H$ with $|U| = k$, let $N_U$ denote the set of $k-vertices$ for $H$ being adjacent to all vertices in $U$.  The following lemmas have been previously established.
 
-\begin{Lemma}\label{lem:CHMW}{\rm \cite{ChvHoa1987}}
-$(P_5, \overline{P}_5, C_5)$-free graphs are perfect. $\Box$
-\end{Lemma}
+\begin{Theorem}\label{thm:StrongPerfect}{\rm \cite{ChvHoa1987}}
+$(odd-hole, odd-anti-hole)$-free graphs are perfect. $\Box$
+\end{Theorem}
 
 \begin{Lemma}\label{lem:connected}
 A critical graph is connected. $\Box$
@@ -89,7 +87,7 @@ and $G[V_2]$ are critical. $\Box$
 \section{The structure of $k$-critical {\CCO}-free
 graphs}\label{sec:updates}
 %
-In this section, we prove 5 properties of {\CCO}-free graphs and we show that $k$-critical {\CCO}-free graph is infinite for $k \geq 2$
+In this section, we prove 3 properties of {\CCO}-free graphs and we show that $k$-critical {\CCO}-free graph is finite for some fixed $k$ where $k \geq 3$
 %
 \subsection{Structural results}
 
@@ -98,7 +96,7 @@ We begin by  establishing a number of preliminary results.
 If $G$ is a graph which contains an induced $C_l,$ $l \geq 7$, then $G$ itself is such a cycle or is a disconnected graph.
 %\label{thm:ellcritical}
 \end{Lemma}
-\noindent {\it Proof}.  Expanding \cite{BraFud2002} upon Theorem 2 Claim 1 where it was shown $C_l$, $l \geq 7$ has not $k$-vertex for $k \geq 1$. If the set of 0-vertex $= \phi$ then $G$ is a $C_l$ else it is a disconnect graph.  $\Box$
+\noindent {\it Proof}.  Expanding \cite{BraFud2002} upon Theorem 2 Claim 1 where it was shown $C_l$, $l \geq 7$ has not $k$-vertex for $k \geq 1$. If the set of 0-vertex $= \phi$ then $G$ is a $C_l$ else it is a disconnected graph.  $\Box$
 
 \medskip
 
@@ -107,7 +105,7 @@ If $G$ is a graph which contains an induced $C_l,$ $l \geq 7$, then $G$ itself i
 \begin{Lemma}\label{lem:C69V}
 If $G$ contains a $C_6$ then $G$ has at most 9 vertices or is disconnected.
 \end{Lemma}
-\noindent{\it Proof.} Expanding \cite{BraFud2002} upon Theorem 2 Claim 2 where it was shown $C_6$ has no $k$-vertex for $k \in {1, 2, 3, 5, 6}$ Let $A$ = $N_1,_2,_4,_5$, $A$ = $N_2,_3,_5,_6$ and $C$ = $N_3,_4,_6,_1$ bet a partition of the set of 4-vertices since G is $co$-$claw$. There can be no edge $AB$ ($AB$, $A4$, $A1$), $AC$ ($AC$, $A2$, $A5$), $BC$ ($BC$, $B2$, $B5$) since $G$ is claw-free. The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then $claw$ ($1x$, $1y$, $16$)$-$contradiction. The same argument applies to $B$ and $C$. There are n -vertices adjacent to a 4-vertex  since $G$ is $claw$-free. If the set of 0-vertex $= \phi$ then $G$ is a $C_6$ with at most 9 vertices else it is a disconnect graph.  $\Box$
+\noindent{\it Proof.} Expanding \cite{BraFud2002} upon Theorem 2 Claim 2 where it was shown $C_6$ has no $k$-vertex for $k \in {1, 2, 3, 5, 6}$ Let $A$ = $N_1,_2,_4,_5$, $A$ = $N_2,_3,_5,_6$ and $C$ = $N_3,_4,_6,_1$ bet a partition of the set of 4-vertices since G is $co$-$claw$. There can be no edge $AB$ ($AB$, $A4$, $A1$), $AC$ ($AC$, $A2$, $A5$), $BC$ ($BC$, $B2$, $B5$) since $G$ is claw-free. The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then $claw$ ($1x$, $1y$, $16$)$-$contradiction. The same argument applies to $B$ and $C$. There are n -vertices adjacent to a 4-vertex  since $G$ is $claw$-free. If the set of 0-vertex $= \phi$ then $G$ is a $C_6$ with at most 9 vertices else it is a disconnected graph.  $\Box$
 
 \medskip
 
@@ -127,24 +125,9 @@ $G$ is a disconnected graph
 
 \medskip
 
-From now on, assume that $G$ is $C_k$- and $\overline{C_k}$-free for $k \geq 5$
-
-\begin{Lemma}\label{lem:P6Path}
-If $G$ contains a $P_l,$ $l \geq 6$, then $G$ is such a path or is disconnected
-\end{Lemma}
-{\it Proof.} Expanding \cite{BraFud2002} Theorem 2 Claim 4 where it was shown $P_l$, $l \geq 6$ had no $k$-vertex for $k \geq 1$. If the set of 0-vertex $= \phi$ then $G$ is disconnected else it is a $P_l$.  $\Box$
-
-From now on, assume that $G$ is $C_l$-free and $\overline{C_l}$-free $l \geq 5$, as well as $P_l$- and $\overline{P_l}$-free, $l \geq 6$.
-
-\begin{Lemma}\label{lem:P58V}
-If $G$ contains a $P5$ then $G$ has at most 8 vertices or it is disconnected.
-\end{Lemma}
-\noindent {\it Proof.} Expanding \cite{BraFud2002} where it was shown $P_5$ has no 1-vertex, 2-vertex, 5-vertex and possible $k$-vertices for $P$ with $k \geq 3$ are the sets $A$ = $N_1,_2,_4,_5$, $B$ = $N_1,_3,_4$, and $C$ = $N_2,_3,_5$. Moreover since $G$ is $claw$-free, there are no edges between $A$ and $B$ ($AB$, $A$2, $A$5), between $A$ and $C$ ($AC$, $A$1, $A$4), and between $B$ and $C$ ($BC$, $B$1, $B4$). The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then $claw$ ($1x$, $1y$, $16$)$-$contradiction. The same argument applies to $B$ and $C$. 3,4-vertex and 0-vertex sets cannot both $!= \phi$ esle there would be a $co$-$claw$. If the set of 3,4-vertex $!= \phi$ then $G$ has at most 8 vertices. If the set of 0-vertex $!= \phi$ then $G$ is a disconnected.
-
-
 \section{The structure of $k$-critical {\CCO}-free graphs}\label{sec:characterization}
 %
-In this section, we look at {\CCO}-free graphs that contain a $C_5$ and $co$-$C_l$ for $l \geq 7$. We show that every $k$-critical {\CCO}-free graph $G$ is a clique $K_k$, cycle $C_l$, $\overline{C_l}$ where $l \geq 5$, a join of a $C_5$ with a critical graph except $C_l$ where $l \geq 5$, or a join of a $\overline{C_l}$ where $l \geq 7$ with a critical graph except $C_l$ where $l \geq 5$. 
+In this section, we look at {\CCO}-free graphs that contain a $C_5$ and $co$-$C_l$ for $l \geq 7$. We show that every $k$-critical {\CCO}-free graph $G$ is a clique $K_k$, cycle $C_l$, $\overline{C_l}$ where $l \geq 5$, a join of a $C_5$ with a critical graph except $C_l$ where $l > 5$, or a join of a $\overline{C_l}$ where $l \geq 7$ with a critical graph except $C_l$ where $l > 5$. 
 
 \begin{Lemma}\label{lem:c5critical}
 If $G$ contains a $C_5$ then $G$ is $k$-critical for $k \geq 3$ only if $C_5$ is joined on a critical graph except $C_l$ where $l \geq 5$.
@@ -163,10 +146,15 @@ $G$ is the join of a $\overline{C_l}$ and $H$
 \end{Lemma}
 \noindent {\it Proof.} Lemma \ref{lem:C7Cycle} showed all $G$ containing a $C_l$ has no $k$-vertex for $k \in {1, 2, 3, 4, 5, 6}$. So $\overline{C_l}$ has no $k$-vertex for $k \in {0, 1, 2, 3, 4, 5,}$by Lemma \ref{lem:k-vertex-complement} . So if the 6-vertex set $= \phi$ then $G$ is a $\overline{C_l}$ else $G$ is a join of $\overline{C_l}$ and $H$ where $H$ is the set of 6-vertex.
 
-\begin{Lemma}\label{lem:co-cl-critical}
-If $G$ contains a $\overline{C_l}$ then $G$ is $k$-critical for $k \geq 7$ only if $\overline{C_l}$ where $l < k and odd$, is a join on a $k2$critical graph where $k2 = k - l + 3$ SOMETHING ALONGS THOSE LINES. 
+\begin{Lemma}\label{lem:anti-hole-coloring}
+If $G$ is a $\overline{C_l}$ where $l \geq 5$ and odd, then $G$ is $\lceil l/2 \rceil$-critical 
 \end{Lemma}
-\noindent {\it Proof.} Lemma \ref{lem:co-cl} showed that there are two cases for $G$ when it contains a $\overline{C_l}$. Case (1) $G$ is a $\overline{C_l}$
+\noindent {\it Proof.} MY OWN PROOF SURE THERE IS ONE OUT THERE. $\overline{C_l}$ will contain a ${K_(l/2-1)}$ since there are $l / 2 - 1$ stable set in ${C_l}$. The $l \ 2- 1$ stable set will form a ${K_(l/2-1)}$ in $\overline{C_L}$. Vertex 1 and 2 in a $\overline{C_L}$ will be not be adjacent so can both have the same color. Vertex 2 and 3 in a $\overline{C_L}$ will not be adjacent but cannot be the same color since 1 and 3 will be adjacent, so 3 will be another color. Vertex 3 and 4 can be the same color since they are non-adjacent in $\overline{C_L}$. This pattern applies up until $l$ which is odd and requires its own color. So $\overline{C_L}$ is $\lceil l / 2 \rceil$-colorable but none of its proper induced subgraph are $\lceil l/2 \rceil$-chromatic.
+
+\begin{Lemma}\label{lem:co-cl-critical} 
+If $G$ contains a $\overline{C_l}$ then $G$ is $k$-critical for $k \geq 4$ only if $\overline{C_l}$ where $l > 5$ and odd, is a join on a $k2$-critical graph where $k2 = k - \lceil l / 2 \rceil$ or is a $\overline{C_l}$ where $l = 2*k+1$ . 
+\end{Lemma}
+\noindent {\it Proof.} Lemma \ref{lem:co-cl} showed that there are two cases for $G$ when it contains a $\overline{C_l}$. Case (1) $G$ is a $\overline{C_l}$ in which with Lemma \ref{lem:anti-hole-critical} then $\lceil l / 2 \rceil = k$. Case (2) $G$ is the join of a $\overline{C_l}$ and $H$. By Lemma \ref{lem:join-critical} $G$ is only $k$-critical if $\overline{C_l}$ is $k1$-critical and $H$ is $k2$-critical where $k1 + k2 = k$. Using Lemma \ref{lem:anti-hole-critical} and re-arranging for $k2$ gives $k2 = k - \lceil l / 2 \rceil$.
 
 \begin{center}
 {\bf Acknowledgement}
