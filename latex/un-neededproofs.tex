@@ -11,3 +11,20 @@ If $G$ contains a $P_l,$ $l \geq 6$, then $G$ is such a path or is disconnected
 {\it Proof.} Expanding \cite{BraFud2002} Theorem 2 Claim 4 where it was shown $P_l$, $l \geq 6$ had no $k$-vertex for $k \geq 1$. If the set of 0-vertex $= \phi$ then $G$ is disconnected else it is a $P_l$.  $\Box$
 
 From now on, assume that $G$ is $C_l$-free and $\overline{C_l}$-free $l \geq 5$, as well as $P_l$- and $\overline{P_l}$-free, $l \geq 6$.
+
+
+\begin{Lemma}\label{lem:c5critical}
+If $G$ contains a $C_5$ then $G$ is $k$-critical for $k \geq 3$ only if $C_5$ is joined on a critical graph except $C_l$ where $l \geq 5$.
+\end{Lemma}
+\noindent {\it Proof.} Lemma \ref{lem:c5join} showed that there three cases for $G$ when it contains a $C_5$. Case (1) $G$ is a $C_5$ and is only 3-critical. Case (2) $G$ is a join of $C_5$ and $H$. By Lemma \ref{lem:join-critical} $G$ is only $k$-critical if $H$ is some $k2$-critical where $k2 = k - 3$. However $H$ cannot be any $C_l$, $l \geq 7$ since by Lemma \ref{lem:C7Cycle} showed $C_l$ has no $k$-vertex so it cannot be complete to $G$. Case (3) $G$ is not connected and by Lemma \ref{lem:connected} it cannot be $k$-critical.
+
+
+\begin{Lemma}\label{lem:anti-hole-coloring}
+If $G$ is a $\overline{C_l}$ where $l \geq 5$ and odd, then $G$ is $\lceil l/2 \rceil$-critical 
+\end{Lemma}
+\noindent {\it Proof.} MY OWN PROOF SURE THERE IS ONE OUT THERE. $\overline{C_l}$ will contain a ${K_(l/2-1)}$ since there are $l / 2 - 1$ stable set in ${C_l}$. The $l \ 2- 1$ stable set will form a ${K_(l/2-1)}$ in $\overline{C_L}$. Vertex 1 and 2 in a $\overline{C_L}$ will be not be adjacent so can both have the same color. Vertex 2 and 3 in a $\overline{C_L}$ will not be adjacent but cannot be the same color since 1 and 3 will be adjacent, so 3 will be another color. Vertex 3 and 4 can be the same color since they are non-adjacent in $\overline{C_L}$. This pattern applies up until $l$ which is odd and requires its own color. So $\overline{C_L}$ is $\lceil l / 2 \rceil$-colorable but none of its proper induced subgraph are $\lceil l/2 \rceil$-chromatic.
+
+\begin{Lemma}\label{lem:co-cl-critical} 
+If $G$ contains a $\overline{C_l}$ then $G$ is $k$-critical for $k \geq 4$ only if $\overline{C_l}$ where $l > 5$ and odd, is a join on a $k2$-critical graph where $k2 = k - \lceil l / 2 \rceil$ or is a $\overline{C_l}$ where $l = 2*k+1$ . 
+\end{Lemma}
+\noindent {\it Proof.} Lemma \ref{lem:co-cl} showed that there are two cases for $G$ when it contains a $\overline{C_l}$. Case (1) $G$ is a $\overline{C_l}$ in which with Lemma \ref{lem:anti-hole-critical} then $\lceil l / 2 \rceil = k$. Case (2) $G$ is the join of a $\overline{C_l}$ and $H$. By Lemma \ref{lem:join-critical} $G$ is only $k$-critical if $\overline{C_l}$ is $k1$-critical and $H$ is $k2$-critical where $k1 + k2 = k$. Using Lemma \ref{lem:anti-hole-critical} and re-arranging for $k2$ gives $k2 = k - \lceil l / 2 \rceil$.
