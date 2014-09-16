@@ -41,6 +41,8 @@ class DalGraph():
         edges = self._g.number_of_edges()
         nodes = self._g.number_of_nodes()
         clique = None
+        if nodes <= 1:
+            clique = nodes
         if edges == (nodes * (nodes-1) / 2):
             # is a clique (k=#nodes)
             clique = nodes
@@ -83,11 +85,14 @@ class DalGraph():
             None: if graph is not k-critical
         '''
         clique = self.clique_number()
+        print("Clique number:", clique)
+        print(self._g.nodes())
         k = None
         if clique is None:
             # is not a clique
             cycle = self.cycle_nodes()
-            if len(cycle) == 0 or len(cycle) % 2:
+            cycle.pop() # don't need the full cycle path just the vertices
+            if len(cycle) == 0 or len(cycle) % 2 == 0:
                 # no cycle or even hole so done
                 k = None
             elif len(cycle) > 5:
@@ -99,12 +104,18 @@ class DalGraph():
                 # check for anti-hole
                 co_g = DalGraph(nx.complement(nx.Graph.copy(self._g)))
                 cycle = co_g.cycle_nodes()
-                if len(cycle) == 0 or len(cycle) % 2:
+                cycle.pop() # don't need the full cycle path just the vertices
+                if len(cycle) == 0 or len(cycle) % 2 == 0:
+                    # even hole or no hole
                     k = None
-                co_g._g = nx.complement(co_g._g)
-                co_g.remove_vertices(cycle)
-                k2 = co_g.k_color()
-                k = math.ceil(cycle / 2) + k2
+                else:
+                    co_g._g = nx.complement(co_g._g)
+                    co_g.remove_vertices(cycle)
+                    k2 = co_g.k_color()
+                    if k2 is not None:
+                        k = math.ceil(len(cycle) / 2) + k2
+                    else:
+                        k = None
         else:
             k = clique
         return k
@@ -147,7 +158,7 @@ class DalGraph():
         cycle = []
         node = 0
         while node < len(self._g.nodes()) and len(cycle) == 0:
-            cycle = self.cycle_nodes_aux([node])
+            cycle = self.cycle_nodes_aux([self._g.nodes()[node]])
             node += 1
         return cycle
 

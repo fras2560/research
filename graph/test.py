@@ -12,7 +12,7 @@ Version: 2014-09-10
 import unittest
 import networkx as nx
 from graph import DalGraph
-from helper import make_cycle
+from helper import make_cycle, make_wheel, join
 class testDalGraph(unittest.TestCase):
     def setUp(self):
         pass
@@ -110,4 +110,12 @@ class testDalGraph(unittest.TestCase):
         g = DalGraph(make_cycle(4))
         c = g.k_color()
         self.assertEqual(None, c, "KColor: C4 case")
-        g = DalGraph(make_cycle(4))
+        g = DalGraph(make_wheel(6))
+        c = g.k_color()
+        self.assertEqual(4, c, "KColor: W6 case")
+        c5 = make_cycle(5)
+        c5_2 = make_cycle(5)
+        c = join(c5,c5_2)
+        g = DalGraph(c)
+        c = g.k_color()
+        self.assertEqual(c, 6, "KColor: C5 joined with a C5")
