@@ -58,6 +58,21 @@ def make_cycle(n):
         cycle.add_edge(vertex, (vertex-1) % n)
     return cycle
 
+def make_wheel(n):
+    '''
+    make_wheel
+    assembles a wheel with n vertices
+    Parameters:
+        n: the number of vertices in the wheel (int)
+    Returns:
+        wheel: the wheel (networkx)
+    '''
+    wheel = make_cycle(n-1)
+    wheel.add_node(n-1)
+    for edge in range(0,n-1):
+        wheel.add_edge(edge,n-1)
+    return wheel
+
 def join(G, H):
     '''
     join
@@ -135,3 +150,14 @@ class tester(unittest.TestCase):
                          "Join: nodes failed for K6 test")
         self.assertEqual(nx.is_isomorphic(f, expect), True,
                          " Join: edges failed on wheel K6 test")
+
+    def testWheel(self):
+        # w5
+        w = make_wheel(5)
+        g = make_cycle(4)
+        g.add_node(5)
+        g.add_edge(0,4)
+        g.add_edge(1,4)
+        g.add_edge(2,4)
+        g.add_edge(3,4)
+        self.assertEqual(w.edges(), g.edges(), "Make wheel: Failed for W5 test")
