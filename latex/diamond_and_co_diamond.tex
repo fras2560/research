@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\DCD{($diamond$, $co$-$diamond$)}
+
+\title{On k-critical {\DCD}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+A graph is $k$-critical if it is $k$-chromatic but each of its proper induced subgraphs is ($k-1$)-colorable. We show that the set of $k$-critical {\DCD}-free for all $k$. Our result implies the existence of a certifying algorithm for $k$-coloring {\DCD}-free graphs.
+
+\noindent{\em Keywords}: Graph coloring, $diamond$, $co$-$diamond$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+Graph coloring is a well-studied problem in comptuer science and discrete mathematics. Determining the chromatic number of a grpah is a NP-hard problem. But for many classes of graphs, such as perfect graphs, the problem can be solved in polynomial time. In 2002 \cite{BraFud2002}, research was done on prime {\DCD}-free graphs and provided a starting point for this research.
+
+The point of view in this article is motivated by the idea of a ``certifying algorithm''. An algorithm is {\it certifying} if it returns with each output a simple and easily verifiable certificate that the particular output is correct. For example, a certifying algorithm for the bipartite grpah recognition would return either a 2-coloring of the input graph, thus providing that it is bipartite, or an odd cycle, thus proving it is not bipartite. A certifying algorithm for planarity would return either an embedding of the graph in a plane, or one of the two Kuratowski subgraphs proving the input graph is not planar.
+
+A grpah is $k$-critical if it is $k$-chromatic but each of its proper induced subgraphs is $(k-1)$-colorbale. Here we prove that the number of $k$-critical {\DCD}-free graphs is finite for every fixed $k$. In section~\ref{sec:definitions}, we give definitions and background on our problem. In section\ref{sec:updates}, we expand upoon previous Lemmas \cite{BraFud2002}. In section~\ref{sec:characterization}, we give the proof of our main results.
+
+\section{Definitions and background}\label{sec:definitions}
+A $k$-coloring of a graph $G=(V,E)$ is a mapping $f: V \rightarrow \{1,\ldots, k\}$ such that $f(u) \not= f(v)$ whenever $uv \in E$. Given a coloring, a {\it color class} is the set of all vertices of the same color.  The chromatic number $\chi(G)$ of a graph $G$ is the smallest $k$ such that $G$ is $k$-colorable.  $G$ is $k$-chromatic if $\chi(G) = k$.  A graph $G$ is {\em $k$-critical} if it is $k$-chromatic and none of its proper induced subgraphs is $k$-chromatic (that is, all of its proper induced subgraphs are $(k-1)$-colorable).  We say that a graph is {\it critical} if it is $k$-critical for some $k$.  Let $N(v)$ be the set of neighbors of $v$. A vertex of $G$ is {\it universal} if it is adjacent to every other vertex of $G$. Vertices $u,v$ are comparable if $N(u) \subseteq N(v)$, or vice versa. If $X$ is a set of vertices of $G$, then $G[X]$ denotes the subgraph if $G$ induced by $X$.  A set $A$ of vertices is {\it complete} to a set $B$ of vertices if there are all edges between $A$ and $B$.  Given two graphs $G$ and $ H$, the graph $F$ is the {\it join} of $G$ and $H$ if $F$ is obtained by taking $G$ and $H$ and joining every vertex in $G$ to every vertex in $H$ by an edge.  As usual, $K_t$ denotes the clique on $t$ vertices; and $C_t$ denotes the induced cycle on $t$ vertices. The complement of $G$ is denoted by $\overline{G}$. 
+
+A $diamond$ refers to a graph G with 4 vertices such that two vertices are universal. A $co$-$diamon$ refers to a graph $G$ which is the complement of a $diamond$. For $U \subseteq V$ let $G(U)$ denote the subgraph of $G$ induced by $U$. Throughout this paper, all subgrpahs are understood to be induced. If $H$ is a subgraph of F then a vertex $v$ not in $H$ is called a $k-vertex$ for $H$ if $v$ has exactly $k$ neighbors in $H$. For a vertex set $U$ in $H$ with $|U| = k$, let $N_U$ denote the set of $k-vertices$ for $H$ being adjacent to all vertices in $U$.  The following lemmas have been previously established.
+
+\begin{Theorem}\label{thm:strong-perfect}
+(odd-hole, odd-anti-hole)-free graphs are perfect. $\Box$
+\end{Theorem}
+
+\begin{Lemma}\label{lem:complement-k-vertex}
+If $G$ with $v$ vertices has no $k$-vertex then $\overline{G}$ has no ($v-k$)-vertex. $\Box$
+\end{Lemma}
+\begin{Lemma}\label{lem:c5-9v}{\rm \cite{BraFud2002}}
+If $G$ contains a $C_L$ then $G$ has most nine vertices. $\Box$
+\end{Lemma}
+
+\section{Updates to previous Lemmas}\label{sec:updates}
+In this section, we prove 3 properties of {\DCD}-free graphs.
+\begin{Lemma}\label{lem:c7-free}
+$G$ cannot contain an induced $C_l$, $l \geq 7$.
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $C_l$, $l \geq 7$ with vertices 1, 2, ...,l-1, l. This forms a $co$-$diamond$ with (1,2) 4, l-1 and $G$ is {\DCD}-free. $\Box$
+\begin{Lemma}\label{lem:co-c7-free}
+$G$ cannot contain an induced $\overline{C_l}$, $l \geq 7$
+\end{Lemma}
+\noindent{\it Proof}. Let $G$ be a $\overline{C_l}$, $l \geq 7$ with vertices 1, 2, ...,l-1, l. This forms a $diamond$ with (1,2, 4 , l-1) and $G$ is {\DCD}-free. $\Box$
+
+\section{The structure of $k$-critical {\DCD}-free graphs}\label{sec:characterization}
+In this section, we show tat $\mathcal{C}_k$ for a fixed $k > 3$ is finite and contain only:
+\begin{itemize}
+\item[(i)]
+$K_n$ where $n = k$
+\end{itemize}
+\noindent {\it Proof}. If $G$ contains a $C_5$ then it can only b 3-critical since it can have at most 9 vertices and all its variations are 3-colorable. If $G$ does not contain a $C_5$ then by Lemmas \ref{lem:c7-free},\ref{lem:co-c7-free}, and \ref{thm:strong-perfect} $G$ is perfect and can only be $k$-critical if $G$ is a clique with $k$ vertices
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University.  The authors A.M.H. and C.T.H. D.J.F were each supported by individual NSERC Discovery Grants.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\bibitem{BraFud2002}
+  A.~Brandstadt and S.~Mahfud, Maximum Weight Stable Set on graphs without $claw$ and $co$-$claw$ can be solved in linear time, manuscript.
+
+\bibitem{DhaHam2014}
+  H. Dhaliwal, A. Hamel, C. Ho\'{a}ng, F. Maffray, T. McConnel and S. Panait, On Color-critical ($P_5, \overline{P}_5$)-free graphs, manuscript.
+
+\end{thebibliography}
+
+\end{document}
