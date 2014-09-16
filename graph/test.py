@@ -64,17 +64,50 @@ class testDalGraph(unittest.TestCase):
         clique = DalGraph(rando).clique_number()
         self.assertEqual(clique, None, "Clique Number on random graph")
 
-    def testFind_C5(self):
-        # just a C5
+    def testCheckSmallerCycle(self):
+        c3 = make_cycle(3)
+        g = DalGraph(c3)
+        c = g.check_smaller_cycle([], 1, 0)
+        self.assertEqual(c, [0, 1], "Failed the simple C2 case")
+        c3 = make_cycle(3)
+        g = DalGraph(c3)
+        c = g.check_smaller_cycle([0], 0, 1)
+        self.assertEqual(c, [0, 1], "Failed the simple C2 case")
         c5 = make_cycle(5)
         g = DalGraph(c5)
-        c = g.find_c5()
-        self.assertEqual(c, [0, 1, 2, 3, 4],
-                         "find_c5: Failed to find the trivial C5")
-        w5 = nx.wheel_graph(6)
-        g = DalGraph(w5)
-        c = g.find_c5()
-        self.assertEqual(c, [0, 1, 2, 3, 4],
-                         "find_c5: Failed to find c5 in a wheel")
+        c = g.check_smaller_cycle([0, 1, 2], 4, 3)
+        self.assertEqual(c, [0, 1, 2, 3 , 4, 0], "Failed the simple C5 Case")
+        c4 = make_cycle(4)
+        g = DalGraph(c4)
+        c = g.check_smaller_cycle([0, 1, 2], 0 ,3)
+        self.assertEqual([], c, "Failed the simple C4 case")
+        c5 = make_cycle(5)
+        c5.add_edge(2, 4)
+        g = DalGraph(c5)
+        c = g.check_smaller_cycle([0, 1, 2], 4, 3)
+        self.assertEqual([], c, "Failed to find back track node in C5 Case")
+        c = g.check_smaller_cycle([2], 4, 3)
+        self.assertEqual([], c, "Failed to find back track node in C5 Case")
 
+    def testCycleNodes(self):
+        g = DalGraph(make_cycle(3))
+        c = g.cycle_nodes()
+        self.assertEqual(c, [], "Cycle Nodes Failed: found cycle less than 3")
+        g = DalGraph(make_cycle(5))
+        c = g.cycle_nodes()
+        self.assertEqual(c, [0, 1, 2, 3, 4 ,0], 
+                         "Cycle Nodes Failed: did not find C5")
+        c5 = make_cycle(5)
+        c5.add_edge(2,4)
+        g = DalGraph(c5)
+        c = g.cycle_nodes()
+        self.assertEqual(c, [], "Cycle Nodes Failed: did found non-induced C5")
 
+    def testKColor(self):
+        g = DalGraph(make_cycle(3))
+        c = g.k_color()
+        self.assertEqual(3, c, "KColor: K3 case")
+        g = DalGraph(make_cycle(4))
+        c = g.k_color()
+        self.assertEqual(None, c, "KColor: C4 case")
+        g = DalGraph(make_cycle(4))

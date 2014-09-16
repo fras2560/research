@@ -11,6 +11,8 @@ Version: 2014-09-10
 """
 import networkx as nx
 import helper
+import copy
+import math
 class DalGraph():
     def __init__(self, graph=None):
         '''
@@ -69,22 +71,7 @@ class DalGraph():
                 vertex += 1
         return hole
 
-    def k_critical(self):
-        '''
-        k_critical
-        tells if graph G is k-critical for some k
-        Parameters:
-            None
-        Returns:
-            int: the k-critical
-            None: if graph is not k-critical
-        '''
-        claw_free = self.induced_subgraph(self.claw)
-        co_claw_free = self.induced_subgraph(self.co_claw)
-        if claw_free and co_claw_free:
-            return self._claw_and_co_free()
-
-    def _claw_and_co_free(self):
+    def k_color(self):
         '''
         _claw_and_co_free
         finds if graph G is k-critical for some k
@@ -98,44 +85,29 @@ class DalGraph():
         clique = self.clique_number()
         k = None
         if clique is None:
-            #is not a clique
-            c5 = self.find_c5(self._g)
-            if len is not None:
-                #special case C5
-                #recursively call function on subgraph
-                h = self._g.copy()
-                subgraph = DalGraph(h)
-                subgraph.remove_vertices(c5)
-                return 3 + subgraph._claw_and_co_free()
-            else:
-                hole = self.hole_number()
-                if hole % 2 ==0:
-                    #odd cycle
+            # is not a clique
+            cycle = self.cycle_nodes()
+            if len(cycle) == 0 or len(cycle) % 2:
+                # no cycle or even hole so done
+                k = None
+            elif len(cycle) > 5:
+                # odd-hole
+                if len(cycle) == len(self._g.nodes()):
+                    # just an odd-hole
                     k = 3
+            if k is None:
+                # check for anti-hole
+                co_g = DalGraph(nx.complement(nx.Graph.copy(self._g)))
+                cycle = co_g.cycle_nodes()
+                if len(cycle) == 0 or len(cycle) % 2:
+                    k = None
+                co_g._g = nx.complement(co_g._g)
+                co_g.remove_vertices(cycle)
+                k2 = co_g.k_color()
+                k = math.ceil(cycle / 2) + k2
         else:
             k = clique
         return k
-
-    def find_c5(self):
-        '''
-        find_c5
-        finds one cycle of with 5 vertices
-        Parameters:
-            None
-        Returns:
-            list: a list of the C5
-            None: otherwise
-        '''
-        c5 = None
-        cycles = nx.cycle_basis(self._g)
-        print(cycles)
-        index = 0
-        while c5 is None and index <  len(cycles):
-            if len(cycles[index]) == 5:
-                # is a cycle with 5 vertices
-                c5 = sorted(cycles[index])
-            index += 1
-        return c5
 
     def remove_vertices(self,vertices):
         '''
@@ -162,3 +134,115 @@ class DalGraph():
         induced = None
         # TODO
         return induced
+
+    def cycle_nodes(self):
+        '''
+        cycle_nodes
+        returns a list of vertices of G which form a cycle > 5 vertices
+        Parameters:
+        Returns:
+            list: the list of vertices which make up induced cycle
+            None if no cycle
+        '''
+        cycle = []
+        node = 0
+        while node < len(self._g.nodes()) and len(cycle) == 0:
+            cycle = self.cycle_nodes_aux([node])
+            node += 1
+        return cycle
+
+    def cycle_nodes_aux(self, visited):
+        '''
+        cycle_nodes_aux
+        a function that checks if any cycles
+        Parameters:
+            visited: the visited nodes so far
+        Returns:
+            list: a empty list if no cycle else the cycle
+        '''
+        last_one = visited.pop()
+        neighbor = self._g.neighbors(last_one)
+        cycle = [] # assume no cycle
+        if len(neighbor) != 0:
+            add_vertex = 0
+            cont = True
+            while add_vertex < len(neighbor) and cont:
+                if neighbor[add_vertex] not in visited:
+                    print(visited, neighbor[add_vertex], last_one)
+                    cycle = self.check_smaller_cycle(visited, 
+                                                     neighbor[add_vertex],
+                                                     last_one)
+                    print("Cycle:", cycle)
+                    if len(cycle) != 0:
+                        if cycle[-1] == cycle[0]: 
+                            # cycle was formed
+                            cont = False
+                        elif cycle[-1] == neighbor[add_vertex]:
+                            print("Longer path")
+                            # longer path was produced
+                            cycle = self.cycle_nodes_aux(cycle)
+                            if len(cycle) != 0 and cycle[-1] == cycle[0]:
+                                # cycle was formed
+                                cont = False
+                        else:
+                            cycle = []
+                else:
+                    #just a neighbor already
+                    pass
+                add_vertex += 1 #increment counter
+        return cycle
+
+    def check_smaller_cycle(self, visited, add_vertex, last_one):
+        '''
+        check_smaller_cycle
+        a function that finds if vertex to add forms a cycle with any previous
+        visited node
+        Parameters:
+            G: the graph (networkx)
+            visited: the list of visited nodes (list)
+            add_vertex: the vertex considering to add (int)
+            last_one: the previous node (int)
+        Returns:
+            cycle: a list of vertices that form a cycle, a valid path or empty
+                    list if added vertex forms a smaller cycle
+        '''
+        check = 0
+        neighbors = self._g.neighbors(add_vertex)
+        print("Visited:", visited, "adding:", add_vertex)
+        cont = True
+        cycle = []
+        while check < len(neighbors) and cont:
+            print("Checking:", neighbors[check])
+            if neighbors[check] in visited[1:]:
+                print("Backtrack")
+                # backtrack to smaller cycle
+                cont = False
+                cycle = []
+            elif len(visited) >= 1 and neighbors[check] == visited[0]:
+                # forms a cycle
+                print("Forms a cycle")
+                if len(visited) + 2 >= 5:
+                    # got a cycle > 5
+                    cycle = copy.deepcopy(visited)
+                    # add the node previous node, next node,
+                    # first node to form the cycle
+                    cycle.append(last_one)
+                    cycle.append(add_vertex)
+                    cycle.append(visited[0])
+                else:
+                    # cycle is too small
+                    print("Cycle too small")
+                    cycle = []
+                    cont = False
+            elif len(visited) == 1 and add_vertex == visited[0]:
+                # don't want cycles of 2
+                cont = False
+                cycle = copy.deepcopy(visited)
+                cycle.append(last_one)
+            check += 1
+        if cont and len(cycle) == 0:
+            # could add since no smaller cycle is formed so can add
+            cycle = copy.deepcopy(visited)
+            cycle.append(last_one)
+            cycle.append(add_vertex)
+        return cycle
