@@ -66,7 +66,7 @@ In section~\ref{sec:definitions}, we give definitions and background on our prob
 \section{Definitions and background}\label{sec:definitions} 
 A $k$-coloring of a graph $G=(V,E)$ is a mapping $f: V \rightarrow \{1,\ldots, k\}$ such that $f(u) \not= f(v)$ whenever $uv \in E$. Given a coloring, a {\it color class} is the set of all vertices of the same color.  The chromatic number $\chi(G)$ of a graph $G$ is the smallest $k$ such that $G$ is $k$-colorable.  $G$ is $k$-chromatic if $\chi(G) = k$.  A graph $G$ is {\em $k$-critical} if it is $k$-chromatic and none of its proper induced subgraphs is $k$-chromatic (that is, all of its proper induced subgraphs are $(k-1)$-colorable).  We say that a graph is {\it critical} if it is $k$-critical for some $k$.  Let $N(v)$ be the set of neighbors of $v$. A vertex of $G$ is {\it universal} if it is adjacent to every other vertex of $G$. Vertices $u,v$ are comparable if $N(u) \subseteq N(v)$, or vice versa. If $X$ is a set of vertices of $G$, then $G[X]$ denotes the subgraph if $G$ induced by $X$.  A set $A$ of vertices is {\it complete} to a set $B$ of vertices if there are all edges between $A$ and $B$.  Given two graphs $G$ and $ H$, the graph $F$ is the {\it join} of $G$ and $H$ if $F$ is obtained by taking $G$ and $H$ and joining every vertex in $G$ to every vertex in $H$ by an edge.  As usual, $K_t$ denotes the clique on $t$ vertices; and $C_t$ denotes the induced cycle on $t$ vertices. The complement of $G$ is denoted by $\overline{G}$. 
 
-A $claw$ refers to a graph G with vertices with one vertex $X$ is universal to {$y1,y2,y3$} which is a stable set. A $co$-$claw$ refers to a graph $G$ which is the complement of a $claw$. For $U \subseteq V$ let $G(U)$ denote the subgraph of $G$ induced by $U$. Throughout this paper, all subgrpahs are understood to be induced. If $H$ is a subgraph of F then a vertex $v$ not in $H$ is called a $k-vertex$ for $H$ if $v$ has exactly $k$ neighbors in $H$. For a vertex set $U$ in $H$ with $|U| = k$, let $N_U$ denote the set of $k-vertices$ for $H$ being adjacent to all vertices in $U$.  The following lemmas have been previously established.
+A $claw$ refers to a graph G with vertices with one vertex $X$ is universal to {$y_1,y_2,y_3$} which is a stable set. A $co$-$claw$ refers to a graph $G$ which is the complement of a $claw$. For $U \subseteq V$ let $G(U)$ denote the subgraph of $G$ induced by $U$. Throughout this paper, all subgrpahs are understood to be induced. If $H$ is a subgraph of F then a vertex $v$ not in $H$ is called a {\em $k$-vertex} for $H$ if $v$ has exactly $k$ neighbors in $H$. For a vertex set $U$ in $H$ with $|U| = k$, let $N_U$ denote the set of {\em $k$-vertices} for $H$ being adjacent to all vertices in $U$.  The following lemmas have been previously established.
 
 \begin{Theorem}\label{thm:StrongPerfect}
 (odd-hole, odd-anti-hole)-free graphs are perfect. $\Box$
@@ -84,7 +84,7 @@ and $G[V_2]$ are critical. $\Box$
 \end{Lemma}
 
 \begin{Lemma}\label{lem:anti-hole-critical}
-Let $G$ be a $\overline{C_l}$ ,$l >3$ then $G$ is $\lceil l/2 \rceil$-critical. $\Box$
+Let $G$ be a $\overline{C_\ell,}\; \ell >3$ then $G$ is $\lceil l/2 \rceil$-critical. $\Box$
 \end{Lemma}
 
 \begin{Lemma}\label{lem:complement-k-vertex}
@@ -92,18 +92,19 @@ If $G$ with $v$ vertices has no $k$-vertex then $\overline{G}$ has no ($v-k$)-ve
 \end{Lemma}
 
 \section{Updates to previous Lemmas}\label{sec:updates}
-In this section, we prove 4 properties of {\CCO}-free graphs.
+In this section, we prove four properties of {\CCO}-free graphs.
+
 \begin{Lemma}\label{lem:C7Cycle}
-If $G$ is a graph which contains an induced $C_l,$ $l \geq 7$, then $G$ itself is such a cycle or is a disconnected graph.
+If $G$ is a graph which contains an induced $C_\ell,\; \ell \geq 7$, then $G$ itself is such a cycle or is a disconnected graph.
 \end{Lemma}
-\noindent {\it Proof}.  Expanding \cite{BraFud2002} upon Theorem 2 Claim 1 where it was shown $C_l$, $l \geq 7$ has no $k$-vertex for $k \geq 1$. If the set of 0-vertex $= \phi$ then $G$ is a $C_l$ else it is a disconnected graph.  $\Box$
+\noindent {\it Proof}.  Expanding \cite{BraFud2002} upon Theorem 2 Claim 1 where it was shown $C_\ell,\; \ell \geq 7$ has no $k$-vertex for $k \geq 1$. If the set of $0$-vertex $= \phi$ then $G$ is a $C_\ell$, else it is a disconnected graph.  $\Box$
 
 \medskip
 
 \begin{Lemma}\label{lem:C69V}
 If $G$ contains a $C_6$ then $G$ has at most 9 vertices or is disconnected.
 \end{Lemma}
-\noindent{\it Proof.} Expanding \cite{BraFud2002} upon Theorem 2 Claim 2 where it was shown $C_6$ has no $k$-vertex for $k \in {1, 2, 3, 5, 6}$ Let $A$ = $N_1,_2,_4,_5$, $A$ = $N_2,_3,_5,_6$ and $C$ = $N_3,_4,_6,_1$ be a partition of the set of 4-vertices since G is $co$-$claw$. There can be no edge $AB$ ($AB$, $A4$, $A1$), $AC$ ($AC$, $A2$, $A5$), $BC$ ($BC$, $B2$, $B5$) since $G$ is claw-free. The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then $claw$ ($1x$, $1y$, $16$)$-$contradiction. The same argument applies to $B$ and $C$. There are no 0-vertex adjacent to a 4-vertex or 3-vertex since $G$ is $claw$-free. If the set of 0-vertex $= \phi$ then $G$ is a $C_6$ with at most 9 vertices else it is a disconnected graph.  $\Box$
+\noindent{\it Proof.} Expanding \cite{BraFud2002} upon Theorem 2 Claim 2 where it was shown $C_6$ has no $k$-vertex for $k \in {1, 2, 3, 5, 6}$. Let $A$ = $N_{1,2,4,5}$, $A$ = $N_{2,35,6}$ and $C$ = $N_{3,4,6,1}$ be a partition of the set of 4-vertices since G is $co$-$claw$. There can be no edge $AB$ ($AB,\;A4,\;A1$), $AC$ ($AC,\;A2,\;A5$), $BC$ ($BC,\;B2,\;B5$) since $G$ is claw-free. The sets can have at most one vertex. Let $A$ contains two vertices $x$ and $y$. If $xy \in E$ then there is a $co$-$claw$ ($xy$, $y1$, $1x$, $3$) but if $xy \not\in E$ then there is a $claw$ ($1x$, $1y$, $16$) which is a contradiction. The same argument applies to $B$ and $C$. There are no $0$-vertex adjacent to a $4$-vertex or $3$-vertex since $G$ is $claw$-free. If the set of $0$-vertex $= \phi$ then $G$ is a $C_6$ with at most 9 vertices, otherwise it is a disconnected graph.  $\Box$
 
 
 
@@ -121,13 +122,13 @@ $G$ is a disconnected graph
 \end{itemize}
 \end{Lemma}
 \noindent{\it Proof.} Expanding \cite{BraFud2002} Theorem 2 Claim 2 where it was shown $C_5$ has no $k$-vertex for $k \in {1,2,3,4}$ and no 0-vertex adjacent to a 5-vertex. The set of 5-vertex are complete to
- which means that the set of 5-vertices is complete to $C$. Let $A$ be the set of 5-vertex and $B$ be the set of 0-vertex. If $A != \phi$ and $B != \phi$ then there would be $co$-$claw$. If $A != \phi$ then $G$ is a {\it join} of $C$ and $H$ where $H = A$. If $B$ $!= \phi$ then  $G$ is a disconnected graph. If $A$ $\cup$ $B$ $= \phi$ then $G$ is a $C_5$.  $\Box$
+ which means that the set of 5-vertices is complete to $C$. Let $A$ be the set of 5-vertex and $B$ be the set of 0-vertex. If $A \neq \phi$ and $B \neq \phi$ then there would be $co$-$claw$. If $A \neq \phi$ then $G$ is a {\it join} of $C$ and $H$ where $H = A$. If $B$ $\neq \phi$ then  $G$ is a disconnected graph. If $A$ $\cup$ $B$ $= \phi$ then $G$ is a $C_5$.  $\Box$
 
-Since $C_5$ is self-complemetary this Lemma applies for $\overline{C_5}$.
+Since $C_5$ is complemetary this Lemma applies for $\overline{C_5}$.
 \medskip
 
 \begin{Lemma}\label{lem:co-cl}
-If $G$ contains a $\overline{C_l}$ where $l \geq 7$ then:
+If $G$ contains a $\overline{C_\ell}$ where $l \geq 7$ then:
 \begin{itemize}
 \item[(i)]
 $G$ is a $\overline{C_l}$
@@ -135,25 +136,25 @@ $G$ is a $\overline{C_l}$
 $G$ is the join of a $\overline{C_l}$ and $H$
 \end{itemize}
 \end{Lemma}
-\noindent {\it Proof.} Lemma \ref{lem:C7Cycle} showed all $G$ containing a $C_l$ has no $k$-vertex for $k \in {1, 2, 3, 4, 5, 6}$. So $\overline{C_l}$ has no $k$-vertex for $k \in {0, 1, 2, 3, 4, 5,}$ by Lemma \ref{lem:complement-k-vertex} . Let $H$ be the set of 6-vertex. So if $H = \phi$ then $G$ is a $\overline{C_l}$ else $G$ is a join of $\overline{C_l}$ and $H$.
+\noindent {\it Proof.} Lemma \ref{lem:C7Cycle} showed all $G$ containing a $C_l$ has no $k$-vertex for $k \in {1, 2, 3, 4, 5, 6}$. So $\overline{C_\ell}$ has no $k$-vertex for $k \in {0, 1, 2, 3, 4, 5,}$ by Lemma \ref{lem:complement-k-vertex} . Let $H$ be the set of 6-vertex. Hence if $H = \phi$, then $G$ is a $\overline{C_\ell}$, otherwise $G$ is a join of $\overline{C_\ell} \cup H$.
 \section{The structure of $k$-critical {\CCO}-free graphs}\label{sec:characterization}
 %
-Leet $\mathcal{C}_k$ be the family of $k$-critical {\CCO}-free graphs. Clearly $\mathcal{C}_1 = {K_1}$ and $\mathcal{C}_2 = {K_2}$.
-In this section, we show that $\mathcal{C}_k$ for $k > 3$ is finite and contain only:
+Let $\mathcal{C}_k$ be the family of $k$-critical {\CCO}-free graphs. Clearly $\mathcal{C}_1 = {K_1}$ and $\mathcal{C}_2 = {K_2}$.
+In this section, we show that $\mathcal{C}_k$ for $k > 3$ is finite and is one of the following cases:
 \begin{itemize}
 \item[(i)]
 $\overline{C_l}$, $l = 2k-1$
 \item[(ii)]
-join of $\overline{C_l}$ and $k2$-critical graph except odd-cycles with more than 5 vertices, such that  $\lceil l/2 \rceil + k2 = k$.
+join of $\overline{C_\ell}$ and $H$ where $H$ is a $k_2$-critical graph and not a $C_\ell,\; \ell > 5$, such that  $\lceil l/2 \rceil + k_2 = k$.
 \item[(iii)]
-is a clique $K_n$, $n = k$
+is a clique $K_k$
 \end{itemize} 
-\noindent {\it Proof.} If $G$ contains an $\overline{C_l}$ (odd-anti-hole) then by Lemma \ref{lem:co-cl} and \ref{lem:c5join} then $G$ is a $\overline{C_l}$ or a $\overline{C_l}$ with $H$. By Lemma \ref{lem:join-critical} can only be $k$-critical if $H$ is $k_2$-critial where $k_2 + \lceil + l/2 \rceil = k$ since by Lemma \ref{lem:anti-hole-critical} $\overline{C_l}$ is $\lceil + l/2 \rceil$-critical. If $G$ contains a $\overline{C_5}$ and is disconnected then by Lemma \ref{lem:connected} it cannot be critical. Note $C_5$ is self-complemantary and itself is a odd-anti-hole.. If $G$ contains an $C_l$, $l >5$ and odd (odd-hole) then by Lemma \ref{lem:C7Cycle} is an $C_l$. Odd-holes are only 3-critical and make $\mathcal{C}_3$ infinite since odd-hole class is infinite. Note an odd-anti-hole cannot be joined with an odd-hole since odd-hole have no $k$-vertex. If $G$ contains no odd-anti-hole and no odd-hole then by Theorem \ref{thm:StrongPerfect} $G$ is perfect and a perfect graph can only be $k$-crtical is $G$ is a clique with $k$ vertices.
+\noindent {\it Proof.} If $G$ contains an $\overline{C_\ell}$ (odd-anti-hole) then by Lemmas \ref{lem:co-cl} and \ref{lem:c5join} $G$ is a $\overline{C_\ell}$ or a $\overline{C_\ell}$ with $H$. By Lemma \ref{lem:join-critical} $G$ can only be $k$-critical if $H$ is $k_2$-critial where $k_2 + \lceil + l/2 \rceil = k$ since by Lemma \ref{lem:anti-hole-critical} $\overline{C_\ell}$ is $\lceil + l/2 \rceil$-critical. If $G$ contains a $\overline{C_5}$ and is disconnected then by Lemma \ref{lem:connected} it cannot be critical. Note $C_5$ is self-complemantary and itself is a odd-anti-hole. If $G$ contains $C_\ell,\; \ell >5$ and $\ell$ is odd (odd-hole) then by Lemma \ref{lem:C7Cycle} $G$ is an $C_\ell$. Odd-holes are only 3-critical and make $\mathcal{C}_3$ infinite since odd-hole class is infinite. Note an odd-anti-hole cannot be joined with an odd-hole since odd-hole have no $k$-vertex. If $G$ contains no odd-anti-hole and no odd-hole then by Theorem \ref{thm:StrongPerfect} $G$ is perfect and a perfect graph can only be $k$-crtical if $G$ is a clique with $k$ vertices.
 
 \begin{center}
 {\bf Acknowledgement}
 \end{center}
-This work was done by authors  Laurier University.  The authors A.M.H. and C.T.H. D.J.F were each supported by individual NSERC Discovery Grants.
+The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
 
 
 \clearpage
