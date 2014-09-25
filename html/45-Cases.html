@@ -1,0 +1,887 @@
+<html>
+	<head>
+		<title>All cases of (H_1, H_2)-free graphs wth 4 vertex graphs</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	</head>
+	<body>
+		Search Table:<input type="text" name="search" id="search">
+		<table border="1" style="margin:20px 0px 0px 20px">
+			<thead>
+				<tr class="TableHeader">
+					<th>H_1 - Graph</th>
+					<th>H_2 - Graph</th>
+					<th>(H_1,H_2)-free Properties</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="TableRow K4 co-diamond Clique Bounded">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-co-diamond-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 co-k4 Clique Bounded">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-co-K4-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 co-paw Polynomial Bounded Clique Polynomial">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-co-paw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="K4-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 claw NP-Complete Coloring">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 2K2 Unbounded Clique Polynomial Coloring">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-2K2-case.html">
+									Unbounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="K4-2K2-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 K4-diamond Clique Coloring NP-Complete Bounded">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-diamond-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="K4-diaomnd-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 paw Coloring NP-Complete">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-paw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 co-claw Coloring NP-Complete">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-co-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow K4 C4">
+					<td>
+						<img src="K4.gif" alt="K4" title="K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="K4-C4-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end K4 Cases -->
+				<tr class="TableRow diamond co-diamond Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-co-diamond-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="diamond-co-diamond-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond co-K4 Clique Bounded">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-co-K4-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond co-paw Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-co-paw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="diamond-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond claw Coloring NP-Complete">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond 2K2 Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-2K2-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="diamond-2K2-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond paw Coloring NP-Complete">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-paw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond co-claw Coloring NP-Complete">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-co-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow diamond C4 Coloring NP-Complete">
+					<td>
+						<img src="diamond.gif" alt="diamond" title="diamond" height="30" width="30">
+					</td>
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="diamond-C4-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of diamond cases-->
+				<tr class="TableRow paw co-diamond Clique Bounded">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-co-paw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw co-K4 Bounded Clique">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-co-paw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw co-paw Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-co-paw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="paw-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw claw Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-claw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="paw-claw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw 2K2 Coloring Polynomial">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-2K2-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw co-claw Coloring NP-Complete">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-co-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow paw C4 Coloring NP-Complete">
+					<td>
+						<img src="paw.gif" alt="paw" title="paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="paw-C4-coloring.html">
+									Np-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of paw cases-->
+				<tr class="TableRow co-claw co-diamond NP-Complete Coloring">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-co-diamond-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-claw co-K4 Coloring NP-Complete">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-co-K4-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-claw co-paw Coloring Polynomial">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-claw claw Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-claw-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="co-claw-claw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-claw 2K2 Coloring NP-Complete">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-2K2-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-claw C4 Coloring NP-Complete">
+					<td>
+						<img src="co-claw.gif" alt="co-claw" title="co-claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-claw-C4-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of co-claw cases -->
+				<tr class="TableRow C4 co-diamond Clique Bounded">
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="C4-co-C4-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow C4 co-K4 Clique Unbounded">
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="C4-co-C4-case.html">
+									Unbounded Clique Width
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow C4 co-paw Clique Coloring Bounded Polynomial">
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="C4-co-C4-case.html">
+									Bounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="C4-co-C4-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow C4 claw NP-Complete Coloring">
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="C4-claw-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow C4 2K2 Clique Coloring Unbounded Polynomial">
+					<td>
+						<img src="C4.gif" alt="C4" title="C4" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="C4-2K2-case.html">
+									Unbounded Clique Width
+								</a>
+							</li>
+							<li>
+								<a href="C4-2K2-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of C4 cases -->
+				<tr class="TableRow co-diamond co-K4 Coloring NP-Complete">
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-diamond-co-K4-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-diamond co-paw Coloring Polynomial">
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-diamond-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-diamond claw Open">
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								Open Case
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-diamond 2K2 Coloring NP-Complete">
+					<td>
+						<img src="co-diamond.gif" alt="co-diamond" title="co-diamond" height="10" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-diamond-2K2-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of co-diamond cases -->
+				<tr class="TableRow co-K4 co-paw Coloring Polynomial">
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw"height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-K4-co-paw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-K4 claw Open">
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								Open Case
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-K4 2K2 Coloring NP-Complete">
+					<td>
+						<img src="co-K4.gif" alt="co-K4" title="co-K4" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-K4-2K2-coloring.html">
+									NP-Complete Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of co-K4 cases -->
+				<tr class="TableRow co-paw claw Coloring Polynomial">
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-paw-claw-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr class="TableRow co-paw 2K2 Coloring Polynomial">
+					<td>
+						<img src="co-paw.gif" alt="co-paw" title="co-paw" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								<a href="co-paw-2K2-coloring.html">
+									Polynomial Coloring
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of co-paw cases -->
+				<tr class="TableRow claw 2K2 Open">
+					<td>
+						<img src="claw.gif" alt="claw" title="claw" height="30" width="30">
+					</td>
+					<td>
+						<img src="2K2.gif" alt="2K2" title="2K2" height="30" width="30">
+					</td>
+					<td>
+						<ul>
+							<li>
+								Open Case
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<!-- end of all cases -->
+			</tbody>
+			<tfoot>
+				<tr>
+					<tr>
+						<td>
+							
+						</td>
+						<td>
+						Count:
+						</td>
+						<td id="count">
+							45
+						</td>
+					</tr>
+				</tr>
+			</tfoot>
+		</table>
+	</body>
+	<script>
+	    $('#search').keyup(function(d){
+			var value = $('#search').val();
+	    	if (value == null){
+	    		value = "";
+	    	}
+	    	if (value == ""){
+	    		$('.TableRow').show();
+	    	}else{
+		    	$('.TableRow').hide();
+		    	value = value.split(" ");
+		    	for (var i = 0; i < value.length; i++){
+		    		if (value[i] != ""){
+		    			$('.' + value[i]).show();
+		    		}
+		    	}
+	    	}
+	    	var count = 0;
+	    	$('.TableRow').each(function( index){
+	    		if ($(this).css("display") != 'none'){
+	    			count += 1;
+	    		}
+	    	});
+	    	$('#count').html(count);
+
+	    	
+
+	    });
+	</script
+</html>
