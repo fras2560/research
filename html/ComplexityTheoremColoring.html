@@ -3,23 +3,44 @@
 		<title>
 			Complexity of COloring Graphs without Forbidden Induced Sugraphs
 		</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	</head>
 	<body>
 	Four Types of graph Classification:
 	<br/>
-	<strong>Type A</strong> graphs containing cycles<br/>
-	<strong>Type B</strong> graphs containing a claw<br/>
-	<strong>Type C</strong> graphs containing an induced copy of a spanning subgraph of 2K2<br/>
-	<strong>Type D</strong> graphs wich are induced subgraph of P4 or of co-paw<br/>
-	<strong>Proposition 2.</strong> Let A be a finite set of graphs.
+	<p id="TypeA">Type A graphs containing cycles</p>
+	<p id="TypeB">Type B graphs containing a claw</p>
+	<p id="TypeC">Type C graphs containing an induced copy of a spanning subgraph of 2K2</p>
+	<p id="TypeD">Type D graphs wich are induced subgraph of P4 or of co-paw</p>
+	<p>Proposition 2. Let A be a finite set of graphs.</p>
 	<ol>
-		<li>
+		<li id="Proposition2I">
 			If at least one of the graphs of A is of type D then A-FREE COLRING is polynomially solvable
 		</li>
-		<li>
+		<li id="Proposition2II">
 			If all graphs of A are of the same type A or B or C, then A-FREE COlORING is NP-Complete
 		</li>
 	</ol>
+	<script>
+		$(document).ready(function(){
+			var url = window.location.search;
+			var tags = url.replace("?", "");
+			tags = tags.split("&");
+			var ids = []
+			var temp;
+			for (var tag = 0; tag < tags.length; tag++){
+				temp = tags[tag].split("=");
+				if (temp[0] == "id"){
+					ids.push(temp[1]);
+				}
+			}
+			console.log(ids)
+			for (var id = 0; id < ids.length; id++){
+				$('#'+ids[id]).css("font-weight", "Bold");
+			}
+
+		});
+	</script>
 	</body>
 
 </html>

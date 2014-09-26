@@ -3,6 +3,7 @@
 		<title>
 			A Survey on the COmputational Complexity of Coloring Graphs with Forbidden Subgraphs
 		</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<strong>Theorem 22.</strong> Let H1 and H2 be two graphs. THen the following hold:
@@ -10,68 +11,88 @@
 			<dt>
 				<em>(i)</em> COLORING is NP-complete for (H1, H2)-free graphs if:
 			</dt>
-			<dd>
+			<dd id="THM22Point1">
 				1. H1 contains Cr for r >=3 and H2 contains Cs for s>=3
 			</dd>
-			<dd>
+			<dd id="THM22Point2">
 				2 .H1 contains a claw and H2 contains a claw
 			</dd>
-			<dd>
+			<dd id="THM22Point3">
 				3. H1 and H2 contain a spanning subgraph of 2P2 as an induced subgraph
 			</dd>
-			<dd>
+			<dd id="THM22Point4">
 				4. H1 contains a bull and H2 contains a K(1,4)
 			</dd>
-			<dd>
+			<dd id="THM22Point5">
 				5. H1 contains a C3 and H3 contains a K(1,r) for r>=5
 			</dd>
-			<dd>
+			<dd id="THM22Point6">
 				6. H1 contains a Cr for r>=4 and H2 contains K(1,3)
 			</dd>
-			<dd>
+			<dd id="THM22Point7">
 				7. H1 contains C3 and H2 contains P(22)
 			</dd>
-			<dd>
+			<dd id="THM22Point8">
 				8. H1 contains Cr for r>=5 and contains a spanning subgraph of 2P2 as an induced subgraph
 			</dd>
-			<dd>
+			<dd id="THM22Point9">
 				9. H1 contains Cr + P1 for 3<=r<=4 or H1 contains complement(Cr) for r>=6 and H2 contains a spanning subgraph of 2P2 as an induced subgraph
 			</dd>
-			<dd>
+			<dd id="THM22Point10">
 				10. H1 contains a K4 or H1 contains complment(2P1 + P2) and H2 contains K(1,3)
 			</dd>
 			<dt><em>(ii)</em> COLORING is p-time solvable for (H1,H2)-free graphs if:</dt>
-			<dd>
+			<dd id="THM22Point11">
 				1. H1 or H2 is an induced subgraph of co-paw or of P4
 			</dd>
-			<dd>
+			<dd id="THM22Point12">
 				2. H1 contains a claw and H2 contains a hammer or P5
 			</dd>
-			<dd>
+			<dd id="THM22Point13">
 				3. H1 != K(1,5) is a forest on at most sixvertices or H1 = claw + 3P1 and H2 contains a paw
 			</dd>
-			<dd>
+			<dd id="THM22Point14">
 				4. H1 contains sP2 or H1 contains sP1 + P5 for s>=1 and H2 = Kt for t>=4
 			</dd>
-			<dd>
+			<dd id="THM22Point15">
 				5. H1 contains sP2 or H1 contains sP1 + P5 for s>=1 and H2 contains a paw
 			</dd>
-			<dd>
+			<dd id="THM22Point16">
 				6. H1 contains P1 + P4 or P5 and H2 contains complement(P1 + P4)	
 			</dd>
-			<dd>
+			<dd id="THM22Point17">
 				7. H1 contains P1 + P4 or 2K2 and H2 contains complement(P5)	 				
 			</dd>
-			<dd>
+			<dd id="THM22Point18">
 				8. H1 contains 2P1 + P2 and H2 contains complement(3P1 + P2) or complement(2P1 + P3)
 			</dd>
-			<dd>
+			<dd id="THM22Point19">
 				9. H1 contains complement(2P1 + P2) and H2 contains 3P1 + P2 or 2P1 + P3
 			</dd>
-			<dd>
+			<dd id="THM22Point20">
 				10. H1 contains sP1 + P2 for s>=0 or H1 = 2K2 and H2 contains complement(tP1+P2) for t>=0
 			</dd>
-			<dd>11. H1 contains P5 and H2 contains C4</dd>
+			<dd id="THM22Point21">11. H1 contains P5 and H2 contains C4</dd>
 		</dl>
+	<script>
+	$(document).ready(function(){
+		var url = window.location.search;
+		var tags = url.replace("?", "");
+		tags = tags.split("&");
+		var ids = []
+		var temp;
+		for (var tag = 0; tag < tags.length; tag++){
+			temp = tags[tag].split("=");
+			if (temp[0] == "id"){
+				ids.push(temp[1]);
+			}
+		}
+		console.log(ids)
+		for (var id = 0; id < ids.length; id++){
+			$('#'+ids[id]).css("font-weight", "Bold");
+		}
+
+	});
+	</script>
 	</body>
 </html>

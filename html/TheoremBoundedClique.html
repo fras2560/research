@@ -2,6 +2,7 @@
 	<head>
 		<title>Clique-Width for 4-Vertex Forbidden Subgraphs</title>
 	</head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<body>
 		<strong>
 			Proposition <a href="http://link.springer.com/article/10.1007%2Fs00224-005-1199-1#page-7" target="_blank">1</a>.
@@ -21,16 +22,16 @@
 		<br/>
 		<em>The following classes have bounded clique width:</em>
 		<ol>
-			<li>(diamond, co-diamond)-free graphs</li>
-			<li>(claw, co-claw)-free graphs</li>
-			<li>(paw, co-paw)-free graphs</li>
-			<li>(diamond, co-paw)-free graphs</li>
-			<li>(diamond, 2K2)-free graphs</li>
-			<li>(2K2, paw)-free graphs</li>
-			<li>(claw, paw)-free graphs</li>
-			<li>(K4, co-K4)-free graphs</li>
-			<li>(K4, co-paw)-free graphs</li>
-			<li>(K4, co-diamond)-free graphs</li>
+			<li id="THM6Point1">(diamond, co-diamond)-free graphs</li>
+			<li id="THM6Point2">(claw, co-claw)-free graphs</li>
+			<li id="THM6Point3">(paw, co-paw)-free graphs</li>
+			<li id="THM6Point4">(diamond, co-paw)-free graphs</li>
+			<li id="THM6Point5">(diamond, 2K2)-free graphs</li>
+			<li id="THM6Point6">(2K2, paw)-free graphs</li>
+			<li id="THM6Point7">(claw, paw)-free graphs</li>
+			<li id="THM6Point8">(K4, co-K4)-free graphs</li>
+			<li id="THM6Point9">(K4, co-paw)-free graphs</li>
+			<li id="THM6Point10">(K4, co-diamond)-free graphs</li>
 		</ol>
 		<br/>
 		<strong>
@@ -39,8 +40,8 @@
 		<br/>
 		<em>The following classes have unbounded clique width:</em>
 		<ol>
-			<li>(C4, 2K2)-free graphs</li>
-			<li>(K4, diamond, C4, paw, co-claw)-free graphs</li>
+			<li id="THM9Point1">(C4, 2K2)-free graphs</li>
+			<li id="THM9Point2">(K4, diamond, C4, paw, co-claw)-free graphs</li>
 		</ol>
 		<strong>
 			Theorem <a href="http://link.springer.com/article/10.1007%2Fs00224-005-1199-1#page-23" target="_blank">10</a>
@@ -48,20 +49,40 @@
 		<br/>
 		<em>The following classes have unbounded clique width:</em>
 		<ol>
-			<li>(K4, 2K2)-free graphs</li>
-			<li>(K4, diamond, C4, claw)-free graphs</li>
+			<li id="THM10Point1">(K4, 2K2)-free graphs</li>
+			<li id="THM10Point2">(K4, diamond, C4, claw)-free graphs</li>
 		</ol>
 		<br/>
 		By <strong>Proposition 1 and Theorem 6</strong>, the following classes have bounded clique width:
 		<ol>
-			<li>(co-diamond, paw)-free graphs</li>
-			<li>(co-diamond, C4)-free graphs</li>
-			<li>(C4, co-paw)-free graphs</li>
-			<li>(co-claw, co-paw)-free graphs</li>
-			<li>(co-K4, paw)-free graphs</li>
-			<li>(co-k4, diamond)-free graphs</li>
+			<li id="THM11Point1">(co-diamond, paw)-free graphs</li>
+			<li id="THM11Point2">(co-diamond, C4)-free graphs</li>
+			<li id="THM11Point3">(C4, co-paw)-free graphs</li>
+			<li id="THM11Point4">(co-claw, co-paw)-free graphs</li>
+			<li id="THM11Point5">(co-K4, paw)-free graphs</li>
+			<li id="THM11Point6">(co-k4, diamond)-free graphs</li>
 		</ol>
 		<br/>
+	<script>
+	$(document).ready(function(){
+		var url = window.location.search;
+		var tags = url.replace("?", "");
+		tags = tags.split("&");
+		var ids = []
+		var temp;
+		for (var tag = 0; tag < tags.length; tag++){
+			temp = tags[tag].split("=");
+			if (temp[0] == "id"){
+				ids.push(temp[1]);
+			}
+		}
+		console.log(ids)
+		for (var id = 0; id < ids.length; id++){
+			$('#'+ids[id]).css("font-weight", "Bold");
+		}
+
+	});
+	</script>
 	</body>
 </html>
 
