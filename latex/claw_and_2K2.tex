@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CK{($claw$, $2K2$)}
+
+\title{On k-critical {\CK}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+A graph is $4$-critical if it is $4$-chromatic but each of its proper induced subgraphs is ($3$)-colorable. We show that the set of $4$-critical {\CK}-free is finite.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $2K2$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+\begin{Theorem}\label{thm:strong-perfect}
+(odd-hole, odd-anti-hole)-free graphs are perfect. $\Box$
+\end{Theorem}
+
+\begin{Lemma}\label{lem:anti-hole-critical}
+Let $G$ be a $\overline{C_\ell,}\; \ell >3$ then $G$ is $\lceil l/2 \rceil$-critical. $\Box$
+\end{Lemma}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations used to prove that there is a finite amount of $4$-critical graphs for {\CK}-free graphs. For the following observations let $G$ by {\CK}-free.
+\begin{Lemma}\label{lem:odd-hole-free}
+$G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $2K2$ with (2,3) and ($\ell_{-1},\; \ell$) but $G$ is {\CK}-free. $\Box$
+
+\begin{Lemma}\label{lem:odd-anti-hole}
+If $G$ is $4$-critical and contains a $\overline{C_\ell}\; \ell \geq 7$ then $G$ is a $\overline{C_7}$.
+\end{Lemma}
+\noindent{\it Proof}. 
+By Lemma \ref{lem:anti-hole-critical} the only $\overline{C_\ell}\; \ell \geq 7$ that is $4$-critical is $\overline{C_l}$. Assume $G$ contains a $\overline{C_7}$. Then $G$ has no $k$-vertex for $k \in {1, 2, 3, 4}$. Adding a $0$-vertex does not change the chromatic number. Adding a $k$-vertex for $k \in {5, 6, 7}$ forms a  $K_4$ and therefore cannot be $4$-critical.
+
+For the following observations let $N_i$ represent the set of $4$-vertices in which each vertex is non-adjacent to 
+to vertex $i$ of the induced $C_5$
+\begin{Lemma}\label{lem:c5-cliques}
+The set $N_i$ forms a $K_{n},\; n = |N_i|$
+\end{Lemma}
+\noindent{\it Proof}.
+Let $G$ contains a $C_5$ with vertices $0, 1,...,4$. Let $x$ and $y$ be any two vertices from $N_i$ such that $x \neq y$. Then $xy \in E$ otherwise a claw is formed ($i_{+1}i,xi,yi)$
+
+\begin{Lemma}\label{lem:c5-pockets}
+The set $N_i$ forms a $K_{n},\; n = |N_i| + 2$
+\end{Lemma}
+\noindent{\it Proof}.
+By Lemma \ref{lem:c5-cliques} the set $N_i$ is a clique. All ther vertices in $N_i$ are adjacent to $i_{+1}$ and $i_{+2}$. Since $i_{+1}i_{+2} \in E$ then the set $N_i$, $i_{+1},$ and $i_{+2}$ forms a clique.
+
+\begin{Lemma}\label{lem:c5-neighbours}
+If $N_i \neq \phi$ and $N_{i+2} \neq \phi$ then $N_i$ and $N_{i+2}$ forms a $K_n,\; n = |N_i| + |N_{i+2}| +2 $. 
+\end{Lemma}
+\noindent{\it Proof}.
+By Lemma \ref{lem:c5-cliques} $N_i$ and $N_{i+2}$ are cliques. Let $x$ be a any vertex $\in N_i$ and $y$ be a any vertex $\in N_{i+2}$ then $xy \in E$ otherwise a $2K2$ is formed $(yi, xi_{+2})$. So $N_i$ and $N_{i+2}$ forms a clique. All vertices in $N_i$ and $N_i$ are adjacent to vertices $(i+3), (i+4)$ (modulus 5) so $N_i, N_{i+2}, i_{+3}, i_{+4}$ forms a clique.
+Note this prove applies to $N_{i-2}$ as well.
+
+\begin{Lemma}\label{lem:c5-case}
+$G$ is $4$-critical and contains a $C_5$ then is a $W_6$ or one other graph $H$ 
+\end{Lemma}
+\noindent{\it Proof}.
+Let $G$ be a $C_5$ then $G$ has no $k$-vertex for $k \in {1, 2, 3}$. Adding a $0$-vertex does not change the chromatic number of $G$.
+Adding a $5$-vertex creates a $W_6$ and makes $G$ $4$-critical. If $G$ is a $W_6$ then adding a $k$-vertex will only increase critical $k$ or make $G$ non-critical. By Lemma \ref{lem:c5-cliques} no set $|N_i| > 1$ otherwise a $K_4$ is formed and by Lemma \ref{lem:c5-neighbours} if $N_i \neq \phi$ then $N_i+2 = \phi$ and $N_i-2 = \phi$ otherwise a $K_4$ is formed.  So only $N_i$ and $N_i$ can $\neq \phi$ otherwise a $K_4$ is formed. If only $N_i \neq \phi$ then a $K_3$ is formed and $G$ is $3$-colorable. Let $x$ be the one vertex from $N_i$ and  $y$ be the one vertex from $N_{i+1}$. If $xy \in E$ then a $K_4$ is formed $(xy,i_{+2}x,i_{+2}y,i_{+3}x,i_{+3}y,i_{+2}i_{+3})$ and $G$ cannot be $4$-critical. If $xy \not\in E$ then no $K_4$ is formed and $G$ is $4$-colorable and this is graph $H$. $\Box$
+
+\begin{Theorem}\label{thm:finite-4-critical}
+$G$ can only be $4$-critical if $G$ is a $K_4$, $\overline{C_7}$, $W_6$, and $H$.
+\end{Theorem}
+\noindent{\it Proof}.
+By Lemma \ref{lem:c5-case} and \ref{lem:odd-anti-hole} $\overline{C_7}$, $W_6$ and $H$ are all the $4$-critical graphs which contain an odd-hole or an odd-anti-hole. All other $G$ are perfect therefore the only other $4$-critical graph is $K_4$. $\Box$
+
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
