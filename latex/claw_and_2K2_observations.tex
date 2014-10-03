@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CK{($claw$, $2K2$)}
+
+\title{On k-critical {\CK}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+A graph is $k$-critical if it is $k$-chromatic but each of its proper induced subgraphs is ($k-1$)-colorable. We show that the set of $k$-critical {\CK}-free is finite for all $k$.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $2K2$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+\begin{Theorem}\label{thm:strong-perfect}
+(odd-hole, odd-anti-hole)-free graphs are perfect. $\Box$
+\end{Theorem}
+
+\begin{Lemma}\label{lem:join-critical}{\rm \cite{DhaHam2014}}
+Let $G=(V,E)$ be any graph.  Suppose that $V$ admits a partition into
+two non-empty sets $V_1$ and $V_2$ such that $V_1$ is complete to
+$V_2$.  Then $G$ is critical if and only if the two graphs $G[V_1]$
+and $G[V_2]$ are critical. $\Box$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:anti-hole-critical}
+Let $G$ be a $\overline{C_\ell,}\; \ell >3$ then $G$ is $\lceil l/2 \rceil$-critical. $\Box$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:c5-cliques}
+The set $N_i$ forms a $K_{n},\; n = |N_i|$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:c5-pockets}
+The set $N_i$ forms a $K_{n},\; n = |N_i| + 2$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:c5-neighbours}
+If $N_i \neq \phi$ and $N_{i+2} \neq \phi$ then $N_i$ and $N_{i+2}$ forms a $K_n,\; n = |N_i| + |N_{i+2}| +2 $. 
+\end{Lemma}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations used to prove that there is a finite amount of $4$-critical graphs for {\CK}-free graphs. For the following observations let $G$ by {\CK}-free and contain an induced $C_5$ with vertices $0, 1, ..., 4$.
+\begin{Lemma}\label{lem:3i-5v}
+$G$ cannot contain a stable set of  $5$-vertex with more than 3 vertices.
+\end{Lemma}
+\noindent {\it Proof}. Let $x_i ,\; i=0to2$ be a $5$-vertex in which $x_i,x_{i+1} \not\in E$ for all $i$. Then there is a claw with$\Box$
+
+\begin{Lemma}\label{lem:connected-5v}
+$G$ cannot be $k$-critical if $G$ contains a set of a $5$-vertex clique $K_n,\; n \geq k - 2$
+\end{Lemma}
+\noindent{\it Proof}. Let $x$ be the $5$-vertex clique $K_n$. The $x$, vertex $0$, and vertex $1$ forms a clique $K_{n+2},\; n = |x| + 2$. If $|x| > =k - 2$ then $G$ cannot be $k$-critical since it contains a clique $K_{n+2},\; n >= k$.
+
+\begin{Lemma}\label{lem:4set-with-5set}
+When looking at $k$-critical where the $4$-vertex set $ \neq \phi$ then only look $5$-vertex set with no clique $K_n,\; n >= k - 3$
+\end{Lemma}
+\noindent{\it Proof.} When the $5$-vertex has a clique $K_n,\; n = k - 3$ connected vertices then it is the join of C5 and $K_n$ which by Lemma \ref{lem:join-critical} it is $k-1$-critical. So adding $4$-vertex to $G$ will not change the fact that $G$ contains a $k - 1$-critical graph as an induced-subgraph.
+
+\begin{Lemma}\label{lem:4v-kn}
+$G$ cannot be $k$-critical if $N_i, N_{i+1}, N_{i+2}$ forms a clique $K_n,\; n >= k - 2$
+\end{Lemma}
+\noindent{\it Proof.} Let  $x$ be the clique $K_n$ formed by $N_i, N_{i+1}, N_{i+2}$. Then $x$, $i+3$, and $i+4$ forms a clique $K_{n+2}$ and $G$ cannot be $k$-critical since it contains a $K_{n+2},\; n >= k$.
+
+\begin{Lemma}\label{lem:4v-min}
+$G$ cannot be $k$-critical if $5$-vertex set is $\phi$ and $|4-vertex| < k - 1$.
+\end{Lemma}
+\noindent{\it Proof.} If $5$-vertex is $\phi$ then the max($\chi(G) = |4-vertex|$) since each $4$-vertex does not see one vertex $i$ in the induced $C_5$ and they can share a color.
+
+\begin{Lemma}\label{Lem:Ni-max}
+$G$ cannot be $k$-critical if one $|N_i| \geq k - 2$
+\end{Lemma}
+\noindent{\it Proof.} If $|N_i| \geq k -2$, then $N_i, i+1, i+2$ forms a clique $K_n,\; n = k$ and therefore $G$ cannot be $k$-critical. 
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
