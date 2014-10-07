@@ -41,7 +41,7 @@ University, \\Waterloo, Ontario, Canada}
 \end{center}
 
 \begin{abstract}
-A graph is $4$-critical if it is $4$-chromatic but each of its proper induced subgraphs is ($3$)-colorable. We show that the set of $4$-critical {\CK}-free is finite.
+The coloring of {\CK}-free graph is in polynomial.
 
 \noindent{\em Keywords}: Graph coloring, $claw$, $2K2$
 \end{abstract}
@@ -49,62 +49,38 @@ A graph is $4$-critical if it is $4$-chromatic but each of its proper induced su
 
 \section{Introduction}\label{sec:intro}
 
-\begin{Theorem}\label{thm:strong-perfect}
-(odd-hole, odd-anti-hole)-free graphs are perfect. $\Box$
+\begin{Theorem}\label{thm:ben-rebea}
+Let $G$ be a connected $claw$-free graph with $\alpha(G) \geq 3$. If $G$ contains an odd anti-hole then it contains an odd antihole then it contains a $C_5$ $\Box$
 \end{Theorem}
 
-\begin{Lemma}\label{lem:anti-hole-critical}
-Let $G$ be a $\overline{C_\ell,}\; \ell >3$ then $G$ is $\lceil l/2 \rceil$-critical. $\Box$
-\end{Lemma}
+\begin{Theorem}\label{thm:alpha-two-poly}
+There is a polytime algorithm for coloring a $G$ with $\alpha(G) =2$.
+ \end{Theorem}
 
 \section{Oberservations}\label{sec:observations}
-In this section, we conclude some observations used to prove that there is a finite amount of $4$-critical graphs for {\CK}-free graphs. For the following observations let $G$ by {\CK}-free.
+In this section, we conclude some observations used to prove that there polytime algorithm for ${\CK}$-free graphs.
 \begin{Lemma}\label{lem:odd-hole-free}
 $G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
 \end{Lemma}
 \noindent {\it Proof}. Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $2K2$ with (2,3) and ($\ell_{-1},\; \ell$) but $G$ is {\CK}-free. $\Box$
 
-\begin{Lemma}\label{lem:odd-anti-hole}
-If $G$ is $4$-critical and contains a $\overline{C_\ell}\; \ell \geq 7$ then $G$ is a $\overline{C_7}$.
+\begin{Lemma}\label{lem:alpha-2-c5}
+If $G$ contains an $C_5$ then $\alpha(G) = 2$ or $G$ is disconnnected
 \end{Lemma}
 \noindent{\it Proof}. 
-By Lemma \ref{lem:anti-hole-critical} the only $\overline{C_\ell}\; \ell \geq 7$ that is $4$-critical is $\overline{C_l}$. Assume $G$ contains a $\overline{C_7}$. Then $G$ has no $k$-vertex for $k \in {1, 2, 3, 4}$. Adding a $0$-vertex does not change the chromatic number. Adding a $k$-vertex for $k \in {5, 6, 7}$ forms a  $K_4$ and therefore cannot be $4$-critical.
+$G$ contains no $k$-vertex for $k \in {1, 2, 3}$. There can be no edge between an $0$-vertex and a $4$-vertex or a $5$-vertex. Let $x$ be a $0$-vertex and $y$ be a $4$-vertex, if $xy \in E$ then $G$ contains a $claw (xy, yi, yi_{+2})$. Similar argument applies to $5$-vertex. $\alpha(G) =2$ if $G$ contains no $0$-vertex since $\alpha(C_5) = 2$ and  all $4$-vertex and $5$-vertex must have $|E| = v -2$ otherwise there is a $claw$.
 
-For the following observations let $N_i$ represent the set of $4$-vertices in which each vertex is non-adjacent to 
-to vertex $i$ of the induced $C_5$
-\begin{Lemma}\label{lem:c5-cliques}
-The set $N_i$ forms a $K_{n},\; n = |N_i|$
+\begin{Lemma}\label{lem:alpha-2-anti-hole}
+If $G$ contains an odd anti-hole then $\alpha(G) =2$ or $G$ is disconnected.
 \end{Lemma}
 \noindent{\it Proof}.
-Let $G$ contains a $C_5$ with vertices $0, 1,...,4$. Let $x$ and $y$ be any two vertices from $N_i$ such that $x \neq y$. Then $xy \in E$ otherwise a claw is formed ($i_{+1}i,xi,yi)$
+By Theorem \ref{thm:ben-rebea} if connected $G$ contains an odd anti-hole with $\alpha(G) \geq 3$ then $G$ contains an induced $C_5$ but by Lemma \ref{alpha-2-c5} any $G$ containing a $C_5$ cannot have $\alpha(G) != 2$ if it is connected. So therefore if connected $G$ contains an odd anti-hole $\alpha(G) = 2$.
 
-\begin{Lemma}\label{lem:c5-pockets}
-The set $N_i$ forms a $K_{n},\; n = |N_i| + 2$
-\end{Lemma}
-\noindent{\it Proof}.
-By Lemma \ref{lem:c5-cliques} the set $N_i$ is a clique. All ther vertices in $N_i$ are adjacent to $i_{+1}$ and $i_{+2}$. Since $i_{+1}i_{+2} \in E$ then the set $N_i$, $i_{+1},$ and $i_{+2}$ forms a clique.
-
-\begin{Lemma}\label{lem:c5-neighbours}
-If $N_i \neq \phi$ and $N_{i+2} \neq \phi$ then $N_i$ and $N_{i+2}$ forms a $K_n,\; n = |N_i| + |N_{i+2}| +2 $. 
-\end{Lemma}
-\noindent{\it Proof}.
-By Lemma \ref{lem:c5-cliques} $N_i$ and $N_{i+2}$ are cliques. Let $x$ be a any vertex $\in N_i$ and $y$ be a any vertex $\in N_{i+2}$ then $xy \in E$ otherwise a $2K2$ is formed $(yi, xi_{+2})$. So $N_i$ and $N_{i+2}$ forms a clique. All vertices in $N_i$ and $N_i$ are adjacent to vertices $(i+3), (i+4)$ (modulus 5) so $N_i, N_{i+2}, i_{+3}, i_{+4}$ forms a clique.
-Note this prove applies to $N_{i-2}$ as well.
-
-\begin{Lemma}\label{lem:c5-case}
-$G$ is $4$-critical and contains a $C_5$ then is a $W_6$ or one other graph $H$ 
-\end{Lemma}
-\noindent{\it Proof}.
-Let $G$ be a $C_5$ then $G$ has no $k$-vertex for $k \in {1, 2, 3}$. Adding a $0$-vertex does not change the chromatic number of $G$.
-Adding a $5$-vertex creates a $W_6$ and makes $G$ $4$-critical. If $G$ is a $W_6$ then adding a $k$-vertex will only increase critical $k$ or make $G$ non-critical. By Lemma \ref{lem:c5-cliques} no set $|N_i| > 1$ otherwise a $K_4$ is formed and by Lemma \ref{lem:c5-neighbours} if $N_i \neq \phi$ then $N_i+2 = \phi$ and $N_i-2 = \phi$ otherwise a $K_4$ is formed.  So only $N_i$ and $N_i$ can $\neq \phi$ otherwise a $K_4$ is formed. If only $N_i \neq \phi$ then a $K_3$ is formed and $G$ is $3$-colorable. Let $x$ be the one vertex from $N_i$ and  $y$ be the one vertex from $N_{i+1}$. If $xy \in E$ then a $K_4$ is formed $(xy,i_{+2}x,i_{+2}y,i_{+3}x,i_{+3}y,i_{+2}i_{+3})$ and $G$ cannot be $4$-critical. If $xy \not\in E$ then no $K_4$ is formed and $G$ is $4$-colorable and this is graph $H$. $\Box$
-
-\begin{Theorem}\label{thm:finite-4-critical}
-$G$ can only be $4$-critical if $G$ is a $K_4$, $\overline{C_7}$, $W_6$, and $H$.
+\begin{Theorem}\label{thm:poly-colorable}
+If {\CK}-free then $G$ can be colored in polynomial time
 \end{Theorem}
-\noindent{\it Proof}.
-By Lemma \ref{lem:c5-case} and \ref{lem:odd-anti-hole} $\overline{C_7}$, $W_6$ and $H$ are all the $4$-critical graphs which contain an odd-hole or an odd-anti-hole. All other $G$ are perfect therefore the only other $4$-critical graph is $K_4$. $\Box$
 
-
+By Lemmas \ref{alpha-2-anti-hole} and \ref{alpha-2-c5} any $G$ contains an odd anti-hole has $\alpha(G) = 2$ and using \ref{alpha-2-poly} can be colored in polynomial time. If $G$ does not contain an odd-anti hole and by Lemma \ref{odd-hole-free} if is a perfect graph. A perfect graph can be colored in polynomial time.
 
 \begin{center}
 {\bf Acknowledgement}

@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CCD{($claw$, $co-diamond$)}
+\def\VTWO{$N_{i , i+1}$}
+\def\VJTwo{$N_{j , j+1}$}
+\def\VTHREE{$N_{i , i+1, i+2}$}
+\def\VFOUR{$N_{i , i+1, i+2, i+3}$}
+
+\title{On polynomial coloring for {\CCD}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+The coloring of {\CCD}-free graph is in polynomial.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $2K2$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+\begin{Theorem}\label{thm:ben-rebea}
+Let $G$ be a connected $claw$-free graph with $\alpha(G) \geq 3$. If $G$ contains an odd anti-hole then it contains an odd antihole then it contains a $C_5$ $\Box$
+\end{Theorem}
+
+\begin{Theorem}\label{thm:alpha-two-poly}
+There is a polytime algorithm for coloring a $G$ with $\alpha(G) =2$.
+ \end{Theorem}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations used to prove that there is a polytime algorithm for {\CCD}-free graphs.
+\begin{Lemma}\label{lem:odd-hole-free}
+$G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $co-diamond$ with (1,2) and $4,\; \ell$  but $G$ is {\CCD}-free. $\Box$
+
+For the following observations let {\VTWO} be the set of $2$-vertex on a $C_5$, {\VTHREE} be the set of $3$-vertex on a $C_5$, {\VFOUR} be the set of $4$-vertex on a $C_5$ in which $G$ contains an $C_5$. Let $N_i$ be the set of all $i$-vertex. 
+
+\begin{Lemma}\label{lem:2-vertex-one}
+$|{\VTWO}| \leq 1$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$ be a vertex from {\VTWO} such that $x \neq y$. If $xy \not \in E$ then there is a $claw (i_{+1}i_{+2},i_{+1}x, i_{+1}y)$. If $xy \in E$ then there is a $co-diamond (xy, i_{-1}, i_{+2}$. 
+
+\begin{Lemma}\label{lem:2-vertex-clique}
+$N_2$ forms a clique $K_n,\; n=|N_2|$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$  be a vertex from {\VJTWO}. Without loss of generality suppose $xy \not \in E$  if $j = i + 1$ then there is a $co-diamond$ $(y, xi, i_{+3})$, but if $j = i + 2$ then there is a $co-diamond$ $(y, xi, j+1)$ so therefore $xy \in E$.
+
+\begin{Lemma}\label{lem:3-vertex-one}
+The set {\VTHREE} forms a clique  $K_n,\; n = |{\VTHREE}|$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from {\VTHREE} and $y$ be a vertex from {\VTHREE} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
+
+\begin{Lemma}\label{lem:4-vertex-one}
+The set {\VFOUR} forms a clqiue $K_n,\; n = |{\VFOUR}|$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from {\VFOUR} and $y$ be a vertex from {\VFOUR} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
+
+\begin{Lemma}\label{lem:5-vertex-max-isolated}
+$\alpha(N_5) \leq 2$
+\end{Lemma}
+\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_5$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. There is a claw $(xi, yi, zi)$. Therefore $\alpha(N_5) \leq 2$.
+
+\begin{Lemma}\label{lem:4-vertex-max-isolated}
+$\alpha(N_4) \leq 2$
+\end{Lemma}
+\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_4$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. There is a claw $(xi, yi, zi)$. Therefore $\alpha(N_4) \leq 2$.
+
+\begin{Lemma}\label{lem:3-vertex-max-isolated}
+$\alpha(N_3) \leq 2$
+\end{Lemma}
+\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_3$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. If $x \in {\VTWO},\; y \in {\VTWO},\;, and z \in {\VTWO},\;$ then by Lemma \ref{lem:3-vertex-one} forms a clique otherwise there exists a vertex $i$ such that $xi \in E$ but $yi \not \in E and zi \not \in E$ which means there is $co-diamond (xi, y ,z)$. Therefore $\alpha(N_3) \leq 2$.
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
