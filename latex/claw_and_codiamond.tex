@@ -22,7 +22,7 @@
 \def\inst#1{$^{#1}$}
 \def\CCD{($claw$, $co-diamond$)}
 \def\VTWO{$N_{i , i+1}$}
-\def\VJTwo{$N_{j , j+1}$}
+\def\VJTWO{$N_{j , j+1}$}
 \def\VTHREE{$N_{i , i+1, i+2}$}
 \def\VFOUR{$N_{i , i+1, i+2, i+3}$}
 
@@ -71,7 +71,7 @@ $G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
 For the following observations let {\VTWO} be the set of $2$-vertex on a $C_5$, {\VTHREE} be the set of $3$-vertex on a $C_5$, {\VFOUR} be the set of $4$-vertex on a $C_5$ in which $G$ contains an $C_5$. Let $N_i$ be the set of all $i$-vertex. 
 
 \begin{Lemma}\label{lem:2-vertex-one}
-$|{\VTWO}| \leq 1$
+$|${\VTWO}$| \leq 1$
 \end{Lemma}
 \noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$ be a vertex from {\VTWO} such that $x \neq y$. If $xy \not \in E$ then there is a $claw (i_{+1}i_{+2},i_{+1}x, i_{+1}y)$. If $xy \in E$ then there is a $co-diamond (xy, i_{-1}, i_{+2}$. 
 
@@ -81,12 +81,12 @@ $N_2$ forms a clique $K_n,\; n=|N_2|$
 \noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$  be a vertex from {\VJTWO}. Without loss of generality suppose $xy \not \in E$  if $j = i + 1$ then there is a $co-diamond$ $(y, xi, i_{+3})$, but if $j = i + 2$ then there is a $co-diamond$ $(y, xi, j+1)$ so therefore $xy \in E$.
 
 \begin{Lemma}\label{lem:3-vertex-one}
-The set {\VTHREE} forms a clique  $K_n,\; n = |{\VTHREE}|$
+The set {\VTHREE} forms a clique  $K_n,\; n = |${\VTHREE}$|$
 \end{Lemma}
 \noindent {\it Proof}. Let $x$ be a vertex from {\VTHREE} and $y$ be a vertex from {\VTHREE} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
 
 \begin{Lemma}\label{lem:4-vertex-one}
-The set {\VFOUR} forms a clqiue $K_n,\; n = |{\VFOUR}|$
+The set {\VFOUR} forms a clqiue $K_n,\; n = |${\VFOUR}$|$
 \end{Lemma}
 \noindent {\it Proof}. Let $x$ be a vertex from {\VFOUR} and $y$ be a vertex from {\VFOUR} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
 
@@ -103,7 +103,7 @@ $\alpha(N_4) \leq 2$
 \begin{Lemma}\label{lem:3-vertex-max-isolated}
 $\alpha(N_3) \leq 2$
 \end{Lemma}
-\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_3$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. If $x \in {\VTWO},\; y \in {\VTWO},\;, and z \in {\VTWO},\;$ then by Lemma \ref{lem:3-vertex-one} forms a clique otherwise there exists a vertex $i$ such that $xi \in E$ but $yi \not \in E and zi \not \in E$ which means there is $co-diamond (xi, y ,z)$. Therefore $\alpha(N_3) \leq 2$.
+\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_3$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. If $x \in ${\VTWO}$,\; y \in ${\VTWO}$,\;, and z \in ${\VTWO}$,\;$ then by Lemma \ref{lem:3-vertex-one} forms a clique otherwise there exists a vertex $i$ such that $xi \in E$ but $yi \not \in E and zi \not \in E$ which means there is $co-diamond (xi, y ,z)$. Therefore $\alpha(N_3) \leq 2$.
 
 \begin{center}
 {\bf Acknowledgement}
