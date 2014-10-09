@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CKD{($\overline{K_4}$, $diamond$)}
+
+\title{Observations on $\overline{K_4}$, $diamond$)-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+Just some observations I have concluded on {\CKD}-free graphs.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $2K2$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+For the following observations let $G$ be a {\CKD}-free graph.
+
+\begin{Lemma}\label{thm:c5-kvertex}
+If $G$ contains an induced $C_5$ then $G$ then $G$ has no $k$-vertex for $k \in {4, 5}$.
+\end{Lemma}
+For the following observations assume $G$ contains an induced $C_5$. Let $N_i,_i+1$ be the set of $2$-vertex on vertices $i$ and $i+1$ of the induced $C_5$. Let $N_i,_i+1,_i+3$ be the set of $3$-vertex on vertices $i$, $i+1$, and $i+3$ of the induced $C_5$. 
+\begin{Lemma}\label{lem:3-vertex-one}
+$|N_i,i+1,_i+3|$ <= 1
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i,_i+1,_i+3$ and $y \in N_i,_i+1,_i+3$ such that $x \neq y$. If $xy \in E$ then there is a $diamond (xi,yi,xi+3,yi+3)$ but if $xy \not \in E$ then $\overline{K_4}$$(x, y, i+2, i-1)$.
+
+\begin{Lemma}\label{lem:3-vertex-no-edge}
+Can be no edge between any $3$-vertex.
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i,_i+1,_i+3$ and $y \in N_j,_j+1,_j+3$ such that $x \neq y$. If $j = i+1$ and $xy \in E$ then there is a $diamond(xy, yi+1, xi+1, ii+1, xi)$. If $j = i+2$ and $xy \in E$ then there is a $diamond(xy, yi, xi+1, ii+1, yi)$.
+
+\begin{Lemma}\label{lem:3-vertex-max}
+$|3-vertex| \leq 3$ 
+\end{Lemma}
+\noindent {\it Proof}. By Lemma \ref{lem:3-vertex-no-edge} there can be no edge so if $|3-vertex| = 4 $ then there would be $\overline{K_4}$.
+
+\begin{Lemma}\label{lem:2-vertex-neighbor}
+There can be no edge between $N_i,_i+1$ and $N_i+1,i+2$.
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i,_i+1$ and $y \in N_i+1,_i+2$. If $xy \in E$ then there is a $diamond (ix,ii+1,yx,yi+1)$.
+
+\begin{Lemma}\label{lem:2-vertex-clique}
+$N_i,_i+1$ forms a clique.
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i,_i+1$ and $y \in N_i,_i+1$ such that $x \neq y$. If $xy \not \in E$ then there is a $\overline{K_4}$ $(x, y i-1, i+2)$.
+
+\begin{Lemma}\label{lem:2-vertex-max-neightbours}
+$N_i,_i+1$ can see at most one vertex in $N_i+2,_i+3$.
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i,_i+1$ and $y_1,y_2 \in N_i+2,_i+3$. If $xy_1, xy_2 \in E$ then there is a $diamond (xy_1, xy_2, y_1y_2, y_1i+2,y_2i+2)$.
+
+\begin{Lemma}\label{lem:1-vertex-clique}
+$1$-vertex forms a clique.
+\end{Lemma}
+\noindent {\it Proof}. Let $x \in N_i$ and $y \in N_j$. If $xy \not \in E$ then in $\overline{G}$ then $|N(x) \cap N(y)| = 3$ and at least two are adjacent which forms a $K_4$ which implies there is a  $\overline{K_4}$ $\in G$.
+
+\begin{Lemma}\label{lem:1-vertex-set-limit} 
+If $N_i \neq \phi$ then all other $N_j = \phi$.
+\end{Lemma}
+\noindent {\it Proof}. Let $x_1, x_2 \in N_i$ and $y \in N_j$ such that $x_1 \neq x_2, x_1 \neq y, x_2 \neq y$. By Lemma \ref{1-vertex-clique} both $x_1y,x_2y \in E$ otherwise there is a $\overline{K_4}$ but if $x_1y,x_2y \in E$ there is a $diamond (ix_1,ix_2, x_1x_2,x_1y,x_2y)$.
+
+\begin{Lemma}\label{lem:1-vertex-cross-sea-2-vertex}
+If $N_i,_i+2 \neq \phi$ then $N_i = \phi$.
+\end{Lemma}
+\noindent {\it Proof}. If $x \in N_i,_i+2$ and $y \in N_i$. If $xy \in E$ there is a $diamond (xi,yi xy, xi+1,ii+2)$ but $xy \not \in E$ there is a $\overline{K_4}$ $(x, y, i-1, i+2)$.
+
+\begin{Lemma}\label{lem:1-vertex-cross-sea-2-vertex}
+$|N_i,_i+1| \geq 2$ then $N_i+3 = \phi$.
+\end{Lemma}
+\noindent {\it Proof}. If $x_1,x_2 \in N_i,_i+2$ and $y \in N_i+3$. If $x_1y \not \in E$ then there is a $\overline{K_4}$ $(x_1,y,i+2, i+4)$. If $x_2y \not \in E$ then there is a $\overline{K_4}$ $(x_2,y,i+2, i+4)$ but if $x_1y, x_2y \in E$ there is a $diamond (x_1y,x_2y,x_1x_2,x_1i,x_2i)$.
+
+
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
