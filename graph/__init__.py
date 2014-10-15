@@ -26,7 +26,6 @@ class DalGraph():
             self._g = graph
         self.claw = helper.make_claw()
         self.co_claw = helper.make_co_claw()
-        
 
     def clique_number(self):
         '''
@@ -35,8 +34,7 @@ class DalGraph():
             Parameters:
                 None
             Returns:
-                int: the clique number 
-                None if not a clique
+                int: the maximal clique number 
         '''
         edges = self._g.number_of_edges()
         nodes = self._g.number_of_nodes()
@@ -47,6 +45,18 @@ class DalGraph():
             # is a clique (k=#nodes)
             clique = nodes
         return clique
+
+    def alpha_number(self):
+        '''
+        returns the stabe set number of the graph
+            Parameters:
+                None
+            Returns:
+                stable: the max size of the stable set (int)
+                        None if no stable set
+        '''
+        complement = nx.complement(self._g)
+        return len(list(nx.find_cliques(complement)))
 
     def hole_number(self):
         '''
@@ -91,7 +101,8 @@ class DalGraph():
         if clique is None:
             # is not a clique
             cycle = self.cycle_nodes()
-            cycle.pop() # don't need the full cycle path just the vertices
+            if len(cycle) > 3:
+                cycle.pop() # don't need the full cycle path just the vertices
             if len(cycle) == 0 or len(cycle) % 2 == 0:
                 # no cycle or even hole so done
                 k = None
@@ -104,7 +115,8 @@ class DalGraph():
                 # check for anti-hole
                 co_g = DalGraph(nx.complement(nx.Graph.copy(self._g)))
                 cycle = co_g.cycle_nodes()
-                cycle.pop() # don't need the full cycle path just the vertices
+                if len(cycle) > 3:
+                    cycle.pop() # don't need the full cycle path just the vertices
                 if len(cycle) == 0 or len(cycle) % 2 == 0:
                     # even hole or no hole
                     k = None
@@ -257,3 +269,48 @@ class DalGraph():
             cycle.append(last_one)
             cycle.append(add_vertex)
         return cycle
+
+    def find_co_claw(self):
+        '''
+        a method that finds a co-claw in G
+        Parameters:
+            none
+        Returns:
+            co_claw: the list of nodes forming the co-claw
+                    None if no co-claw is present
+        '''
+        co_claw = None
+        cycles = nx.cycle_basis(self._g)
+        print(cycles)
+        for cycle in cycles:
+            neighbors = self.union_neighbors(cycle)
+            for node in self._g.nodes():
+                if node not in neighbors and len(cycle) == 3:
+                    co_claw = cycle + [node]
+                    break
+            if co_claw is not None:
+                break
+        return co_claw
+
+    def find_claw(self):
+        temp = self._g.copy()
+        self._g = nx.complement(self._g)
+        claw = self.find_co_claw()
+        self._g = temp.copy()
+        return claw
+        
+    def union_neighbors(self, nodes):
+        '''
+        a method the creates a list of neighbors of the list of nodes
+        Parameters:
+            nodes: the list of nodes (list)
+        Returns:
+            neighbors: the list of neighbors (list)
+        '''
+        neighbors = []
+        for node in nodes:
+            for n in self._g.neighbors(node):
+                if n not in neighbors:
+                    neighbors.append(n)
+        return neighbors
+            
