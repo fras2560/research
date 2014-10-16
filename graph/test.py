@@ -181,3 +181,29 @@ class testDalGraph(unittest.TestCase):
         g = DalGraph(make_wheel(6))
         result = g.find_claw()
         self.assertEqual(result, expect)
+
+    def testCritical(self):
+        # is_critical graphs
+        g = nx.Graph()
+        g.add_node(0)
+        g = join(g, g)
+        g = join(g, g)
+        d = DalGraph(g)
+        result = d.is_critical()
+        self.assertEqual(result, True)
+        g = make_wheel(6)
+        d = DalGraph(g)
+        result = d.is_critical()
+        self.assertEqual(result, True)
+        d = DalGraph(make_cycle(5))
+        result = d.is_critical()
+        self.assertEqual(result, True)
+        # test non is_critical
+        d = DalGraph(make_claw())
+        result = d.is_critical()
+        self.assertEqual(result, False)
+        d = DalGraph(make_co_claw())
+        result = d.is_critical()
+        self.assertEqual(result, False)
+        
+        

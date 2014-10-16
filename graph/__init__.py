@@ -13,6 +13,7 @@ import networkx as nx
 import helper
 import copy
 import math
+from colorable import chromatic_number
 class DalGraph():
     def __init__(self, graph=None):
         '''
@@ -86,13 +87,13 @@ class DalGraph():
     def k_color(self):
         '''
         _claw_and_co_free
-        finds if graph G is k-critical for some k
+        finds if graph G is k-is_critical for some k
         requires the G to be claw and co-claw free
         Parameters:
             None
         Returns:
-            int: the k-critical graph
-            None: if graph is not k-critical
+            int: the k-is_critical graph
+            None: if graph is not k-is_critical
         '''
         clique = self.clique_number()
         print("Clique number:", clique)
@@ -293,12 +294,20 @@ class DalGraph():
         return co_claw
 
     def find_claw(self):
+        '''
+        a method that finds a claw in G
+        Parameters:
+            None
+        Returns:
+            claw: the list of nodes forming the claw
+                 None if there is no claw
+        '''
         temp = self._g.copy()
         self._g = nx.complement(self._g)
         claw = self.find_co_claw()
         self._g = temp.copy()
         return claw
-        
+
     def union_neighbors(self, nodes):
         '''
         a method the creates a list of neighbors of the list of nodes
@@ -313,4 +322,25 @@ class DalGraph():
                 if n not in neighbors:
                     neighbors.append(n)
         return neighbors
-            
+
+    def is_critical(self):
+        '''
+        a method that finds if the graph is is_critical
+        Parameters:
+            None
+        Returns:
+            True if graph is is_critical
+            False otherwise
+        '''
+        is_critical = True
+        nodes = self._g.nodes()
+        index = 0
+        chromatic = chromatic_number(self._g)
+        while is_critical and index < len(nodes):
+            print(index)
+            g = self._g.copy()
+            g.remove_node(nodes[index])
+            if chromatic_number(g) != (chromatic -1):
+                is_critical = False
+            index += 1
+        return is_critical

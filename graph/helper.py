@@ -100,6 +100,37 @@ def join(G, H):
             F.add_edge(v1,v2+shift)
     return F
 
+def make_diamond():
+    '''
+    make_diamond
+    assembles a diamond
+    Parameters:
+        None
+    Returns:
+        diamond: the diamond graph (networkx)
+    '''
+    diamond = nx.Graph()
+    for x in range(0, 4):
+        # add four vertices
+        diamond.add_node(x)
+    diamond.add_edge(0, 1)
+    diamond.add_edge(0, 2)
+    diamond.add_edge(0, 3)
+    diamond.add_edge(1, 2)
+    diamond.add_edge(1, 3)
+    return diamond
+
+def make_co_diamond():
+    '''
+    make_co_diamond
+    assembles a co-diamond
+    Parameters:
+        None
+    Returns:
+        co_diamond: the co-diamond graph (networkx)
+    '''
+    return nx.complement(make_diamond())
+
 import unittest
 class tester(unittest.TestCase):
     def setUp(self):
@@ -107,6 +138,23 @@ class tester(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def testMakeDiamond(self):
+        g = make_diamond()
+        edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)]
+        vertices = [0, 1, 2, 3]
+        self.assertEqual(edges, g.edges(), "Make Diamond: failed on edges")
+        self.assertEqual(vertices, g.nodes(),
+                         "Make Diamond: failed on vertices")
+
+    def testMakeCoDiamond(self):
+        g = make_co_diamond()
+        edges = [(2, 3)]
+        vertices = [0, 1, 2, 3]
+        self.assertEqual(edges, g.edges(),
+                         "Make Co-Diamond: failed on edges")
+        self.assertEqual(vertices, g.nodes(),
+                         "Make Co-Diamond: failed on vertices")
 
     def testMakeClaw(self):
         g = make_claw()
