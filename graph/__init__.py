@@ -14,19 +14,29 @@ import helper
 import copy
 import math
 from colorable import chromatic_number
+from helper import text_to_networkx
 class DalGraph():
-    def __init__(self, graph=None):
+    def __init__(self, graph=None, file=None):
         '''
         init
             Parameters:
                 graph: the existing networkx graph, default to None (Graph)
+                file: the text file representing the graph
         '''
-        if graph is None:
+        if graph is None and file is None:
             self._g = nx.Graph()
-        else:
+        elif graph is not None:
             self._g = graph
-        self.claw = helper.make_claw()
-        self.co_claw = helper.make_co_claw()
+        else:
+            read = False
+            with open(file) as f:
+                content = f.read()
+                lines = content.replace("\r", "")
+                lines = lines.split("\n")
+                self._g = text_to_networkx(lines)
+                read = True
+            if not read:
+                raise Exception("Not a valid file")
 
     def clique_number(self):
         '''
