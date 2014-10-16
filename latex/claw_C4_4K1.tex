@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\FAM{($claw, C_4, \overline{K_4}$)}
+
+\title{On k-critical ($claw, C_4, \overline{K_4}$)-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+The coloring of {\FAM}-free graph is in polynomial.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $C_4$, $\overline{K_4}$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+\begin{Theorem}\label{thm:ben-rebea}
+Let $G$ be a connected $claw$-free graph with $\alpha(G) \geq 3$. If $G$ contains an odd anti-hole then it contains an odd antihole then it contains a $C_5$ $\Box$
+\end{Theorem}
+
+\begin{Theorem}\label{thm:alpha-two-poly}
+There is a polytime algorithm for coloring a $G$ with $\alpha(G) =2$.
+ \end{Theorem}
+
+\begin{Theorem}\label{thm:bounded-clique}
+The clique-width of {\FAM}-free graphs is bounded
+\end{Theorem}
+
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations used to prove that there polytime algorithm for {\FAM}-free graphs.
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
