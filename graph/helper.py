@@ -131,7 +131,48 @@ def make_co_diamond():
     '''
     return nx.complement(make_diamond())
 
+
+def text_to_networkx(lines):
+    '''
+    text_to_networkx
+    a function that takes the lines from a text file and puts into a format for 
+    networkx graph
+    Parameters:
+        lines: a list of lines from the text file (list)
+    Returns:
+        graph: a networkx graph
+    '''
+#     try:
+    graph = nx.Graph()
+    index = 0
+    nodes = []
+    for line in lines:
+        # add all the nodes
+        entries = line.split(":")
+        try:
+            node = int(entries[0])
+        except:
+            node = None
+        if node is None:
+            node = index
+        graph.add_node(node)
+        nodes.append(node)
+        index += 1
+    index = 0
+    for line in lines:
+        # add all the edges
+        entries = line.split(":")
+        if (len(entries) > 1):
+            entries[1] = entries[1].replace(" ", "")
+            edges = entries[1].split(",")
+            for edge in edges:
+                if edge != '':
+                    graph.add_edge(nodes[index], int(edge))
+        index += 1
+    return graph
+
 import unittest
+import os
 class tester(unittest.TestCase):
     def setUp(self):
         pass
@@ -209,3 +250,24 @@ class tester(unittest.TestCase):
         g.add_edge(2,4)
         g.add_edge(3,4)
         self.assertEqual(w.edges(), g.edges(), "Make wheel: Failed for W5 test")
+
+    def testTextToNetworkx(self):
+        directory = os.getcwd()
+        while "inducer" in directory:
+            directory = os.path.dirname(directory)
+        claw = make_claw()
+        c7 = make_cycle(7)
+        co_claw = make_co_claw()
+        tests = {'test1.txt': claw, 'test2.txt': c7, 'test3.txt': co_claw}
+        for file, expect in tests.items():
+            filepath = os.path.join(directory, "tests", file)
+            with open(filepath) as f:
+                content = f.read()
+                lines = content.replace("\r", "")
+                lines = lines.split("\n")
+                result = text_to_networkx(lines)
+                print(file)
+                self.assertEqual(expect.nodes() ,result.nodes() ,
+                                 "Text to Networkx Failed Nodes: %s" % file)
+                self.assertEqual(expect.edges() ,result.edges() ,
+                                 "Text to Networkx Failed Nodes: %s" % file)
