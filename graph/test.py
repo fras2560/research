@@ -12,7 +12,7 @@ Version: 2014-09-10
 import unittest
 import networkx as nx
 from graph import DalGraph
-from helper import make_cycle, make_wheel, join
+from helper import make_cycle, make_wheel, join, make_claw, make_co_claw
 class testDalGraph(unittest.TestCase):
     def setUp(self):
         pass
@@ -119,3 +119,65 @@ class testDalGraph(unittest.TestCase):
         g = DalGraph(c)
         c = g.k_color()
         self.assertEqual(c, 6, "KColor: C5 joined with a C5")
+
+    def testUnionNeighbors(self):
+        g = DalGraph(make_claw())
+        result = g.union_neighbors([0])
+        expect = [1, 2, 3]
+        self.assertEqual(result, expect)
+        g._g.add_node(4)
+        g._g.add_edge(3, 4)
+        result =g.union_neighbors([4, 2])
+        expect = [3, 0]
+        self.assertEqual(result, expect)
+
+    def testFindCoClaw(self):
+        g = DalGraph(make_co_claw())
+        # add some noise
+        g._g.add_node(4)
+        g._g.add_node(5)
+        g._g.add_node(6)
+        g._g.add_node(7)
+        g._g.add_edge(3, 4)
+        g._g.add_edge(2,5)
+        g._g.add_edge(1, 6)
+        g._g.add_edge(3, 7)
+        result = g.find_co_claw()
+        expect = [2, 3, 1, 0]
+        self.assertEqual(result, expect)
+        # no triangle
+        g = DalGraph(make_claw())
+        # add some noise
+        g._g.add_node(4)
+        g._g.add_node(5)
+        g._g.add_node(6)
+        g._g.add_node(7)
+        g._g.add_edge(0, 4)
+        g._g.add_edge(0, 5)
+        g._g.add_edge(0, 6)
+        g._g.add_edge(0, 7)
+        result = g.find_co_claw()
+        expect = None
+        self.assertEqual(result, expect)
+        g = DalGraph(make_wheel(6))
+        result = g.find_co_claw()
+        self.assertEqual(result, expect)
+
+    def testFindClaw(self):
+        g = DalGraph(make_claw())
+        # add some noise
+        g._g.add_node(6)
+        g._g.add_node(7)
+        g._g.add_edge(1, 6)
+        g._g.add_edge(3, 7)
+        result = g.find_claw()
+        expect = [1, 3, 2, 0]
+        self.assertEqual(result, expect)
+        # no triangle
+        g = DalGraph(make_co_claw())
+        result = g.find_claw()
+        expect = None
+        self.assertEqual(result, expect)
+        g = DalGraph(make_wheel(6))
+        result = g.find_claw()
+        self.assertEqual(result, expect)
