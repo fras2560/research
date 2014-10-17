@@ -346,11 +346,15 @@ class DalGraph():
         nodes = self._g.nodes()
         index = 0
         chromatic = chromatic_number(self._g)
+        print(nodes)
+        print(self._g.edges())
         while is_critical and index < len(nodes):
             print(index)
             g = self._g.copy()
             g.remove_node(nodes[index])
-            if chromatic_number(g) != (chromatic -1):
+            check = chromatic_number(g)
+            print(check, chromatic-1)
+            if check != (chromatic -1):
                 is_critical = False
             index += 1
         return is_critical

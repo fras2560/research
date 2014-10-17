@@ -23,7 +23,9 @@ result = {}
 for file in onlyfiles:
     try:
         d = DalGraph(file=os.path.join(mypath,file))
-        result[file] = d.is_critical()
+        critical = d.is_critical()
+        print(file,critical)
+        result[file] = critical
     except:
         result[file] = "Invalid File"
 pp.pprint(result)

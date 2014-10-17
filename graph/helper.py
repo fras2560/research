@@ -148,16 +148,18 @@ def text_to_networkx(lines):
     nodes = []
     for line in lines:
         # add all the nodes
+        print(line)
         entries = line.split(":")
-        try:
-            node = int(entries[0])
-        except:
-            node = None
-        if node is None:
-            node = index
-        graph.add_node(node)
-        nodes.append(node)
-        index += 1
+        if len(entries) == 2:
+            try:
+                node = int(entries[0])
+            except:
+                node = None
+            if node is None:
+                node = index
+            graph.add_node(node)
+            nodes.append(node)
+            index += 1
     index = 0
     for line in lines:
         # add all the edges
