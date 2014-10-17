@@ -148,7 +148,6 @@ def text_to_networkx(lines):
     nodes = []
     for line in lines:
         # add all the nodes
-        print(line)
         entries = line.split(":")
         if len(entries) == 2:
             try:
