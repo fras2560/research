@@ -11,7 +11,7 @@ Version: 2014-09-17
 """
 import itertools
 import networkx as nx
-import helper as helper
+import graph.helper as helper
 def induced_subgraph(G, H):
     '''
     induced_subgraph
@@ -105,8 +105,8 @@ def k_vertex(g, subgraphs):
     return k_vertexes
 
 import unittest
-from helper import make_cycle, make_claw, make_co_claw
-from helper import make_diamond, make_co_diamond
+from graph.helper import make_cycle, make_claw, make_co_claw
+from graph.helper import make_diamond, make_co_diamond
 from pprint import PrettyPrinter
 class tester(unittest.TestCase):
     def setUp(self):
