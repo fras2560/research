@@ -12,7 +12,8 @@ Version: 2014-10-19
 -------------------------------------------------------
 """
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(filename='genator.log', level=logging.INFO, 
+                    format='%(asctime)s %(message)s')
 logger = logging.getLogger(__name__)
 
 def generate(G, n, forbidden):
@@ -126,7 +127,7 @@ def determine(index, nodes, add_nodes):
     logger.debug("Target Node: %d" % target)
     logger.debug("Source: %d" % source)
     return(target, source)
-        
+
 import networkx as nx
 import unittest
 class Tester(unittest.TestCase):
@@ -231,11 +232,7 @@ class Tester(unittest.TestCase):
         self.assertEqual(graphs[8].edges(), [(0, 1), (1, 2)])
         self.assertEqual(graphs[9].nodes(), [0, 1, 2])
         self.assertEqual(graphs[9].edges(), [(0, 1), (0, 2), (1, 2)])
-        for graph in graphs:
-            print("---------------")
-            print("Nodes: ", graph.nodes())
-            print("Edges: ", graph.edges())
-            print("---------------")
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
