@@ -35,6 +35,6 @@ LOGGER = logging.getLogger(__name__)
 # processing work
 generator = Generator(STARTING, 14, FORBIDDEN)
 for graph in generator.iterate():
-    f = File(graph, DIRECTORY, LOGGER)
+    f = File(DIRECTORY, G=graph, logger=LOGGER)
     f.save()
 LOGGER.info("Complete")
