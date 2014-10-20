@@ -131,6 +131,21 @@ def make_co_diamond():
     '''
     return nx.complement(make_diamond())
 
+def make_cok4():
+    '''
+    make_coK4
+    assembles a co-K4
+    Parameters:
+        None
+    Returns:
+        g: the co-K4 graph (networkx)
+    '''
+    g = nx.Graph()
+    g.add_node(0)
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    return g
 
 def text_to_networkx(lines):
     '''
@@ -298,3 +313,8 @@ class tester(unittest.TestCase):
         g = make_diamond()
         text = networkx_to_text(g)
         self.assertEqual("0:1,2,3\n1:0,2,3\n2:0,1\n3:0,1\n", text)
+
+    def testMakeCoK4(self):
+        cok4 = make_cok4()
+        self.assertEqual(cok4.nodes(), [0, 1, 2, 3])
+        self.assertEqual(cok4.edges(), [])
