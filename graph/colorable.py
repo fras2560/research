@@ -12,6 +12,7 @@ Version: 2014-09-17
 import unittest
 import networkx as nx
 from itertools import permutations
+import logging
 
 def valid_coloring(coloring, G):
     '''
@@ -38,15 +39,21 @@ def valid_coloring(coloring, G):
             break;
     return valid
 
-def coloring(G):
+def coloring(G, logger=None):
     '''
     a function that finds the chromatic number of graph G
     using brute force
     Parameters:
         G: the networkx graph (networkx)
+        logger: the logger for the function (logging)
     Returns:
         chromatic: the chromatic number (int)
     '''
+    if logger is None:
+        logging.basicConfig(level=logging.DEBUG,
+                            format='%(asctime)s %(message)s')
+        logger = logging.getLogger(__name__)
+
     valid = False
     largest = 0
     # find largest clique
@@ -63,14 +70,14 @@ def coloring(G):
     balls = len(nodes)
     while not valid:
         chromatic += 1
-        print('''
-                ------------------------------
-                Testing Chromatic Number of %s
-                ------------------------------
-              ''' %chromatic)
+        logger.info('''
+                    ------------------------------\n
+                    Testing Chromatic Number of %s\n
+                    ------------------------------\n
+                    ''' %chromatic)
         boxes = [balls] * chromatic
         for combo in permutations(nodes):
-            print(combo)
+            logger.debug(combo)
             for split in unlabeled_balls_in_unlabeled_boxes(balls, boxes):
                 coloring = None
                 if valid_split(split):
@@ -150,7 +157,7 @@ def assemble_coloring(nodes, split):
                 color.append(nodes.pop())
             coloring.append(color)
     return coloring
-    
+
 def unlabeled_balls_in_unlabeled_boxes(balls, box_sizes):
     '''
     @author Dr. Phillip M. Feldman
@@ -173,7 +180,6 @@ def unlabeled_balls_in_unlabeled_boxes(balls, box_sizes):
                          "number of balls to be distributed.")
     box_sizes= list( sorted(box_sizes)[::-1] )
     return unlabeled_balls_in_unlabeled_boxe(balls, box_sizes)
-
 
 def unlabeled_balls_in_unlabeled_boxe(balls, box_sizes):
     '''
