@@ -10,11 +10,11 @@ Version: 2014-09-10
 -------------------------------------------------------
 """
 import networkx as nx
-import helper
+import graph.helper
 import copy
 import math
-from colorable import chromatic_number
-from helper import text_to_networkx
+from graph.colorable import chromatic_number
+from graph.helper import text_to_networkx
 class DalGraph():
     def __init__(self, graph=None, file=None):
         '''

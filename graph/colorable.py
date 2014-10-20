@@ -70,6 +70,7 @@ def coloring(G):
               ''' %chromatic)
         boxes = [balls] * chromatic
         for combo in permutations(nodes):
+            print(combo)
             for split in unlabeled_balls_in_unlabeled_boxes(balls, boxes):
                 coloring = None
                 if valid_split(split):
@@ -192,7 +193,7 @@ def unlabeled_balls_in_unlabeled_boxe(balls, box_sizes):
                 if distribution_other[0] <= balls_in_first_box:
                     yield (balls_in_first_box,) + distribution_other
 
-from helper import make_claw, make_diamond
+from graph.helper import make_claw, make_diamond
 class Test(unittest.TestCase):
 
     def setUp(self):
