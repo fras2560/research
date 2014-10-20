@@ -9,52 +9,97 @@ Email:   fras2560@mylaurier.ca
 Version: 2014-10-20
 -------------------------------------------------------
 """
+import logging
 import networkx as nx
 import os
-from graph.helper import networkx_to_text
+from graph.helper import networkx_to_text,  text_to_networkx
+from graph.container import induced_subgraph
 class File():
-    def __init__(self, G, directory, logger):
+    def __init__(self, directory, G=None, logger=None, file=None):
         '''
         G: a networkx graph (networkx)
         directory: the filepath to the directory (filepath)
         logger: the logger to log information (logging)
+        file: the file of the graph to load
         '''
-        self.G = G
         self.directory = directory
+        if G is None and file is None:
+            raise Exception("File not initialized properly")
+        if G is not None:
+            self.G = G
+        else:
+            self.G = self.load(file)
         self.clique = nx.graph_clique_number(self.G)
-        self.logger = logger
+        if logger is None:
+            logging.basicConfig(level=logging.DEBUG,
+                                format='%(asctime)s %(message)s')
+            self.logger = logging.getLogger(__name__)
+        else:
+            self.logger = logger
+
+    def load(self, file):
+        '''
+        a method to help load a graph from a file
+        Parameters:
+            file: the graph file (filepath)
+        Returns:
+            G: the graph G (networkx)
+        '''
+        fp = os.path.join(self.directory, file)
+        with open(fp) as file:
+            text = file.read()
+            lines = text.split("\n")
+            G = text_to_networkx(lines)
+        return G
 
     def save(self):
         '''
         a method that takes a graph G and saves it to the appropriate folder
+        does not save the file if isomorphic to a previously saved file
         Parameters:
         Returns:
-            name: the file path of where it was saved
+            name: the file path of where it was saved (filepath)
+                None if return if did not save the file
         '''
         name = self.get_name()
-        name = self.file_path(name)
-        while not (self.check_unique(name)):
-            name = name[:-4] + " _1" + ".txt"
-        text = networkx_to_text(self.G)
-        self.logger.info("Saving Graph %s", name)
-        self.logger.debug("File Text \n" + text)
-        with open(name, "w") as file:
-            file.write(text)
-        return name
+        fp = self.file_path(name)
+        index = 1
+        should_save = True
+        while not (self.check_unique(fp)) and should_save:
+            directory = os.path.dirname(fp)
+            if self.compare(File(directory, logger=self.logger, file=name)):
+                should_save = False
+            else:
+                fp = self.file_path(self.get_name(index))
+                index += 1
+        if should_save:
+            text = networkx_to_text(self.G)
+            self.logger.info("Saving Graph %s", fp)
+            self.logger.debug("File Text \n" + text)
+            with open(fp, "w") as file:
+                file.write(text)
+        else:
+            self.logger.info("Graph was already saved")
+            fp = None
+        return fp
 
-    def get_name(self):
+    def get_name(self, index=None):
         '''
         a method that determines the name of G
         based upon properties of the graph
         Parameters:
-            
+            index: a value index to add to the end of the name
         Returns:
             name: the name of the graph
         '''
         edges = len(self.G.edges())
         nodes = len(self.G.nodes())
-        name = ("has_K" + str(self.clique) + "_edges-" + str(edges) + '_nodes-'
-                + str(nodes) + ".txt")
+        if index is None:
+            name = ("has_K" + str(self.clique) + "_edges-" + str(edges) + '_nodes-'
+                    + str(nodes) + ".txt")
+        else:
+            name = ("has_K" + str(self.clique) + "_edges-" + str(edges) + '_nodes-'
+                    + str(nodes) +"--" + str(index) + ".txt")
         return name
 
     def file_path(self, name):
@@ -84,10 +129,28 @@ class File():
         '''
         return not os.path.exists(filepath)
 
+    def compare(self, B):
+        '''
+        a method use to compare the two graphs of the File objects given
+        Parameter:
+            B: the object to compare to (File)
+        Returns:
+            True if the two graphs are the same (isomorphic)
+            False otherwise
+        '''
+        self.logger.debug("Comparing two graphs")
+        same = False
+        cond1 = len(self.G.nodes()) == len(B.G.nodes())
+        cond2 = len(self.G.edges()) == len(B.G.edges())
+        if cond1 and cond2:
+            if induced_subgraph(self.G, B.G) is not None:
+                same = True
+        self.logger.debug("The two graphs are the same: %r" % same)
+        return same
+            
 import unittest
 import shutil
-from graph.helper import make_claw, make_cycle, text_to_networkx
-import logging
+from graph.helper import make_claw, make_cycle, make_co_claw
 class Tester(unittest.TestCase):
     def setUp(self):
         self.directory = os.getcwd()
@@ -108,17 +171,19 @@ class Tester(unittest.TestCase):
 
     def testGetName(self):
         g = make_claw()
-        f = File(g, self.directory, self.logger)
+        f = File(self.directory,G=g, logger=self.logger)
         self.assertEqual(f.get_name(), "has_K2_edges-3_nodes-4.txt")
         g = make_cycle(5)
-        f = File(g, self.directory, self.logger)
+        f = File(self.directory,G=g, logger=self.logger)
         self.assertEqual(f.get_name(), "has_K2_edges-5_nodes-5.txt")
+        self.assertEqual(f.get_name(1), "has_K2_edges-5_nodes-5--1.txt")
+        self.assertEqual(f.get_name(10), "has_K2_edges-5_nodes-5--10.txt")
 
     def testFilePath(self):
         created = os.path.exists(self.k2)
         self.assertEqual(created, False)
         g = make_claw()
-        f = File(g, self.directory, self.logger)
+        f = File(self.directory,G=g, logger=self.logger)
         name = "has_K2_edges-5nodes-5.txt"
         fp = f.file_path(name)
         self.assertEqual(os.path.join(self.directory, self.k2, name), fp)
@@ -126,15 +191,15 @@ class Tester(unittest.TestCase):
         self.assertEqual(created, True)
 
     def testChequeUnique(self):
-        f = File(make_claw(), self.directory, self.logger)
+        f = File(self.directory,G=make_claw(), logger=self.logger)
         fp = "does not exists"
         self.assertEqual(f.check_unique(fp), True)
         os.makedirs(self.k2)
         self.assertEqual(f.check_unique(self.k2), False)
 
-    def testsave(self):
+    def testSaveBasic(self):
         g = make_claw()
-        f = File(g, self.directory, self.logger)
+        f = File(self.directory,G=g, logger=self.logger)
         expect = f.file_path(f.get_name())
         self.assertEqual(os.path.exists(expect), False)
         f.save()
@@ -147,3 +212,47 @@ class Tester(unittest.TestCase):
             self.assertEqual(g.nodes(), claw.nodes())
             self.assertEqual(g.edges(), claw.edges())
 
+    def testSaveIsomorphic(self):
+        claw = make_claw()
+        f = File(self.directory, G=claw, logger=self.logger)
+        fp_1 = f.save()
+        expect = os.path.join(self.directory, 'hasK2', f.get_name())
+        self.assertEqual(fp_1,expect)
+        fp = f.save()
+        self.assertEqual(fp, None)
+        # create a path of length
+        p4 = make_cycle(4)
+        p4.remove_edge(0, 3)
+        g = File(self.directory, G=p4, logger=self.logger)
+        fp_2 = g.save()
+        expect = os.path.join(self.directory, 'hasK2', g.get_name(1))
+        self.assertNotEqual(fp_1, fp_2)
+        self.assertEqual(fp_2, expect)
+
+    def testCompare(self):
+        claw = make_claw()
+        co_claw = make_co_claw()
+        f = File(self.directory, G=claw, logger=self.logger)
+        g = File(self.directory, G=claw, logger=self.logger)
+        self.assertEqual(g.compare(f), True)
+        self.assertEqual(f.compare(g), True)
+        g = File(self.directory, G=co_claw, logger=self.logger)
+        self.assertEqual(g.compare(f), False)
+        self.assertEqual(f.compare(g), False)
+        h = File(self.directory, G=make_cycle(4), logger=self.logger)
+        self.assertEqual(h.compare(f), False)
+        self.assertEqual(f.compare(h), False)
+        
+
+    def testLoad(self):
+        claw = make_claw()
+        c7 = make_cycle(7)
+        co_claw = make_co_claw()
+        tests = {'test1.txt': claw, 'test2.txt': c7, 'test3.txt': co_claw}
+        directory = os.path.join(self.directory, "test")
+        for file, expect in tests.items():
+            file_obj = File(directory, file=file)
+            self.assertEqual(expect.nodes() ,file_obj.G.nodes() ,
+                            "Load Failed Nodes: %s" % file)
+            self.assertEqual(expect.edges() ,file_obj.G.edges() ,
+                                 "Load Failed :Edges %s" % file)
