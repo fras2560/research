@@ -15,8 +15,10 @@ import copy
 import math
 from graph.colorable import chromatic_number
 from graph.helper import text_to_networkx
+import logging
+
 class DalGraph():
-    def __init__(self, graph=None, file=None):
+    def __init__(self, graph=None, file=None, logger=None):
         '''
         init
             Parameters:
@@ -37,6 +39,12 @@ class DalGraph():
                 read = True
             if not read:
                 raise Exception("Not a valid file")
+        if logger is not None:
+            self.logger = logger
+        else:
+            logging.basicConfig(level=logging.DEBUG,
+                            format='%(asctime)s %(message)s')
+            self.logger = logging.getLogger(__name__)
 
     def clique_number(self):
         '''
@@ -346,11 +354,13 @@ class DalGraph():
         nodes = self._g.nodes()
         index = 0
         chromatic = chromatic_number(self._g)
+        self.logger.info("Chromatic number of G is %d" %chromatic)
         while is_critical and index < len(nodes):
             g = self._g.copy()
             g.remove_node(nodes[index])
             check = chromatic_number(g)
             if check != (chromatic -1):
+                self.logger.info("G is not critical")
                 is_critical = False
             index += 1
         return is_critical
