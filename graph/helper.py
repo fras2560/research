@@ -172,6 +172,24 @@ def text_to_networkx(lines):
         index += 1
     return graph
 
+def networkx_to_text(G):
+    '''
+    a function that converts a graph G to text
+    Parameters:
+        G: the graph (networkx)
+    Returns:
+        text: the graph text (string)
+    '''
+    text = ""
+    for node in G.nodes():
+        text += str(node) + ":"
+        n = []
+        for neighbor in G.neighbors(node):
+            n.append(str(neighbor))
+        text += ",".join(n)
+        text += "\n"
+    return text
+
 import unittest
 import os
 class tester(unittest.TestCase):
@@ -272,3 +290,11 @@ class tester(unittest.TestCase):
                                  "Text to Networkx Failed Nodes: %s" % file)
                 self.assertEqual(expect.edges() ,result.edges() ,
                                  "Text to Networkx Failed Nodes: %s" % file)
+
+    def testNetworkxToText(self):
+        g = make_claw()
+        text = networkx_to_text(g)
+        self.assertEqual("0:1,2,3\n1:0\n2:0\n3:0\n", text)
+        g = make_diamond()
+        text = networkx_to_text(g)
+        self.assertEqual("0:1,2,3\n1:0,2,3\n2:0,1\n3:0,1\n", text)
