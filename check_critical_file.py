@@ -16,16 +16,32 @@ from os.path import isfile, join
 from graph import DalGraph
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent = 4)
-mypath = os.path.join(os.getcwd(),"critical")
-onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
-pp.pprint(onlyfiles)
-result = {}
-for file in onlyfiles:
-    try:
-        d = DalGraph(file=os.path.join(mypath,file))
-        critical = d.is_critical()
-        print(file,critical)
-        result[file] = critical
-    except:
-        result[file] = "Invalid File"
-pp.pprint(result)
+
+def check_critical_file(mypath, logger):
+    # mypath = os.path.join(os.getcwd(),"critical")
+    onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
+    pp.pprint(onlyfiles)
+    result = {}
+    for file in onlyfiles:
+        try:
+            logger.info("Checking file %s" % file)
+            d = DalGraph(file=os.path.join(mypath,file), logger=logger)
+            critical = d.is_critical()
+            logger.info("File %s is %r" %(file, critical))
+            result[file] = critical
+        except:
+            result[file] = "Invalid File"
+    pp.pprint(result)
+    logger.info("Results:")
+    logger.info("-----------------")
+    for file, critical in result.items():
+        logger.info("File %s is %r" %(file, critical))
+    logger.info("-----------------")
+
+import logging
+if __name__ == "__main__":
+    logging.basicConfig(filename="critical.log", level=logging.INFO,
+                            format='%(asctime)s %(message)s')
+    logger = logging.getLogger(__name__)
+    mypath = os.path.join(os.getcwd(),"critical")
+    check_critical_file(mypath, logger)
