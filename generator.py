@@ -11,8 +11,9 @@ Email:   fras2560@mylaurier.ca
 Version: 2014-10-19
 -------------------------------------------------------
 """
-from graph.container import induced_subgraph
+from graph.container import induced_subgraph, k_vertex
 import logging
+import graph
 
 class Generator():
     def __init__(self, G, n, forbidden, logger=None):
@@ -158,6 +159,45 @@ class Generator():
         self.logger.debug("Source: %d" % source)
         return(target, source)
 
+class Generator2():
+    def __init__(self, G, n, forbidden, logger=None):
+        self.G = G
+        self.n = n
+        self.forbidden = forbidden
+        if logger is None:
+            logging.basicConfig(level=logging.DEBUG,
+                                format='%(asctime)s %(message)s')
+            logger = logging.getLogger(__name__)
+        self.logger = logger
+
+    def iterate(self):
+        for graph in self.iterate_aux(self.G):
+            yield graph
+
+    def iterate_aux(self, g):
+        index = len(g.nodes())
+        if index >= self.n + len(self.G.nodes()):
+            # must be done
+            self.logger.debug("Reach index %d" % index)
+        else:
+            # still need to add drop vertexes
+            for k_set in k_vertex(g, self.forbidden):
+                if k_set['has_k_vertex']:
+                    h = g.copy()
+                    h.add_node(index)
+                    if len(k_set['combinations']) > 0:
+                        k =len(k_set['combinations'][0])
+                    else:
+                        k = 0
+                        yield h
+                    self.logger.debug("Has k Vertex: %d" % k)
+                    for combo in k_set['combinations']:
+                        for edge in combo:
+                            h.add_edge(edge, index)
+                        yield h # a valid graph
+                        for graph in self.iterate_aux(h):
+                            yield graph
+
 import networkx as nx
 import unittest
 from graph.helper import make_claw, make_cycle
@@ -273,6 +313,29 @@ class Tester(unittest.TestCase):
         self.gen  = Generator(G, 5, [])
         result = self.gen.total_graphs()
         self.assertEqual(34427111456, result)
+
+class Tester2(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def testTwoNode(self):
+        g = nx.Graph()
+        g.add_node(0)
+        gen = Generator2(g, 1, [])
+        expected = [{'nodes':[0, 1],
+                     'edges':[]},
+                    {'nodes':[0, 1],
+                     'edges':[(0, 1)]},
+                    ]
+        number = 0
+        for graph in gen.iterate():
+            self.assertEqual(expected[number]['nodes'], graph.nodes())
+            self.assertEqual(expected[number]['edges'], graph.edges())
+            number += 1
+        self.assertEqual(number, 2)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
