@@ -26,6 +26,21 @@ class Generator():
         else:
             self.logger = logger
 
+    def total_graphs(self):
+        '''
+        a method to determine the total number of graphs
+        Parameters:
+            None
+        Returns:
+            total_graphs: the number of graphs (long)
+        '''
+        total_graphs = 0
+        l_nodes = len(self.G.nodes())
+        for i in range(1, self.n + 1):
+            max_edges = int(l_nodes * i + ((i)*(i-1)) /2)
+            total_graphs += 2**max_edges
+        return total_graphs
+
     def iterate(self):
         '''
         a generator for all the graphs starting with G adding
@@ -39,8 +54,14 @@ class Generator():
         add_nodes = 0
         l_nodes = len(self.G.nodes())
         g = self.G.copy()
+        # calculate total number of graphs
+        total_graphs = 0
+            
         while index  < (self.n + l_nodes - 1):
             # add a node
+            print("----------------")
+            print("Index: %d of %d" % (index, self.n + l_nodes - 1))
+            print("----------------")
             self.logger.info("Index: %d" % index)
             index += 1
             add_nodes += 1
@@ -140,7 +161,7 @@ class Generator():
 
 import networkx as nx
 import unittest
-from graph.helper import make_claw
+from graph.helper import make_claw, make_cycle
 class Tester(unittest.TestCase):
     def setUp(self):
         self.gen = Generator(make_claw(), 2, [])
@@ -242,6 +263,17 @@ class Tester(unittest.TestCase):
             self.assertEqual(graph.edges(), expected[index]['edges'])
             index += 1
         self.assertEqual(index, 10)
+
+    def testTotalGraphs(self):
+        G = nx.Graph()
+        G.add_node(0)
+        self.gen = Generator(G, 2, [])
+        result = self.gen.total_graphs()
+        self.assertEqual(10, result)
+        G = make_cycle(5)
+        self.gen  = Generator(G, 5, [])
+        result = self.gen.total_graphs()
+        self.assertEqual(34427111456, result)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
