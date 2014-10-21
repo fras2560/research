@@ -22,8 +22,13 @@ def check_critical_file(mypath, logger):
     onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
     pp.pprint(onlyfiles)
     result = {}
+    total = len(onlyfiles)
+    index = 0
+    print("Total Files: %d" % total)
     for file in onlyfiles:
         try:
+            print("{0:.2%}".format(index / total))
+            index += 1
             logger.info("Checking file %s" % file)
             d = DalGraph(file=os.path.join(mypath,file), logger=logger)
             critical = d.is_critical()
