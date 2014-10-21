@@ -54,9 +54,6 @@ class Generator():
         add_nodes = 0
         l_nodes = len(self.G.nodes())
         g = self.G.copy()
-        # calculate total number of graphs
-        total_graphs = 0
-            
         while index  < (self.n + l_nodes - 1):
             # add a node
             print("----------------")
@@ -82,9 +79,11 @@ class Generator():
                 allowed = True
                 for not_allowed in self.forbidden:
                     if induced_subgraph(h, not_allowed) is not None:
+                        self.logger.info("Graph was forbidden")
                         allowed = False
                         break
                 if allowed:
+                    self.logger.info("Graph was not forbidden")
                     yield h
 
     def to_bitstring(self, number, pad=None):
