@@ -16,7 +16,7 @@ from graph.helper import networkx_to_text,  text_to_networkx
 from graph.container import induced_subgraph
 
 class File():
-    def __init__(self, directory, G=None, logger=None, file=None):
+    def __init__(self, directory, G=None, logger=None, file=None, base=None):
         '''
         G: a networkx graph (networkx)
         directory: the filepath to the directory (filepath)
@@ -37,6 +37,7 @@ class File():
             self.logger = logging.getLogger(__name__)
         else:
             self.logger = logger
+        self.base = base
 
     def load(self, file):
         '''
@@ -98,12 +99,15 @@ class File():
         '''
         edges = len(self.G.edges())
         nodes = len(self.G.nodes())
+        
         if index is None:
             name = ("has_K" + str(self.clique) + "_edges-" + str(edges) + '_nodes-'
                     + str(nodes) + ".txt")
         else:
             name = ("has_K" + str(self.clique) + "_edges-" + str(edges) + '_nodes-'
                     + str(nodes) +"--" + str(index) + ".txt")
+        if self.base is not None:
+            name = self.base + name
         return name
 
     def file_path(self, name):
@@ -189,6 +193,10 @@ class Tester(unittest.TestCase):
         self.assertEqual(f.get_name(), "has_K2_edges-5_nodes-5.txt")
         self.assertEqual(f.get_name(1), "has_K2_edges-5_nodes-5--1.txt")
         self.assertEqual(f.get_name(10), "has_K2_edges-5_nodes-5--10.txt")
+        f = File(self.directory,G=g, logger=self.logger, base="C5")
+        self.assertEqual(f.get_name(), "C5has_K2_edges-5_nodes-5.txt")
+        self.assertEqual(f.get_name(1), "C5has_K2_edges-5_nodes-5--1.txt")
+        self.assertEqual(f.get_name(10), "C5has_K2_edges-5_nodes-5--10.txt")
 
     def testFilePath(self):
         created = os.path.exists(self.k2)
