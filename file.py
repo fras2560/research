@@ -14,6 +14,7 @@ import networkx as nx
 import os
 from graph.helper import networkx_to_text,  text_to_networkx
 from graph.container import induced_subgraph
+
 class File():
     def __init__(self, directory, G=None, logger=None, file=None):
         '''
@@ -65,12 +66,15 @@ class File():
         fp = self.file_path(name)
         index = 1
         should_save = True
+        self.logger.debug(fp)
         while not (self.check_unique(fp)) and should_save:
             directory = os.path.dirname(fp)
+            self.logger.info("Comparing to %s" %(name))
             if self.compare(File(directory, logger=self.logger, file=name)):
                 should_save = False
             else:
                 fp = self.file_path(self.get_name(index))
+                name = self.get_name(index)
                 index += 1
         if should_save:
             text = networkx_to_text(self.G)
@@ -142,12 +146,15 @@ class File():
         same = False
         cond1 = len(self.G.nodes()) == len(B.G.nodes())
         cond2 = len(self.G.edges()) == len(B.G.edges())
+        self.logger.debug("same edges: %r Same nodes: %r" %(cond1, cond2))
         if cond1 and cond2:
-            if induced_subgraph(self.G, B.G) is not None:
+            induced = induced_subgraph(self.G, B.G)
+            induced_2 = induced_subgraph(B.G, self.G)
+            if induced is not None or induced_2 is not None:
                 same = True
         self.logger.debug("The two graphs are the same: %r" % same)
         return same
-            
+
 import unittest
 import shutil
 from graph.helper import make_claw, make_cycle, make_co_claw
@@ -158,8 +165,12 @@ class Tester(unittest.TestCase):
         self.k3 = os.path.join(self.directory, "hasK3")
         self.k4 = os.path.join(self.directory, "hasK4")
         self.k5 = os.path.join(self.directory, "hasK5")
-        
-        self.created = [self.k2, self.k3, self.k4, self.k5]
+        self.testk2 = os.path.join(self.directory, "test", "hasK2")
+        self.testk3 = os.path.join(self.directory, "test", "hasK3")
+        self.testk4 = os.path.join(self.directory, "test", "hasK4")
+        self.testk5 = os.path.join(self.directory, "test", "hasK5")
+        self.created = [self.k2, self.k3, self.k4, self.k5,
+                        self.testk2, self.testk3, self.testk4, self.testk5]
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s %(message)s')
         self.logger = logging.getLogger(__name__)
@@ -229,6 +240,28 @@ class Tester(unittest.TestCase):
         self.assertNotEqual(fp_1, fp_2)
         self.assertEqual(fp_2, expect)
 
+    def testSaveIsomorphic2(self):
+        files = ['FileComparetest1.txt',
+                 'FileComparetest2.txt',
+                 'FileComparetest3.txt',
+                 'FileComparetest4.txt',
+                 'FileComparetest5.txt',
+                 'FileComparetest6.txt',
+                 'FileComparetest7.txt',
+                 'FileComparetest8.txt',
+                 'FileComparetest9.txt',
+                 'FileComparetest10.txt',
+                 ]
+        tests = []
+        directory = os.path.join(self.directory, "test")
+        for f in files:
+            tests.append(File(directory, file=f, logger=self.logger))
+        saved = tests[0].save()
+        self.assertNotEqual(saved, None, "File should have been saved")
+        for a in range(1, len(tests)):
+            saved = tests[a].save()
+            self.assertEqual(saved, None, "File should not have been saved")
+
     def testCompare(self):
         claw = make_claw()
         co_claw = make_co_claw()
@@ -242,7 +275,40 @@ class Tester(unittest.TestCase):
         h = File(self.directory, G=make_cycle(4), logger=self.logger)
         self.assertEqual(h.compare(f), False)
         self.assertEqual(f.compare(h), False)
-        
+
+    def testCompare2(self):
+        files = ['FileComparetest1.txt',
+                 'FileComparetest2.txt',
+                 'FileComparetest3.txt',
+                 'FileComparetest4.txt',
+                 'FileComparetest5.txt',
+                 'FileComparetest6.txt',
+                 'FileComparetest7.txt',
+                 'FileComparetest8.txt',
+                 'FileComparetest9.txt',
+                 'FileComparetest10.txt',
+                 ]
+        tests = []
+        directory = os.path.join(self.directory, "test")
+        for f in files:
+            tests.append(File(directory, file=f, logger=self.logger))
+        for a in range(0, len(tests)):
+            for b in range(a, len(tests)):
+                result = tests[a].compare(tests[b]) 
+                self.assertEqual(result, True, "Graphs should be the same")
+        for a in range(len(tests) - 1, -1, -1):
+            for b in range(len(tests) - 1, -1, -1):
+                result = tests[a].compare(tests[b]) 
+                self.assertEqual(result, True, "Graphs should be the same")
+
+    def testCompare3(self):
+        directory = os.path.join(self.directory, 'test')
+        t_d = os.path.join(self.directory, 'GraphFamilies', 'ClawC4CoK4', 'hasK3')
+        f = File(directory, file='FileComparetest1.txt')
+        g = File(t_d, file='has_K3_edges-11_nodes-7--1.txt' )
+        h = File(t_d, file='has_K3_edges-11_nodes-7--2.txt')
+        print(f.compare(g))
+        print(h.compare(g))
 
     def testLoad(self):
         claw = make_claw()
