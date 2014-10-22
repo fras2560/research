@@ -80,7 +80,6 @@ class Generator():
                 allowed = True
                 for not_allowed in self.forbidden:
                     if induced_subgraph(h, not_allowed) is not None:
-                        self.logger.info("Graph was forbidden")
                         allowed = False
                         break
                 if allowed:
@@ -183,15 +182,19 @@ class Generator2():
             # still need to add drop vertexes
             for k_set in k_vertex(g, self.forbidden):
                 if k_set['has_k_vertex']:
-                    h = g.copy()
-                    h.add_node(index)
                     if len(k_set['combinations']) > 0:
                         k =len(k_set['combinations'][0])
                     else:
+                        h = g.copy()
+                        h.add_node(index)
                         k = 0
                         yield h
                     self.logger.debug("Has k Vertex: %d" % k)
+                    self.logger.debug("Combination:")
+                    self.logger.debug(k_set['combinations'])
                     for combo in k_set['combinations']:
+                        h = g.copy()
+                        h.add_node(index)
                         for edge in combo:
                             h.add_edge(edge, index)
                         yield h # a valid graph
@@ -200,7 +203,8 @@ class Generator2():
 
 import networkx as nx
 import unittest
-from graph.helper import make_claw, make_cycle
+from graph.helper import make_claw, make_cycle, make_cok4
+
 class Tester(unittest.TestCase):
     def setUp(self):
         self.gen = Generator(make_claw(), 2, [])
@@ -336,6 +340,20 @@ class Tester2(unittest.TestCase):
             self.assertEqual(expected[number]['edges'], graph.edges())
             number += 1
         self.assertEqual(number, 2)
+
+    def testForbidden(self):
+        claw = make_claw()
+        c4 = make_cycle(4)
+        cok4 = make_cok4()
+        g = make_cycle(5)
+        not_allowed = [claw, c4, cok4]
+        gen = Generator2(g, 1, forbidden=not_allowed)
+        for graph in gen.iterate():
+            for h in not_allowed:
+                if induced_subgraph(graph, h) is not None:
+                    print(graph.edges())
+                    print(h.edges())
+                    self.assertEqual(True, False ,"Failed to forbid a graph")
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
