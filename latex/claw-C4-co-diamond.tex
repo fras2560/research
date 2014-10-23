@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CCD{($claw$, $C_4$, $co-diamond$)}
+
+\title{On k-critical {\CCD}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+The coloring of {\CCD}-free graph is polynomial.
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $C_4$, $co-diamond$
+\end{abstract}
+
+
+\section{Introduction}\label{sec:intro}
+
+\begin{Lemma}\label{lem:join-critical}
+Let $G=(V,E)$ be any graph.  Suppose that $V$ admits a partition into
+two non-empty sets $V_1$ and $V_2$ such that $V_1$ is complete to
+$V_2$.  Then $G$ is critical if and only if the two graphs $G[V_1]$
+and $G[V_2]$ are critical.
+\end{Lemma}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations used to prove that there polytime algorithm for {\CCD}-free graphs. For the following let $G$ be {\CCD}-free
+
+\begin{Lemma}\label{lem:cok4-reduce-codiamond}
+If $G$ contains a $\overline{K_4}$ then $G$ is a $\overline{K_4}$.
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ contain a $\overline{K_4}$ with vertices 1, 2, 3, 4. Then $G$ has no $k$-vertex for $k \in {1,2,3,4}$ since $G$ is {\CCD}-free so $G$ must be a $\overline{K_4}$. 
+
+\begin{Lemma}\label{lem:odd-hole-free}
+$G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell - 1,\; \ell$. This forms a $co-diamond$ with (1,2) and ($4,\; \ell - 1$) but $G$ is {\CCD}-free. $\Box$
+
+\begin{Lemma}\label{lem:anti-odd-hole-free}
+$G$ cannot contained an induced $\overline{C_\ell}$, $\ell \geq 7$
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $\overline{C_\ell}$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $C_4$ with (1,2 $\ell-2,\; \ell-1$).
+
+\begin{Lemma}\label{lem:c5-k-vertex}
+$G$ which contains a $C_5$ has no $k$-vertex for $k \in {0, 1, 2, 4}$
+\end{Lemma}
+\noindent {\it Proof}. Let $G$ be a $C_5$ with vertices 1, 2, ..., 5. $G$ has no $0$-vertex and $1$-vertex since is it $co-diamond$-free. $G$ has no $4$-vertex since it is $C_4$-free.
+
+For the following let $G$ contain a $C_5 C$ with vertices 1, 2, ..., 5. Let $X_i$ denote the set of $2$-vertices for $C$ adjacent to $i, i+1$, $Y_i$ denote the the set of $3$-vertices for $C$ adjacent to $i-1, i, i+1$ and $U$ denote the set of $5$-vertices for $C$.
+
+\begin{Lemma}\label{lem:max-2-xi}
+$|X_i| \leq 1$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ and $y$ be vertices from $X_i$ such that $x \neq y$. If $xy \in E$ there is a $co-diamond (x, y, i-1, i+3)$ and if $xy \not \in E$ then there is a $claw (x, y, i, i-1)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free.
+
+\begin{Lemma}\label{lem:xi-no-xi2}
+If $X_i \neq \phi$ then $X_{i+2} \cup X_i{i+3} = \phi$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from $X_i$ and $y$ be a vertex from $X_{i+2}$. If $xy \in E$ there is a $C_4 (x, y, i+1, i+2$ and if $xy \not in E$ there is a $co-diamond (x,i+1, y, i-1)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $X_i$ and $y$ be a vertex from $X_{i+3}$. If $xy \in E$ there is a $C_4 (x, y, i, i+4)$ and if $xy \not in E$ there is a $co-diamond (x,i, y, i+2)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free. 
+
+\begin{Lemma}\label{lem:max-2-2K}
+$|X_1 \cup X_2 \cup X_3 \cup X_4 \cup X_5| \leq 2$
+\end{Lemma}
+\noindent {\it Proof.} By Lemmas \ref{lem:max-2-xi} and \ref{lem:max-2-2K} there can be a most two $2$-vertices on $C$.
+
+\begin{Lemma}\label{lem:3K-clique}
+$Y_i$ forms a clique
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ and $y$ be vertices from $Y_i$ such that $x \neq y$. If $xy \not \in E$ there is a $claw (x, y, i-1, i)$ so $xy \in E$ since $G$ is {\CCD}-free.
+
+\begin{Lemma}\label{lem:yi-adjacency-yi2}
+Can be no edge between $Y_i$ and $Y_{i+2} \cap Y_{i+3}$
+\end{Lemma}
+\noindent {\it Proof}. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+2}$. If $xy \in E$ there is a $C_4 (i-1, x, y, i+3)$, so $xy \not in E$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+3}$. If $xy \in E$ there is a $C_4 (i+1, x, y, i+2)$, so $xy \not in E$ since $G$ is {\CCD}-free.
+
+\begin{Lemma}\label{lem:yi-miss-two-neighbors}
+If $y_i$ from $Y_i$ has a nonneighbor in $Y_{i+1}$ (in $Y_{i-1}$ respectively) then $yi joins Y_{i-1}$ (in $Y_{i+1}$ respectively).
+\end{Lemma}
+\noindent {\it} Proof. By Lemma \ref{lem:cok4-reduce-codiamond} $G$ can only contain $\overline{K_4}$ if it is a $\overline{K_4}$. The proof from \cite{BrEnLeLo} holds.
+
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+
+\bibitem{BrEnLeLo}
+    A.~Brandstadt, J.~Engelfriet, H.~Le, and V.~Lozin. Clique-Width for $4$-Vertex Forbidden Subgraphs.  {\sl SIAM
+     Journal on Discrete Mathematics} 26 (2006) 1682--1708.
+
+\end{thebibliography}
+
+\end{document}
