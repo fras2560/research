@@ -111,7 +111,15 @@ If $y_i$ from $Y_i$ has a nonneighbor in $Y_{i+1}$ (in $Y_{i-1}$ respectively) t
 \end{Lemma}
 \noindent {\it} Proof. By Lemma \ref{lem:cok4-reduce-codiamond} $G$ can only contain $\overline{K_4}$ if it is a $\overline{K_4}$. The proof from \cite{BrEnLeLo} holds.
 
+\begin{Lemma}\label{lem:buoy-3K-limit}
+If $y_i$ from $Y_i$ is not in buoey $B_i$ then buoy $|B_{i+3}| = 1| or |B_{i+2}| = 1|$. 
+\end{Lemma}
+\noindent {\it} Proof. Vertex $y_i$ is not in buoy $B_i$ since it is non-adjacent to some vertex $x$ from $Y_{i+1} or Y_{i-1}$. If $x$ from $Y_{i+1}$ and $|B_{i+3} > 1|$ there there would be a $co-diamond (x, y_i, B_{i+3})$ since a buoy forms a clique. If $x$ from $Y_{i-1}$ and $|B_{i+2} > 1|$ there there would be a $co-diamond (x, y_i, B_{i+2})$ since a buoy forms a clique.
 
+\begin{Lemma}\label{lem:3k-limited} 
+The set of $|N_{i-1,i,i+1} \not \in B_i|  \leq |B_{i-1} \cup B_{i+1}|$.
+\end{Lemma}
+\noindent {\it} By Lemma \ref{lem:yi-miss-two-neighbors} if $|N_{i-1,i,i+1} \not \in B_i| > |B_{i-1} \cup B_{i+1}|$ then there would be a vertex $x$ from $B_{i-1} \cup B_{i+1}$ such that it does not see two vertices from $N_{i-1,i,i+1} \not in B_i$ and would form a $co-diamond$ with $B_{i-2} \cup B_{i+2}$.
 
 \begin{center}
 {\bf Acknowledgement}
