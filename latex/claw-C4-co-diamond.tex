@@ -2,6 +2,9 @@
 \usepackage{latexsym}
 \usepackage{tikz}
 \usepackage{tkz-graph}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 \usetikzlibrary{shapes}
 
 \parskip=3pt
@@ -87,7 +90,7 @@ $|X_i| \leq 1$
 \noindent {\it Proof}. Let $x$ and $y$ be vertices from $X_i$ such that $x \neq y$. If $xy \in E$ there is a $co-diamond (x, y, i-1, i+3)$ and if $xy \not \in E$ then there is a $claw (x, y, i, i-1)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free.
 
 \begin{Lemma}\label{lem:xi-no-xi2}
-If $X_i \neq \phi$ then $X_{i+2} \cup X_i{i+3} = \phi$
+If $X_i \neq \phi$ then $X_{i+2} \cup X_{i+3} = \phi$
 \end{Lemma}
 \noindent {\it Proof}. Let $x$ be a vertex from $X_i$ and $y$ be a vertex from $X_{i+2}$. If $xy \in E$ there is a $C_4 (x, y, i+1, i+2$ and if $xy \not in E$ there is a $co-diamond (x,i+1, y, i-1)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $X_i$ and $y$ be a vertex from $X_{i+3}$. If $xy \in E$ there is a $C_4 (x, y, i, i+4)$ and if $xy \not in E$ there is a $co-diamond (x,i, y, i+2)$, so $x$ and $y$ cannot be in $G$ since $G$ is {\CCD}-free. 
 
@@ -102,24 +105,50 @@ $Y_i$ forms a clique
 \noindent {\it Proof}. Let $x$ and $y$ be vertices from $Y_i$ such that $x \neq y$. If $xy \not \in E$ there is a $claw (x, y, i-1, i)$ so $xy \in E$ since $G$ is {\CCD}-free.
 
 \begin{Lemma}\label{lem:yi-adjacency-yi2}
-Can be no edge between $Y_i$ and $Y_{i+2} \cap Y_{i+3}$
+Can be no edge between $Y_i$ and $Y_{i+2} \cup Y_{i+3}$
 \end{Lemma}
-\noindent {\it Proof}. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+2}$. If $xy \in E$ there is a $C_4 (i-1, x, y, i+3)$, so $xy \not in E$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+3}$. If $xy \in E$ there is a $C_4 (i+1, x, y, i+2)$, so $xy \not in E$ since $G$ is {\CCD}-free.
+\noindent {\it Proof}. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+2}$. If $xy \in E$ there is a $C_4 (i-1, x, y, i+3)$, so $xy \not \in E$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+3}$. If $xy \in E$ there is a $C_4 (i+1, x, y, i+2)$, so $xy \not \in E$ since $G$ is {\CCD}-free.
 
 \begin{Lemma}\label{lem:yi-miss-two-neighbors}
-If $y_i$ from $Y_i$ has a nonneighbor in $Y_{i+1}$ (in $Y_{i-1}$ respectively) then $yi joins Y_{i-1}$ (in $Y_{i+1}$ respectively).
+If $y_i$ from $Y_i$ has a nonneighbor in $Y_{i+1}$ (in $Y_{i-1}$ respectively) then $yi \circled{1} Y_{i-1}$ (in $Y_{i+1}$ respectively).
 \end{Lemma}
 \noindent {\it} Proof. By Lemma \ref{lem:cok4-reduce-codiamond} $G$ can only contain $\overline{K_4}$ if it is a $\overline{K_4}$. The proof from \cite{BrEnLeLo} holds.
 
-\begin{Lemma}\label{lem:buoy-3K-limit}
-If $y_i$ from $Y_i$ is not in buoey $B_i$ then buoy $|B_{i+3}| = 1| or |B_{i+2}| = 1|$. 
-\end{Lemma}
-\noindent {\it} Proof. Vertex $y_i$ is not in buoy $B_i$ since it is non-adjacent to some vertex $x$ from $Y_{i+1} or Y_{i-1}$. If $x$ from $Y_{i+1}$ and $|B_{i+3} > 1|$ there there would be a $co-diamond (x, y_i, B_{i+3})$ since a buoy forms a clique. If $x$ from $Y_{i-1}$ and $|B_{i+2} > 1|$ there there would be a $co-diamond (x, y_i, B_{i+2})$ since a buoy forms a clique.
 
-\begin{Lemma}\label{lem:3k-limited} 
-The set of $|N_{i-1,i,i+1} \not \in B_i|  \leq |B_{i-1} \cup B_{i+1}|$.
+Let $B_i$ be a bag of a buoy and $S_i$ be the set of vertices such that $S_iB_{i-1} \not \in E or S_iB_{i+1} \not \in E$
+
+
+\begin{Lemma}\label{lem:si-no-share-vertex}
+No two vertices from $S_i$ can share a non-neighbor in $B_{i-1} or B_{i+1}$
 \end{Lemma}
-\noindent {\it} By Lemma \ref{lem:yi-miss-two-neighbors} if $|N_{i-1,i,i+1} \not \in B_i| > |B_{i-1} \cup B_{i+1}|$ then there would be a vertex $x$ from $B_{i-1} \cup B_{i+1}$ such that it does not see two vertices from $N_{i-1,i,i+1} \not in B_i$ and would form a $co-diamond$ with $B_{i-2} \cup B_{i+2}$.
+\noindent {\it} Proof. Suppose there existed two vertices $x_1 and x_2$ that have a non-neighbor $y$ in $B_{i-1}$ then there exists a $co-diamond (x_1x_2, y, B_2)$.
+
+\begin{Lemma}\label{lem:buoy-3K-limit}
+If $x$ from $S_i$ has a non-neighbor in $B_{i-1}$ then $|B_{i+2}| = 1 and Y_{i+2} = \phi$.  
+\end{Lemma}
+\noindent {\it} Proof. Let $x$ be a vertex from $S_i$ which has a non-neighbor in $B_{i-1}$. If $|B_{i+2}| > 1 and  |Y_{i+2}| > 0$  then there would exists a $co-diamond$.
+
+\begin{Lemma}\label{lem:si-limit}
+The set $X$ of $S_i$ with a non-neighbor in $B_{i+1}$ is $|X| \leq |B_{i+1}$ 
+\end{Lemma}
+\noindent {\it} Proof. Let $X$ be the set of vertices of $S_i$ with a non-neighbor in $B_{i+1}$. If $|X| > |B_{i+1}|$ then there would exist a vertex $y$ such that two vertices $x_1 and x_2$ from $X$ which are non-adjacent to $y$. By Lemma \ref{lem:3K-clique} $X$ forms a clique and hence a $co-diamond (y, i+3, x_1, x_2)$
+
+\begin{Lemma}\label{lem:max-3-si}
+There can be a most three sets of $S_i \neq \phi$. 
+\end{Lemma}
+\noindent {\it} Proof. By Lemma \ref{lem:buoy-3k-limit} if there two $S_i \neq \phi and S_j \neq \phi$ then  $S_{i+3} = \phi and S_{j+3} = \phi$. Furthermore $S_i \neq \phi$ where $i \in {i, i+1, i+2}$. 
+
+From now on assume $S_3 \cup S_4 = \phi$ and $|B_3| = 1 and |B_4| = 1$. Let $A$ denote the set of vertices from $S_1$ with a non-neighbor in $B_2$ and $C$ denote the set of vertices from $S_1$ with a non-neighbor in $B_0$. Note that $S_0$ and $S_2$ have a non-neighbor in $B_1$.
+
+\begin{Lemma}\label{lem:max-s0-s2}
+$|B_1| \geq |S_0| + |S_2|$
+\end{Lemma}
+\noindent {\it} Proof. Suppose $|B_1| < |S_0| + |S_2|$ then by Lemma \ref{lem:si-no-share-vertex} there exists three vertices $x \in B_1, y_1 \in S_0, and y_2 \in S_2$ such that $xy_1 \not \in E and xy_2 \not \in E$. Then there is a $co-diamond (x,y_1, y_2B_3)$.
+
+\begin{Lemma}\label{lem:omega-equals-chromatic}
+If $G$ contains $S_i \neq \phi$ then $\omega(G) = \chi(G)$
+\end{Lemma}
+\noindent {\it} Proof. By Lemma \ref{lem:si-limit} $|A| \leq B_2 and |C| \leq B_0|$. If $|A| \geq |C|$ then the $\omega(G) = B_1 \cup B_0 \cup A$ else $\omega(G) = B_1 \cup B_2 \cup C$. Without loss of generality assume $|A| \geq |B|$. Since every vertex from $S_0$ and $S_2$ has a non-neighbor in $B_1$ and $S_0 \circled{0} S_2$ they can be colored with the colors from $B_1$. Since $|C| \leq |A| \leq B_2$ by Lemma \ref{lem:si-limit} and every vertex in $C has a non-neighbor \in B_0$ it can be colored with the colors from $B_0$. $B_3$ can use a color from $B_0$ and $B_4$ from $B_2$. Therefore all vertices all colored and $\omega(G) = \chi(G)$.
 
 \begin{center}
 {\bf Acknowledgement}
