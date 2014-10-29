@@ -99,8 +99,15 @@ $|X_1 \cup X_2 \cup X_3 \cup X_4 \cup X_5| \leq 2$
 \end{Lemma}
 \noindent {\it Proof.} By Lemmas \ref{lem:max-2-xi} and \ref{lem:xi-no-xi2} there can be a most two $2$-vertices on $C$.
 
- 
+\begin{Lemma}\label{lem:2k-join-3k}
+$X_i \;\circled{1}\; Y_{i-1} \cup Y_{i} \cup Y_{i+1} \cup Y_{i+2}$ 
+\end{Lemma}
+\noindent{\it Proof.} Let $x$ be a vertex from $X_i$ and $y$ be a vertex from $Y_{i-1} \cup Y_{i} \cup Y_{i+1} \cup Y_{i+2}$. There is always an edge between $y$ and $C_j$ such that $xC_j \not\in E$ and there is a vertex $z$ such that $xz \not \in E$ and $yz \not \in E$. If $xy \not \in E$ then a $co$-$diamond (yC_j, x, z)$ so $xy \in E$.
 
+\begin{Lemma}\label{lem:Xi-Yi-noYi}
+If $X_i \neq \phi$ then $Y_{i-1} =\phi$ or $Y_{i+2} = \phi$
+\end{Lemma}
+\noindent{\it Proof.} Let $x$ be a vertex from $X_i$, $y_1$ be a vertex from $Y_{i-1}$, $y_2$ be a vertex from $Y_{i+2}$. By Lemma \ref{lem:2k-join-3k} $xy_1 \in E$ and $xy_2 \in E$ and by Lemma \ref{lem:yi-adjacency-yi1} $y_1y_2 \not \in E$ but then there is a $C_4 (x, y_1, y_2, i+3)$. So $Y_{i-1} = \phi$ or $Y_{i+2} = \phi$.
 
 \begin{Lemma}\label{lem:3K-clique}
 $Y_i$ forms a clique
@@ -117,6 +124,10 @@ If $y_i$ from $Y_i$ has a nonneighbor in $Y_{i+1}$ (in $Y_{i-1}$ respectively) t
 \end{Lemma}
 \noindent {\it} Proof. By Lemma \ref{lem:cok4-reduce-codiamond} $G$ can only contain $\overline{K_4}$ if it is a $\overline{K_4}$. The proof from \cite{BrEnLeLo} holds.
 
+\begin{Lemma}\label{lem:yi-force-join}
+If $Y_i \neq \phi$ then $Y_{i+2} \;\circled{1}\; Y_{i+3}$
+\end{Lemma}
+\noindent {\it Proof.} Let $x$ be a vertex from $Y_i$, $y_1$ be a vertex from $Y_{i+2}$, and $y_2$ be a vertex from $Y_{i+3}$. If $y_1y_2\not\in E$ then there is a $co$-$diamond (y_1, y_2, ix)$. 
 
 Let $B_i$ be a bag of a buoy and $S_i$ be the set of vertices such that $S_iB_{i-1} \not \in E$ or $S_iB_{i+1} \not \in E$
 
