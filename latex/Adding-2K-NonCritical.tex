@@ -106,7 +106,7 @@ If maximal clique $ = (Y_i \cup i \cup i+1)$ then every $y \in Y_i$ has a non-ne
 \begin{Lemma}\label{lem:add-2vertex}
 If $|X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4| = 1$ then $\omega(G) =  \phi(G)$
 \end{Lemma}
-\noindent {\it Proof.} By Lemma \ref{lem:Xi-Yi-noYi} at least one $Y_i = \phi$, assume $Y_3 = \phi$ and we are adding a vertex $k \in X_0$. Let $Z_i$ denote the set of vertices from $Y_i$ with a non-neighbor in $Y_{i+1}$. There are five distinct cases two deal with.
+\noindent {\it Proof.} By Lemma \ref{lem:Xi-Yi-noYi} at least one $Y_i = \phi$, assume $Y_3 = \phi$ and are adding a vertex $k \in X_0$. Let $Z_i$ denote the set of vertices from $Y_i$ with a non-neighbor in $Y_{i+1}$. There are five distinct cases two deal with.
 
 (I) If the maximal clique $\subset Y_0 \cup Y_4 \cup 4 \cup 0$. Adding $k$ then result in $\omega(G)$ to increase by one since $k \;\circled{1}\; Y_0 \cup Y_4$ by Lemma \ref{lem:2k-join-3k}, $k4 \in E$ and $k0 \in E$. If $\phi(G) > \omega(G)$ before adding $k$ then $\phi(G)$ stays the same else it increase by one.
 
@@ -122,10 +122,21 @@ $|Y_2 \not\in A| < |Y_1 \in A|$ $(|A| > |Y_2|)$ and can be colored using colors 
 
 Therefore can add $k$ vertex and $\omega(G) = \phi(G)$.
 
+\begin{Lemma}\label{lem:2-xi-2yi-join}
+if $|N_i| = 1,\; |N_{i+1}| = 1,\;$ then all $Y_j \;\circled{1}\; Y_{j+1},\; j \in {i+1, i+2}$
+\end{Lemma}
+\noindent {\it Proof.} By Lemma \ref{lem:2k-join-3k} $N_i \;\circled{1} Y_{i+1} \cup Y_{i+2}$ and $N_{i+1} \;\circled{1} Y_{i+1} \cup Y_{i+2}$. Let $y_1$ be a vertex from $Y_{i+1}$ and $y_2$ be a vertex from $Y_{i+2}$. If $y_1y_2 \not \in E$ then a $C_4 (y_1,N_i,y_2, i+2)$ but $G$ is {\CCD}-free. Let $y_1$ be a vertex from $Y_{i+2}$ and $y_2$ be a vertex from $Y_{i+3}$. If $y_1y_2 \not \in E$ then a $C_4 (y_1,N_{i+1},y_2, i+3)$ but $G$ is {\CCD}-free.
+
 
 \begin{Lemma}\label{lem:add-two-2vertex}
 If $|X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4| = 2$ then $\omega(G) =  \phi(G)$
 \end{Lemma}
+\noindent {\it Proof.}By Lemma \ref{lem:Xi-Yi-noYi} at least $Y_i = \phi$ and $Y_{i+1} = \phi$, assume $Y_3 = \phi$ and $Y_4 = \phi$ and are adding a vertex $k_1 \in X_0$ and $k_2 \in X_1$. Let $Z_i$ denote the set of vertices from $Y_i$ with a non-neighbor in $Y_{i+1}$. There are two distinct cases two deal with.
+
+(I) The maximal clique $\subset Y_0 \cup Y_1 \cup 0 \cup 1$. Adding $k_2$ and $k_1$ then result in $\omega(G)$ to increase by one since $k_2 \;\circled{1}\; Y_0 \cup Y_1$ by Lemma \ref{lem:2k-join-3k}, $k_20 \in E$ and $k_21 \in E$. $k_2$ can be colored with the new color. By Lemma \ref{lem:2-xi-2yi-join}  $|Y_0| + |Y_1| \geq |Y_2| +|  |Y_1|$. So $Y_2$ can be colored using the colors from $Y_0$. Vertex $2$ uses color of $0$, vertex $3$ uses color of $1$. Vertex $4$ can use color of $k_2$ since $4k_2 \not \in E$ and since $3k \not \in E$ and $1k \not \in E$ $k$ can uses the same color. So $G$ was colored using $\omega(G)$ colors.
+
+(II) The maximal clique $\subset Y_1 \cup Y_2 \cup 1 \cup 2$. Adding $k_2$ and $k_1$ will result in $\omega(G)$ to remain the same. By Lemma \ref{lem:2k-join-3k} $k_2 \;\circled{1} Y_1 \cup Y_2$ and $k_1 \;\circled{1} Y_1$. By Lemma \ref{lem:2-xi-2yi-join} $|Y_2| + |Y_1| > |Y_1| + |Y_0|$ else it is covered in Case I. $Y_2$ be be colored with $|Y_2| - 1$ colors. Vertices $4$ and $k_2$ uses the color from $2$. vertices $3$ and $k_1$ use the color from $1$. Vertex $0$ uses the remaining color from $Y_2$. So $G$ was colored using $\omega(G)$ colors.
+
 
 
 \begin{center}
