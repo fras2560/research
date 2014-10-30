@@ -137,22 +137,22 @@ No two vertices from $S_i$ can share a non-neighbor in $B_{i-1}$ or $B_{i+1}$
 \end{Lemma}
 \noindent {\it} Proof. Suppose there existed two vertices $x_1$ and $x_2$ that have a non-neighbor $y$ in $B_{i-1}$ then there exists a $co-diamond (x_1x_2, y, B_2)$.
 
-\begin{Lemma}\label{lem:buoy-3K-limit}
-If $x$ from $S_i$ has a non-neighbor in $B_{i-1}$ then $|B_{i+2}| = 1$ and $Y_{i+2} = \phi$.  
+\begin{Lemma}\label{lem:3-si-limit}
+If $x$ from $S_i$ has a non-neighbor in $B_{i-1}$ then $|B_{i+2}| = 1$ and $S_{i+2} = \phi$.  
 \end{Lemma}
 \noindent {\it} Proof. Let $x$ be a vertex from $S_i$ which has a non-neighbor in $B_{i-1}$. If $|B_{i+2}| > 1$ or  $|Y_{i+2}| > 0$  then there would exists a $co$-$diamond$.
 
 \begin{Lemma}\label{lem:si-limit}
 The set $X$ of $S_i$ with a non-neighbor in $B_{i+1}$ is $|X| \leq |B_{i+1}|$ 
 \end{Lemma}
-\noindent {\it} Proof. Let $X$ be the set of vertices of $S_i$ with a non-neighbor in $B_{i+1}$. If $|X| > |B_{i+1}|$ then there would exist a vertex $y$ such that two vertices $x_1$ and $x_2$ from $X$ which are non-adjacent to $y$. By Lemma \ref{lem:3K-clique} $X$ forms a clique and hence a $co-diamond (y, i+3, x_1, x_2)$
+\noindent {\it} Proof. Let $X$ be the set of vertices of $S_i$ with a non-neighbor in $B_{i+1}$. If $|X| > |B_{i+1}|$ then there would exist a vertex $y$ such that two vertices $x_1$ and $x_2$ from $X$ which are non-adjacent to $y$. By Lemma \ref{lem:3K-clique} $X$ forms a clique and hence a $co-diamond (y, i+3, x_1x_2)$
 
 \begin{Lemma}\label{lem:max-3-si}
 There can be a most three sets of $S_i \neq \phi$. 
 \end{Lemma}
-\noindent {\it} Proof. By Lemma \ref{lem:buoy-3k-limit} if there two $S_i \neq \phi$ and $S_j \neq \phi$ then  $S_{i+3} = \phi$ and $S_{j+3} = \phi$. Furthermore $S_i \neq \phi$ where $i \in \{i, i+1, i+2\}$. 
+\noindent {\it} Proof. By Lemma \ref{lem:3-si-limit} if there two $S_i \neq \phi$ and $S_j \neq \phi$ then  $S_{i+3} = \phi$ and $S_{j+3} = \phi$. Furthermore $S_i \neq \phi$ where $i \in \{i, i+1, i+2\}$. 
 
-From now on assume $S_3 \cup S_4 = \phi$ and $|B_3| = 1 and |B_4| = 1$. Let $A$ denote the set of vertices from $S_1$ with a non-neighbor in $B_2$ and $C$ denote the set of vertices from $S_1$ with a non-neighbor in $B_0$. Note that $S_0$ and $S_2$ have a non-neighbor in $B_1$.
+From now on assume $S_3 \cup S_4 = \phi$ and $|B_3| = 1$ and $|B_4| = 1$. Let $A$ denote the set of vertices from $S_1$ with a non-neighbor in $B_2$ and $C$ denote the set of vertices from $S_1$ with a non-neighbor in $B_0$. Note that $S_0$ and $S_2$ have a non-neighbor in $B_1$.
 
 \begin{Lemma}\label{lem:max-s0-s2}
 $|B_1| \geq |S_0| + |S_2|$
@@ -162,7 +162,8 @@ $|B_1| \geq |S_0| + |S_2|$
 \begin{Lemma}\label{lem:omega-equals-chromatic}
 If $G$ contains $S_i \neq \phi$ then $\omega(G) = \chi(G)$
 \end{Lemma}
-\noindent {\it} Proof. By Lemma \ref{lem:si-limit} $|A| \leq B_2$ and $|C| \leq B_0|$. If $|A| \geq |C|$ then the $\omega(G) = B_1 \cup B_0 \cup A$ else $\omega(G) = B_1 \cup B_2 \cup C$. Without loss of generality assume $|A| \geq |B|$. Since every vertex from $S_0$ and $S_2$ has a non-neighbor in $B_1$ and $S_0 \;\circled{0}\; S_2$ they can be colored with the colors from $B_1$. Since $|C| \leq |A| \leq B_2$ by Lemma \ref{lem:si-limit} and every vertex in $C$ has a non-neighbor $\in B_0$ it can be colored with the colors from $B_0$. $B_3$ can use a color from $B_0$ and $B_4$ from $B_2$. Therefore all vertices all colored and $\omega(G) = \chi(G)$.
+\noindent {\it} Proof. By Lemma \ref{lem:si-limit} $|A| \leq |B_2$| and $|C| \leq |B_0|$. If $|A| + |B_0| \geq |C| + |B_2|$ then the $\omega(G) = B_1 \cup B_0 \cup A$ else $\omega(G) = B_1 \cup B_2 \cup C$. Without loss of generality assume $|A| +|B_0| \geq |C| + |B_2|$. Since every vertex from $S_0$ and $S_2$ has a non-neighbor in $B_1$ and $S_0 \;\circled{0}\; S_2$ they can be colored with the colors from $B_1$. Since $|C| \leq |B_0|$ and by Lemma \ref{lem:si-limit} every vertex in $C$ has a non-neighbor $\in B_0$ it can be colored with the colors from $B_0$. $B_2 \;\circled{0}\;B_0 \cup A$ and $|B_2| \leq |B_0| +|
+A| - |C|$ so can color $B_2$ with colors from $B_0 \not \in C \cup A$. $B_3$ can use a color from $C$ since $B_3 \;\circled{0}\; C$ and none of its neighbors $(S_2 \cup B_2)$ used a color from $C$. $B_4$ can use a color from $A$ since $B_4 \;\circled{0}\; A$ and none of its neighbors $(S_0 \cup B_0)$ used a color from $A$. $B_4$ . Therefore all vertices all colored and $\omega(G) = \chi(G)$.
 
 \begin{center}
 {\bf Acknowledgement}
