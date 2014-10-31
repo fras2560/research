@@ -115,7 +115,7 @@ $Y_i$ forms a clique
 \noindent {\it Proof}. Let $x$ and $y$ be vertices from $Y_i$ such that $x \neq y$. If $xy \not \in E$ there is a $claw (x, y, i-1, i)$ so $xy \in E$ since $G$ is {\CCD}-free.
 
 \begin{Lemma}\label{lem:yi-adjacency-yi2}
-$Y_i(Y_{i+2} \cup Y_{i+3}) \not \in E$
+$Y_i \;\circled{0}\; Y_{i+2} \cup Y_{i+3} $
 \end{Lemma}
 \noindent {\it Proof}. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+2}$. If $xy \in E$ there is a $C_4 (i-1, x, y, i+3)$, so $xy \not \in E$ since $G$ is {\CCD}-free. Let $x$ be a vertex from $Y_i$ and $y$ be a vertex from $Y_{i+3}$. If $xy \in E$ there is a $C_4 (i+1, x, y, i+2)$, so $xy \not \in E$ since $G$ is {\CCD}-free.
 
@@ -155,15 +155,15 @@ There can be a most three sets of $S_i \neq \phi$.
 From now on assume $S_3 \cup S_4 = \phi$ and $|B_3| = 1$ and $|B_4| = 1$. Let $A$ denote the set of vertices from $S_1$ with a non-neighbor in $B_2$ and $C$ denote the set of vertices from $S_1$ with a non-neighbor in $B_0$. Note that $S_0$ and $S_2$ have a non-neighbor in $B_1$.
 
 \begin{Lemma}\label{lem:max-s0-s2}
-$|B_1| \geq |S_0| + |S_2|$
+$|B_1| > |S_0| + |S_2|$
 \end{Lemma}
-\noindent {\it} Proof. Suppose $|B_1| < |S_0| + |S_2|$ then by Lemma \ref{lem:si-no-share-vertex} there exists three vertices $x \in B_1, y_1 \in S_0,$ and $y_2 \in S_2$ such that $xy_1 \not \in E$ and $xy_2 \not \in E$. Then there is a $co-diamond (x, y_1, y_2B_3)$.
+\noindent {\it} Proof. Suppose $|B_1| < |S_0| + |S_2|$ then by Lemma \ref{lem:si-no-share-vertex} there exists three vertices $x \in B_1, y_1 \in S_0,$ and $y_2 \in S_2$ such that $xy_1 \not \in E$ and $xy_2 \not \in E$. Then there is a $co-diamond (x, y_1, y_2B_3)$. Suppose $|B_1| = |S_0| + |S_2|$ then there exists a vertex $v \in S_0 \cup S_2$ such that $v1 \not \in E$ and therefore $v \in N_0 \cup N_2$ and $v \not \in S_0 \cup S_2$.
 
 \begin{Lemma}\label{lem:omega-equals-chromatic}
 If $G$ contains $S_i \neq \phi$ then $\omega(G) = \chi(G)$
 \end{Lemma}
-\noindent {\it} Proof. By Lemma \ref{lem:si-limit} $|A| \leq |B_2$| and $|C| \leq |B_0|$. If $|A| + |B_0| \geq |C| + |B_2|$ then the $\omega(G) = B_1 \cup B_0 \cup A$ else $\omega(G) = B_1 \cup B_2 \cup C$. Without loss of generality assume $|A| +|B_0| \geq |C| + |B_2|$. Since every vertex from $S_0$ and $S_2$ has a non-neighbor in $B_1$ and $S_0 \;\circled{0}\; S_2$ they can be colored with the colors from $B_1$. Since $|C| \leq |B_0|$ and by Lemma \ref{lem:si-limit} every vertex in $C$ has a non-neighbor $\in B_0$ it can be colored with the colors from $B_0$. $B_2 \;\circled{0}\;B_0 \cup A$ and $|B_2| \leq |B_0| +|
-A| - |C|$ so can color $B_2$ with colors from $B_0 \not \in C \cup A$. $B_3$ can use a color from $C$ since $B_3 \;\circled{0}\; C$ and none of its neighbors $(S_2 \cup B_2)$ used a color from $C$. $B_4$ can use a color from $A$ since $B_4 \;\circled{0}\; A$ and none of its neighbors $(S_0 \cup B_0)$ used a color from $A$. $B_4$ . Therefore all vertices all colored and $\omega(G) = \chi(G)$.
+\noindent {\it} Proof. By Lemma \ref{lem:si-limit} $|A| \leq |B_2$| and $|C| \leq |B_0|$. If $|A| + |B_0| \geq |C| + |B_2|$ then the $\omega(G) = B_1 \cup B_0 \cup A$ else $\omega(G) = B_1 \cup B_2 \cup C$. Without loss of generality assume $|A| +|B_0| \geq |C| + |B_2|$. By Lemma \ref{lem:max-s0-s2} every vertex from $S_0$ and $S_2$ has a non-neighbor in $B_1$ and by Lemma \ref{lem:yi-adjacency-yi2} $S_0 \;\circled{0}\; S_2$ so $S_0 \cup S_2$ can be colored with the $|B_1| - 1$colors. Since $|C| \leq |B_0|$ and by Lemma \ref{lem:si-limit} every vertex in $C$ has a non-neighbor $\in B_0$ it can be colored with the colors from $B_0$. $B_2 \;\circled{0}\;B_0 \cup A$ and $|B_2| \leq |B_0| +|
+A| - |C|$ so can color $B_2$ with colors from $B_0 \not \in C \cup A$. $B_3$ can use the remaining color from $B_1$ since $B_3 \;\circled{0}\; B_1$. $B_4$ can use a remaining color from $B_1$ since $B_4 \;\circled{0}\; B_1$ and color of $B_3 \neq$ color of $B_1$ since $S_0$ can't share a non-neighbor with $S_2$. Therefore all vertices all colored and $\omega(G) = \chi(G)$.
 
 \begin{center}
 {\bf Acknowledgement}
