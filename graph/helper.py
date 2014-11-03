@@ -205,6 +205,23 @@ def networkx_to_text(G):
         text += "\n"
     return text
 
+def make_clique(n):
+    '''
+    makes a clique of size n
+    Parameters:
+        n: the size of the clique (int)
+    Returns:
+        clique: the graph (networkx)
+    '''
+    clique = nx.Graph()
+    for v in range(0, n):
+        clique.add_node(v)
+    end = len(clique.nodes())
+    for target in clique.nodes():
+        for source in range(target+1, end):
+            clique.add_edge(target, source)
+    return clique
+
 import unittest
 import os
 class tester(unittest.TestCase):
@@ -214,6 +231,18 @@ class tester(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def testMakeClique(self):
+        edges = [(0, 1), (0, 2), (1, 2)]
+        nodes = [0, 1, 2]
+        clique = make_clique(3)
+        self.assertEqual(edges, clique.edges(), 'Make Clique: failed on edges')
+        self.assertEqual(nodes, clique.nodes(), 'Make Clique: failed on nodes')
+        edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+        nodes = [0, 1, 2, 3]
+        clique = make_clique(4)
+        self.assertEqual(edges, clique.edges(), 'Make Clique: failed on edges')
+        self.assertEqual(nodes, clique.nodes(), 'Make Clique: failed on nodes')
+        
     def testMakeDiamond(self):
         g = make_diamond()
         edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)]
