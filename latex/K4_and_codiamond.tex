@@ -2,6 +2,8 @@
 \usepackage{latexsym}
 \usepackage{tikz}
 \usepackage{tkz-graph}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 \usetikzlibrary{shapes}
 
 \parskip=3pt
@@ -57,53 +59,60 @@ Just some observations I have concluded on {\KCD}-free graphs.
 Let $G$ be a connected $claw$-free graph with $\alpha(G) \geq 3$. If $G$ contains an odd anti-hole then it contains an odd antihole then it contains a $C_5$ $\Box$
 \end{Theorem}
 
-\begin{Theorem}\label{thm:alpha-two-poly}
-There is a polytime algorithm for coloring a $G$ with $\alpha(G) =2$.
- \end{Theorem}
-
 \section{Oberservations}\label{sec:observations}
-In this section, we conclude some observations used to prove that there is a polytime algorithm for {\CCD}-free graphs.
-\begin{Lemma}\label{lem:odd-hole-free}
-$G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
-\end{Lemma}
-\noindent {\it Proof}. Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $co-diamond$ with (1,2) and $4,\; \ell$  but $G$ is {\CCD}-free. $\Box$
+In this section, we conclude some observations about {\KCD}-free graphs. Assume $G$ is a {\KCD}-free graph.
+\begin{Observation}\label{obs:no-cl}
+$G$ has no $C_\ell$, $\ell \geq 7$.
+\end{Observation}
+\noindent {\it Proof.} Let $G$ be a $C_\ell$, $\ell \geq 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $co$-$diamond$ with $(1-2, 4, \ell_{-1},\; )$.
 
-For the following observations let {\VTWO} be the set of $2$-vertex on a $C_5$, {\VTHREE} be the set of $3$-vertex on a $C_5$, {\VFOUR} be the set of $4$-vertex on a $C_5$ in which $G$ contains an $C_5$. Let $N_i$ be the set of all $i$-vertex. 
+\begin{Observation}\label{obs:no-anti-cl}
+$G$ has no $\overline{C_\ell}$, $\ell > 7$.
+\end{Observation}
+\noindent {\it Proof.} Let $G$ be a $\overline{C_\ell}$, $\ell > 7$ with vertices 1, 2, ...,$\ell_{-1},\; \ell$. This forms a $K_4$ with $(1, 3, 5, 7)$.
 
-\begin{Lemma}\label{lem:2-vertex-one}
-$|${\VTWO}$| \leq 1$
-\end{Lemma}
-\noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$ be a vertex from {\VTWO} such that $x \neq y$. If $xy \not \in E$ then there is a $claw (i_{+1}i_{+2},i_{+1}x, i_{+1}y)$. If $xy \in E$ then there is a $co-diamond (xy, i_{-1}, i_{+2}$. 
+\begin{Observation}\label{obs:c7-has-c5}
+If $G$ contains a $C_7$ then $G$ is a $C_7$ or contains a $C_5$ 
+\end{Observation}
+\noindent {\it Proof.} Let $G$ be a contain a $\overline{C_7}$, with vertices $1, 2, ...,7$. Then $G$ has no $0$-vertex, $1$-vertex, and $2$-vertex because $G$ is $co$-$diamond$-free and $G$ has no $5$-vertex, $6$-vertex, and $7$-vertex because $G$ is $K_4$-free. Adding a $3$-vertex or $4$-vertex makes $\alpha(G) = 3$ and by Theorem \ref{thm:ben-rebea} it has a $C_5$
 
-\begin{Lemma}\label{lem:2-vertex-clique}
-$N_2$ forms a clique $K_n,\; n=|N_2|$
-\end{Lemma}
-\noindent {\it Proof}. Let $x$ be a vertex from {\VTWO} and $y$  be a vertex from {\VJTWO}. Without loss of generality suppose $xy \not \in E$  if $j = i + 1$ then there is a $co-diamond$ $(y, xi, i_{+3})$, but if $j = i + 2$ then there is a $co-diamond$ $(y, xi, j+1)$ so therefore $xy \in E$.
+For the following assume $G$ contains $C_5$ with vertices $0, 1, ..,4$ forming the $C_5$. Let $X_i$ denote the set of $2$-vertices for $C$ adjacent to $i, i+1$, $Y_i$ denote the set of $3$-vertices for $C_5$ adjacent to $i-1, i, i+1$, $W_i$ denote the set of $3$-vertices for $C_5$ adjacent to $i, i+2, i+3$, let $Z_i$ denote the set of $4$-vertices for $C_5$ adjacent to $i-1,i,i+1,i+2$  and $U$ denote the set of $5$-vertices for $C_5$.
 
-\begin{Lemma}\label{lem:3-vertex-one}
-The set {\VTHREE} forms a clique  $K_n,\; n = |${\VTHREE}$|$
-\end{Lemma}
-\noindent {\it Proof}. Let $x$ be a vertex from {\VTHREE} and $y$ be a vertex from {\VTHREE} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
+\begin{Observation}\label{obs:Xi-is-one}
+$|X_i| = 1$
+\end{Observation}
+\noindent {\it Proof.} Let $x$ and $y$ be vertices from $X_i$. If $xy \not \in E$ then there is a $co$-$diamond (x,y,i+2i+3)$ but if $xy \in E$ there is a $K_4 (i, i+1, x, y)$ but $G$ is {\KCD}-free.
 
-\begin{Lemma}\label{lem:4-vertex-one}
-The set {\VFOUR} forms a clqiue $K_n,\; n = |${\VFOUR}$|$
-\end{Lemma}
-\noindent {\it Proof}. Let $x$ be a vertex from {\VFOUR} and $y$ be a vertex from {\VFOUR} such that $x \neq y$. If $x \not \in E$ there is a $claw (xi, yi, ii_{-1})$.
+\begin{Observation}\label{obs:Xi-clique}
+$N_i \;\circled{1}\; N_0 \cup N_1 \cup N_2 \cup N_3 \cup N_4$
+\end{Observation} 
+\noindent {\it Proof.} Let $x$ be a vertex from $X_i$ and $y$ a vertex from $N_j$. By Observation \ref{obs:Xi-is-one} if $i = j$ then $x =y$. If $j = i + 1$ and $xy \not \in E$ then there is a $co$-$diamond (x, y, i+3i+4)$. If $ j =i +2$ and $xy \not \in E$ then there is a $co$-$diamond (xi, y, i-1)$.
 
-\begin{Lemma}\label{lem:5-vertex-max-isolated}
-$\alpha(N_5) \leq 2$
-\end{Lemma}
-\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_5$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. There is a claw $(xi, yi, zi)$. Therefore $\alpha(N_5) \leq 2$.
+\begin{Observation}\label{obs:Yi-is-one}
+$|Y_i| = 1$
+\end{Observation} 
+\noindent {\it Proof.} Let $x$ and $y$ be a vertex from $Y_i$. If $xy \not \in E$ then there is $co$-$diamond(x,y, i+2i+3)$ and if $xy \in E$ there is a $K_4 (x, y, i, i+1)$ but $G$ is {\KCD}-free.
 
-\begin{Lemma}\label{lem:4-vertex-max-isolated}
-$\alpha(N_4) \leq 2$
-\end{Lemma}
-\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_4$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. There is a claw $(xi, yi, zi)$. Therefore $\alpha(N_4) \leq 2$.
+\begin{Observation}\label{obs:Yi-co-joins}
+$Y_i \;\circled{0}\; Y_{i-1} \cup Y_i \cup Y_{i+1}$
+\end{Observation}
+\noindent {\it Proof.} Let $x$ be a vertex from $Y_i$ and $y$ be a vertex $from Y_{i-1} \cup Y_i \cup Y_{i+1}$. If $xy \in E$ then there is a $K_4 (x, y, i, i+1)$ or $(x, y, i, i-1)$ but $G$ is {\KCD}-free.
 
-\begin{Lemma}\label{lem:3-vertex-max-isolated}
-$\alpha(N_3) \leq 2$
-\end{Lemma}
-\noindent {\it Proof}. Let $x, y, z$ be vertices from $N_3$ such that $x \neq y, x \neq z, y \neq z$ and $xy \not \in E, xz \not \in E, yz \not \in E$. If $x \in ${\VTWO}$,\; y \in ${\VTWO}$,\;, and z \in ${\VTWO}$,\;$ then by Lemma \ref{lem:3-vertex-one} forms a clique otherwise there exists a vertex $i$ such that $xi \in E$ but $yi \not \in E and zi \not \in E$ which means there is $co-diamond (xi, y ,z)$. Therefore $\alpha(N_3) \leq 2$.
+\begin{Observation}\label{obs:Wi-stable}
+The set $W_i$ forms a stable set
+\end{Observation}
+\noindent {\it Proof.} Let $x$ and $y$ be vertices from $W_i$. If $xy \in E$ then there is a $K_4 (x, y, i+2, i+3)$.
+
+\begin{Observation}\label{obs:U-stable}
+The $U$ forms a stable set
+\end{Observation}
+\noindent {\it Proof.} Let $x$ and $y$ be vertices from $U$. If $xy \in E$ then there is a $K_4 (x, y, 0, 1)$.
+
+\begin{Observation}\label{obs:U-co-joins}
+$U \;\circled{0}\; X_i \cup Y_i \cup Z_i \cup W_i$
+\end{Observation}
+\noindent {\it Proof.} Let $x$ be a vertex from $U$ and $y$ be a vertex from $X_i \cup Y_i \cup Z_i \cup W_i$. If $xy \in E$ then there is $K_4$ since all vertices from $X_i \cup Y_i \cup Z_i \cup W_i$ see two consective vertices in $C_5$.
+
 
 \begin{center}
 {\bf Acknowledgement}
