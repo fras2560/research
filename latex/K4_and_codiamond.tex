@@ -79,7 +79,7 @@ If $G$ contains a $C_7$ then $G$ is a $C_7$ or contains a $C_5$
 For the following assume $G$ contains $C_5$ with vertices $0, 1, ..,4$ forming the $C_5$. Let $X_i$ denote the set of $2$-vertices for $C$ adjacent to $i, i+1$, $Y_i$ denote the set of $3$-vertices for $C_5$ adjacent to $i-1, i, i+1$, $W_i$ denote the set of $3$-vertices for $C_5$ adjacent to $i, i+2, i+3$, let $Z_i$ denote the set of $4$-vertices for $C_5$ adjacent to $i-1,i,i+1,i+2$  and $U$ denote the set of $5$-vertices for $C_5$.
 
 \begin{Observation}\label{obs:Xi-is-one}
-$|X_i| = 1$
+$|X_i| \leq 1$
 \end{Observation}
 \noindent {\it Proof.} Let $x$ and $y$ be vertices from $X_i$. If $xy \not \in E$ then there is a $co$-$diamond (x,y,i+2i+3)$ but if $xy \in E$ there is a $K_4 (i, i+1, x, y)$ but $G$ is {\KCD}-free.
 
@@ -89,7 +89,7 @@ $N_i \;\circled{1}\; N_0 \cup N_1 \cup N_2 \cup N_3 \cup N_4$
 \noindent {\it Proof.} Let $x$ be a vertex from $X_i$ and $y$ a vertex from $N_j$. By Observation \ref{obs:Xi-is-one} if $i = j$ then $x =y$. If $j = i + 1$ and $xy \not \in E$ then there is a $co$-$diamond (x, y, i+3i+4)$. If $ j =i +2$ and $xy \not \in E$ then there is a $co$-$diamond (xi, y, i-1)$.
 
 \begin{Observation}\label{obs:Yi-is-one}
-$|Y_i| = 1$
+$|Y_i| \leq 1$
 \end{Observation} 
 \noindent {\it Proof.} Let $x$ and $y$ be a vertex from $Y_i$. If $xy \not \in E$ then there is $co$-$diamond(x,y, i+2i+3)$ and if $xy \in E$ there is a $K_4 (x, y, i, i+1)$ but $G$ is {\KCD}-free.
 
@@ -112,6 +112,17 @@ The $U$ forms a stable set
 $U \;\circled{0}\; X_i \cup Y_i \cup Z_i \cup W_i$
 \end{Observation}
 \noindent {\it Proof.} Let $x$ be a vertex from $U$ and $y$ be a vertex from $X_i \cup Y_i \cup Z_i \cup W_i$. If $xy \in E$ then there is $K_4$ since all vertices from $X_i \cup Y_i \cup Z_i \cup W_i$ see two consective vertices in $C_5$.
+
+\begin{Observation}\label{obs:Zi-stable}
+$Z_i$ forms a stable set
+\end{Observation}
+\noindent {\it Proof.} Let $x$ and $y$ be vertices from $Z_i$. If $xy \in E$ then there is a $K_4(x, y, i, i+1)$.
+
+\begin{Observation}\label{obs:all-zi-stable}
+$Z_0 \cup Z_1 \cup Z_2 \cup Z_3 \cup Z_4$ forms a stable set
+\end{Observation}
+\noindent{\it Proof.} Let $x$ be a vertex from $Z_i$ for some $i \in {0,...,4}$ and $y$ be a vertex from $Z_j$ for some $j \in {0,...,4}$. By Observation \ref{obs:Zi-stable} if $i = j$ then $xy \not \in E$. If $i \neq j$ then if $xy \in E$ there are two vertices $v_1$ and $v_2$ such that $v_1x \in E\; v_1y \in E\; v_2x \in E\; v_2y \in E$ which forms a $K_4$.
+
 
 
 \begin{center}
