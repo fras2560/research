@@ -15,6 +15,7 @@ import copy
 import math
 from graph.colorable import chromatic_number
 from graph.helper import text_to_networkx
+from graph.classify import classify
 import logging
 
 class DalGraph():
@@ -364,3 +365,72 @@ class DalGraph():
                 is_critical = False
             index += 1
         return is_critical
+
+    def k4_codiamond_critical(self):
+        '''
+        a method i think will find whether this graph family is critical
+        Parameters:
+            None
+        Returns:
+            True if critical
+            False otherwise
+        '''
+        cycle = self.cycle_nodes()[:-1]
+        critical = False
+        if len(cycle) == 5:
+            k = classify(self._g, cycle)
+            k = self.delete_2(k)
+            k_set = list(k.keys())
+            i1 = 0
+            if len(k) == 0:
+                critical = True
+            while not critical and len(k)!= 0:
+                v1 = k_set[i1]
+                del k[k_set[i1]]
+                i2 = i1 + 1
+                while not critical and i2 < len(k_set):
+                    v2 = k_set[i2]
+                    critical = self.cover_c5(v1, v2)
+                    i2 += 1
+                i1 += 1
+        return critical
+
+    def delete_2(self, k):
+        '''
+        a method that deletes all the 2-vertex
+        Parameters:
+            k: the k-vertex dictionary (dict)
+        Returns:
+            k: the updated dictionary (dict) 
+        '''
+        result = k.copy()
+        index = 0
+        keys = list(result.keys())
+        while index < len(keys):
+            key = keys[index]
+            if key.count(",") < 2:
+                del result[key]
+            index += 1
+        return result
+
+    def cover_c5(self,v1, v2):
+        '''
+        a method to check if the two values cover
+        all the vertices of the C5
+        Parameters:
+            v1: the string value of adjacency (string)
+            v2: the second string value of adjacency (string)
+        Returns:
+            True if covers all of them
+            False otherwise
+        '''
+        nodes = ['i','i+1','i+2', 'i+3', 'i+4']
+        check = v1 + v2
+        covered = True
+        index = 0
+        while covered and index < len(nodes):
+            if nodes[index] not in check:
+                covered = False
+            index += 1
+        return covered
+

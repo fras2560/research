@@ -13,6 +13,7 @@ import unittest
 import networkx as nx
 from graph import DalGraph
 from helper import make_cycle, make_wheel, join, make_claw, make_co_claw
+
 class testDalGraph(unittest.TestCase):
     def setUp(self):
         pass
@@ -205,5 +206,56 @@ class testDalGraph(unittest.TestCase):
         d = DalGraph(make_co_claw())
         result = d.is_critical()
         self.assertEqual(result, False)
-        
-        
+
+class testK4CoDiamond(unittest.TestCase):
+    def setUp(self):
+        self.dal = DalGraph(make_cycle(5))
+
+    def tearDown(self):
+        pass
+
+    def testDelete2(self):
+        k = {'i,i+1,i+2': 1, 'i,i+1,i+4': 1}
+        result = self.dal.delete_2(k)
+        self.assertEqual(k, result)
+        k = {'i,i+4': 1, 'i,i+1': 2, 'i+1,i+2': 1}
+        result = self.dal.delete_2(k)
+        expect = {}
+        self.assertNotEqual(k, result)
+        self.assertEqual(expect, result)
+
+    def testCoverC5(self):
+        covered = self.dal.cover_c5("i,i+1,i+2", "i+2,i+3,i+4")
+        self.assertEqual(covered, True)
+        covered = self.dal.cover_c5("i,i+1,i+2", "i+1,i+2,i+3")
+        self.assertEqual(covered, False)
+
+    def testCritical(self):
+        critical = self.dal.k4_codiamond_critical()
+        self.assertEqual(critical, True)
+        self.dal = DalGraph(make_cycle(4))
+        critical = self.dal.k4_codiamond_critical()
+        self.assertEqual(critical, False)
+        self.dal = DalGraph(make_cycle(5))
+        self.dal._g.add_node(5)
+        self.dal._g.add_edge(0, 5)
+        self.dal._g.add_edge(1, 5)
+        self.dal._g.add_edge(2, 5)
+        self.dal._g.add_node(6)
+        self.dal._g.add_edge(2, 6)
+        self.dal._g.add_edge(3, 6)
+        self.dal._g.add_edge(4, 6)
+        critical = self.dal.k4_codiamond_critical()
+        self.assertEqual(critical, True)
+        self.dal = DalGraph(make_cycle(5))
+        self.dal._g.add_node(5)
+        self.dal._g.add_edge(0, 5)
+        self.dal._g.add_edge(1, 5)
+        self.dal._g.add_edge(2, 5)
+        self.dal._g.add_node(6)
+        self.dal._g.add_edge(1, 6)
+        self.dal._g.add_edge(2, 6)
+        self.dal._g.add_edge(3, 6)
+        critical = self.dal.k4_codiamond_critical()
+        self.assertEqual(critical, False)
+
