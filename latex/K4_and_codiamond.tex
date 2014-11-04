@@ -121,9 +121,16 @@ $Z_i$ forms a stable set
 \begin{Observation}\label{obs:all-zi-stable}
 $Z_0 \cup Z_1 \cup Z_2 \cup Z_3 \cup Z_4$ forms a stable set
 \end{Observation}
-\noindent{\it Proof.} Let $x$ be a vertex from $Z_i$ for some $i \in {0,...,4}$ and $y$ be a vertex from $Z_j$ for some $j \in {0,...,4}$. By Observation \ref{obs:Zi-stable} if $i = j$ then $xy \not \in E$. If $i \neq j$ then if $xy \in E$ there are two vertices $v_1$ and $v_2$ such that $v_1x \in E\; v_1y \in E\; v_2x \in E\; v_2y \in E$ which forms a $K_4$.
+\noindent {\it Proof.} Let $x$ be a vertex from $Z_i$ for some $i \in {0,...,4}$ and $y$ be a vertex from $Z_j$ for some $j \in {0,...,4}$. By Observation \ref{obs:Zi-stable} if $i = j$ then $xy \not \in E$. If $i \neq j$ then if $xy \in E$ there are two vertices $v_1$ and $v_2$ such that $v_1x \in E\; v_1y \in E\; v_2x \in E\; v_2y \in E$ which forms a $K_4$.
 
+\begin{Observation}\label{obs:zi-co-joins}
+$Z_i \;\cirlced{0}\; U \cup W_{i+2} \cup W_{i+3} \cup W_{i+4} \cup Y_{i} \cup Y_{i+1} \cup Y_{i+2} \cup Y_{i+4} \cup X_{i} \cup X_{i+1} \cup X_{i+4} $
+\end{Observation}
+\noindent {\it Proof.} Let $x$ be a vertex from $Z_i$ and $y$ be a vertex from $U \cup W_{i+2} \cup W_{i+3} \cup W_{i+4} \cup Y_{i} \cup Y_{i+1} \cup Y_{i+2} \cup Y_{i+4} \cup X_{i} \cup X_{i+1} \cup X_{i+4}$. If $xy \in \E$ then there is a $K_4$ since $Z_i$ shares two vertices of the $C_5$ with $y$. 
 
+\begin{Observation}\label{obs:wi-co-joins}
+$W_i \;\circled{0}\; X_{i+2} \cup Y_{i+2} \cup Y_{i+3}$
+\end{Observation}
 
 \begin{center}
 {\bf Acknowledgement}
