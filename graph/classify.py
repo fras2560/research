@@ -10,9 +10,6 @@ Email:   fras2560@mylaurier.ca
 Version: 2014-10-16
 -------------------------------------------------------
 """
-import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
-logger = logging.getLogger(__name__)
 
 def classify(G, cycle):
     '''
@@ -37,7 +34,6 @@ def classify(G, cycle):
                 else:
                     node_type.append("i+" + str(index))
             index += 1
-        logger.debug(node_type)
         result = ",".join(node_type)
         if result not in classification:
             classification[result] = 0
@@ -62,7 +58,6 @@ def k_vertices(G, cycle):
                 if neighbor not in k:
                     k[neighbor] = []
                 k[neighbor].append(node)
-    logger.debug(k)
     return k
 
 import unittest
