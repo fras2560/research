@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\CCD{($claw$, $co$-$diamond$)}
+
+\title{Coloring {\CCD}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+Coloring of {\CCD}-free graphs
+\noindent{\em Keywords}: Graph coloring, $claw$, $co$-$diamond$
+\end{abstract}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations about the structure of a {\CCD}-free graph. Let $G$ be a {\CCD}-free graph. Let $x$ denote a vertex from $G$, let $N_x$ denote the neighbors of $x$ and $M_x$ denote the non-neighbors of $x$.
+
+\begin{Observation}\label{obs:mx-k-partite}
+$M_x$ forms a $k$-partite graph
+\end{Observation}
+For the following observations let $M_j$ denote the set of vertices from $M_x$ that forms a stable set. Let $J$ be the number of $M_j$ sets.
+
+\begin{Observation}\label{obs:alpha-nx}
+$\alpha(N_x) \leq 2$
+\end{Observation}
+\noindent {\it Proof.} Suppose $\alpha(N_x) > 2$ formed by vertices $n_1,n_2, ..$ then there is a $claw (xn_1, xn_2, xn_3)$.
+
+\begin{Observation}\label{obs:nx-mj}
+A vertex from $N_x$ can have at most one non-neighbor in $M_j$
+\end{Observation}
+\noindent {\it Proof.} Suppose $n$ from $N_x$ had two non-neighbors $m_1$ and $m_2$ from $M_j$. Then there is a $co$-$diamond (nx, m_1, m_2)$.
+
+\begin{Observation}\label{obs:mj-2}
+$|M_j| \leq 2$
+\end{Observation}
+\noindent {\it Proof.} Suppose $|M_j| > 2$ then by Observation \ref{obs:nx-mj} a vertex $n$ from $N_x$ will be adjacent to at least two vertices $m_1$ and $m_2$ from $M_j$. Then there is a $claw (nx, nm_1, nm_2)$.
+
+\begin{Observation}\label{obs:alpha-mx}
+$\alpha(M_x) \leq 2$
+\end{Observation}
+\noindent {\it Proof.} By Observations \ref{obs:mx-k-partite} and \ref{obs:mj-2} the $\alpha(M_x) \leq 2$.
+
+\begin{Observation}\label{obs:nx-k-partite}
+$N_x$ forms a $k$-partite graph
+\end{Observation}
+\noindent {\it Proof.} By Observation \ref{obs:alpha-nx} $N_x$ can be split into $i$ sets of 2 stable vertices. 
+
+For the following let $N_i$ denote the set of vertices from $N_x$ that forms a stable. Let $I$ be the number of $N_i$ sets.
+
+\begin{Observation}\label{obs:mx-disjoin}
+$|M_x \;\circled{0} N_x| \leq 1$
+\end{Observation}
+\noindent {\it Proof.} Suppose $|M_x \;\circled{0} N_x| > 1$. Then if $|N_x| >= 1$ there is a $co$-$diamond (nx, m_1, m_2)$. If $|N_x| = 0$ then $G$ is disconnected.
+
+\begin{Observation}\label{obs:nx-disjoin}
+$|N_x \;\circled{0} M_x| \leq 1$
+\end{Observation} 
+\noindent {\it Proof.} Suppose $|N_x \;\circled{0} M_x| > 1$. Then if $|M_x| > 1$ there is a $co$-$diamond (n_1, m_1m_2)$. If $|N_x| = 0$ then $G$ is disconnected.
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+
+\bibitem{BrEnLeLo}
+    A.~Brandstadt, J.~Engelfriet, H.~Le, and V.~Lozin. Clique-Width for $4$-Vertex Forbidden Subgraphs.  {\sl SIAM
+     Journal on Discrete Mathematics} 26 (2006) 1682--1708.
+
+\end{thebibliography}
+
+\end{document}
