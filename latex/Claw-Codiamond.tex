@@ -50,6 +50,7 @@ Coloring of {\CCD}-free graphs
 
 \section{Oberservations}\label{sec:observations}
 In this section, we conclude some observations about the structure of a {\CCD}-free graph. Let $G$ be a {\CCD}-free graph. Let $x$ denote a vertex from $G$, let $N_x$ denote the neighbors of $x$ and $M_x$ denote the non-neighbors of $x$.
+A cross join is a join of two equal size sets $S_1 \cup S_2$ such that every vertex in $S_1$ has a neighbor in $S_2$ and every vertex in $S_2$ has a neighbor in $S_1$.
 
 \begin{Observation}\label{obs:mx-k-partite}
 $M_x$ forms a $k$-partite graph
@@ -66,6 +67,30 @@ A vertex from $N_x$ can have at most one non-neighbor in $M_j$
 \end{Observation}
 \noindent {\it Proof.} Suppose $n$ from $N_x$ had two non-neighbors $m_1$ and $m_2$ from $M_j$. Then there is a $co$-$diamond (nx, m_1, m_2)$.
 
+For the following let $N_i$ denote the pairs of vertices from $N_x$ that are non-adjacent. Let $I$ be the number of $N_i$ sets. Note the $|N_i| = 1$ or $|N_i| = 2$
+
+\begin{Observation}\label{obs:ni-join-1}
+If $|N_i| = 1$ then $N_i \;\circled{1}\; N_j$ such that $|N_j| = 1$
+\end{Observation}
+\noindent {\it Proof.} If $|N_i| = 1$ and $|N_j| = 1$ then if $N_iN_j \not \in E$ then $N_i \cup N_j$ forms a $N_i$ such that $|N_i| = 2$.
+
+\begin{Observation}\label{obs:ni-1-neighbor}
+If $|N_i| = 1$ then $N_i$ has one neighbor in $N_j$
+\end{Observation}
+\noindent {\it Proof.} Let $v$ be the vertex from $N_i$. If $v \;\circled{0}\; N_j$ then by Observation \ref{obs:ni-join-1} $|N_j| != 1$. If $|N_j| = 2$ then there is a $claw (vx, xN_j, xN_j)$ so $v$ must have a neighbor in $N_j$.
+
+\begin{Observation}\label{obs:ni-2-neighbor}
+$N_i$ at least cross joins $N_j$
+\end{Observation}
+\noindent {\it Proof.} If $|N_i| = 1$ and $|N_j| = 1$ then $N_iN_j \in E$ by Observation \ref{obs:ni-join-1}. If $|N_i| = 2$ and $|N_j| = 2$ then by Observation \ref{obs:ni-1-neighbor} every vertex $v_1 \in N_i$ has a neighbor in $N_j$ and every vertex $v_2 \in N_j$ has a neighbor in $N_i$.
+
+\begin{Observation}\label{obs:nx-clique}
+$\phi(N_x) = I$
+\end{Observation} 
+\noindent {\it Proof.} By Observations \ref{obs:ni-join-1}, \ref{obs:ni-1-neighbor}, and \ref{obs:ni-2-neighbor} $\phi(N_x) \geq I$. Since each $N_i$ is a stable set $\phi(N_x) \leq I$. So by Squeeze Theroem $\phi(N_x) = I$.
+
+
+
 \begin{Observation}\label{obs:mj-2}
 $|M_j| \leq 2$
 \end{Observation}
@@ -76,12 +101,11 @@ $\alpha(M_x) \leq 2$
 \end{Observation}
 \noindent {\it Proof.} By Observations \ref{obs:mx-k-partite} and \ref{obs:mj-2} the $\alpha(M_x) \leq 2$.
 
-\begin{Observation}\label{obs:nx-k-partite}
-$N_x$ forms a $k$-partite graph
+For following let $n_1$ and $n_2$ denote two vertices from $N_i$. Let $m_1$ and $m_2$ denote two vertices from $M_j$.
+\begin{Observation}\label{obs:ni-cant-join-mi}
+$n_1 \not \;\circled{1} m_1 \cup m_2$ 
 \end{Observation}
-\noindent {\it Proof.} By Observation \ref{obs:alpha-nx} $N_x$ can be split into $i$ sets of 2 stable vertices. 
-
-For the following let $N_i$ denote the set of vertices from $N_x$ that forms a stable. Let $I$ be the number of $N_i$ sets.
+\noindent {\it Proof.} Suppose $n_1m_2 \in E$ and $n_1m_2 \in E$ then there is a $claw(xn_1, n_1m_1, n_1m_2)$
 
 \begin{Observation}\label{obs:mx-disjoin}
 $|M_x \;\circled{0} N_x| \leq 1$
