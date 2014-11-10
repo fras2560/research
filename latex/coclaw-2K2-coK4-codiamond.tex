@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\FAMILY{($co$-$claw$, $2K2$, $co$-$diamond$, $\overline{K_4}$)}
+
+\title{Coloring {\CCD}-free graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+Coloring of {\FAMILY}-free graphs
+\noindent{\em Keywords}: Graph coloring, $claw$, $co$-$diamond$
+\end{abstract}
+
+\section{Oberservations}\label{sec:observations}
+In this section, we conclude some observations about the structure of a {\FAMILY}-free graph. Let $G$ be a graph.
+
+\begin{Observation}\label{obs:cycle-less-c7}
+If $G$ is ($2K2$)-free or ($co$-$diamond$) then $G$ cannot contain an induced $C_\ell$, $\ell \geq 7$.
+\end{Observation}
+\noindent {\it Proof.} Let $G$ contain an induced $C_\ell, \; \ell \geq 7$ with vertices $0, 1, .. , \ell$ then $G$ contains a $2K2 (1-2, \ell-1\ell)$ and $G$ contains a $co$-$diamond (1-2, 4, \ell-1)$.
+
+For the following Observations let $G$ contain an induced $C_5$ with vertices $0, 1, .., 4$. Let $k$-vertex be a vertex that is adjacent to $k$ vertices from the $C_5$. Let $x$ denote the vertex to be added.
+
+\begin{Observation}\label{obs:co-diamond-k}
+If $G$ is ($co$-$diamond$)-free then it has no $0$-vertex, $N_i,\; N_i,_{i+2}$
+\end{Observation}
+\noindent {\it Proof.} If $x$ is a $0$-vertex or a $1$-vertex then $co$-$diamond (x, 0, 2-3)$. If $x$ is a $2$-vertex on vertices $i$ and $i+2$ then there is a $co$-$diamond (x, i+1, i+3i+4)$.
+
+\begin{Observation}\label{obs:2k2-k}
+If $G$ is ($2K2$)-free then it has no $N_i,\; N_i,_{i+1}, \; N_i,_{i+1},_{i+2}$
+\end{Observation}
+\noindent {\it Proof.} If $x$ is a $1$-vertex or $N_i,_{i+1}$ then $2K2 (ix, i+2i+3)$. If $x$ is a $N_i,_{i+1},_{i+2}$ then $2K2 (xi+1, i+3i+4)$.
+
+\begin{Observation}\label{obs:co-claw-k}
+If $G$ is ($co$-$claw$)-free then it has no $N_i,_{i+1}\; N_i,_{i+1},_{i+2}$ or $4$-vertex
+\end{Observation}
+\noindent {\it Proof.} If $x$ is a $N_i,_{i+1}$, or $N_i,_i{i+2}$ then $co$-$diamond (ixi+1, i+3$). If $x$ is a $4$-vertex then $co$-$diamond (i+1xi+2, i+4)$.
+
+\begin{Lemma}\label{lem:k-c5}
+{\FAMILY}-free graph $G$ has no $k$-vertex for $k \in {0, 1, 2, 4}$
+\end{Lemma}
+\noindent {\it Proof.} By Observations \ref{obs:co-diamond-c7}, \ref{obs:co-diamond-k}, and \ref{obs:2k2-k} {\FAMILY}-free graph has no $k$-vertex for $k \in {0, 1, 2, 4}$
+
+For the following let $X_i$ denote the set of $3$-vertex on vertices $i,i+1,i+3$ and $C$ denote the set of $5$-vertex.
+
+\begin{Observation}\label{obs:one-xi}
+$|X_i| \leq 1$
+\end{Observation}
+\noindent {\it Proof.} Let $x$ and $y$ be vertices from $X_i$. If $xy \in E$ then there is a $co$-$diamond (xy, i+2, i+4)$ or a $co$-$claw(xyi, i+2)$. If $xy \not E$ then there is a $\overline{K_4}(x, y, i+2, i+4)$.
+
+\begin{Observation}\label{obs:xi-clique}
+$X_i\; \circled{1} X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4$ 
+\end{Observation}
+\noindent {\it Proof.} Let $x$ be a vertex from $X_i$. If $y$ is a vertex from $X_{i+1} \cup X_{i-1}$ and $xy \not \in E$ then there is a $2K2 (i-1x, i+2y) or (ix, i-2y)$. If $y$ is a vertex from $X_{i+2} \cup X_{i+3}$ and $xy \not \in E$ then there is a $co$-$diamond (xi+1, i+4, y) or (xi, i+2, y)$.
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+
+\bibitem{BrEnLeLo}
+    A.~Brandstadt, J.~Engelfriet, H.~Le, and V.~Lozin. Clique-Width for $4$-Vertex Forbidden Subgraphs.  {\sl SIAM
+     Journal on Discrete Mathematics} 26 (2006) 1682--1708.
+
+\end{thebibliography}
+
+\end{document}
