@@ -10,6 +10,7 @@ Version: 2014-09-10
 -------------------------------------------------------
 """
 import networkx as nx
+
 def make_claw():
     '''
     make_claw
@@ -222,6 +223,16 @@ def make_clique(n):
             clique.add_edge(target, source)
     return clique
 
+def make_2K2():
+    '''
+    a function which assembles a 2K2
+    Parameters:
+        None
+    Returns:
+        g: 2K2 graph (network)
+    '''
+    return nx.complement(make_cycle(4))
+
 import unittest
 import os
 class tester(unittest.TestCase):
@@ -322,18 +333,18 @@ class tester(unittest.TestCase):
         c7 = make_cycle(7)
         co_claw = make_co_claw()
         tests = {'test1.txt': claw, 'test2.txt': c7, 'test3.txt': co_claw}
-        for file, expect in tests.items():
-            filepath = os.path.join(directory, "tests", file)
+        for f, expect in tests.items():
+            filepath = os.path.join(directory, "tests", f)
             with open(filepath) as f:
                 content = f.read()
                 lines = content.replace("\r", "")
                 lines = lines.split("\n")
                 result = text_to_networkx(lines)
-                print(file)
+                print(f)
                 self.assertEqual(expect.nodes() ,result.nodes() ,
-                                 "Text to Networkx Failed Nodes: %s" % file)
+                                 "Text to Networkx Failed Nodes: %s" % f)
                 self.assertEqual(expect.edges() ,result.edges() ,
-                                 "Text to Networkx Failed Nodes: %s" % file)
+                                 "Text to Networkx Failed Nodes: %s" % f)
 
     def testNetworkxToText(self):
         g = make_claw()
@@ -347,3 +358,10 @@ class tester(unittest.TestCase):
         cok4 = make_cok4()
         self.assertEqual(cok4.nodes(), [0, 1, 2, 3])
         self.assertEqual(cok4.edges(), [])
+
+    def testMake2K2(self):
+        g = make_2K2()
+        expect = [0, 1, 2, 3]
+        self.assertEqual(g.nodes(), expect)
+        expect = [(0, 2), (1, 3)]
+        self.assertEqual(g.edges(), expect)
