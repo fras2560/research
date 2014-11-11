@@ -1,7 +1,7 @@
 """
 -------------------------------------------------------
-[program name]
-[program description]
+EmailHelper
+a function to send an email
 -------------------------------------------------------
 Author:  Dallas Fraser
 ID:      110242560
