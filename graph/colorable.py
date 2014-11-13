@@ -131,7 +131,6 @@ def coloring(G, logger=None):
         else:
             i += 1
     balls = len(nodes)
-    print("Nodes:", nodes)
     while not valid:
         chromatic += 1
         logger.info('''
@@ -146,7 +145,6 @@ def coloring(G, logger=None):
                 coloring = None
                 node_combo = convert_combo(combo)
                 coloring = assemble_coloring(node_combo, split)
-                print("Coloring:", coloring, " Clique: ",clique)
                 for check in combine_color_clique(clique, coloring):
                     if valid_coloring(check, G):
                         coloring = check
@@ -160,8 +158,6 @@ def coloring(G, logger=None):
             # stop case
             valid = True
             coloring = None
-        if chromatic == len(nodes):
-            valid = True
     return coloring
 
 def chromatic_number(G):
@@ -266,7 +262,7 @@ def unlabeled_balls_in_unlabeled_boxe(balls, box_sizes):
                 if distribution_other[0] <= balls_in_first_box:
                     yield (balls_in_first_box,) + distribution_other
 
-from graph.helper import make_claw, make_diamond
+from graph.helper import make_claw, make_diamond, make_cycle, join
 class Test(unittest.TestCase):
 
     def setUp(self):
@@ -290,7 +286,21 @@ class Test(unittest.TestCase):
         result = coloring(g)
         expect = [[0, 1]]
         self.assertEqual(expect, result, "Coloring: Stable Set")
-    
+
+    def testColoringCritical(self):
+        c5 = make_cycle(5)
+        color = coloring(c5)
+        expect = [[4, 1], [3, 0], [2]]
+        self.assertEqual(len(color), 3)
+        self.assertEqual(color, expect)
+        k1 = nx.Graph()
+        k1.add_node(0)
+        g = join(c5, k1)
+        color = coloring(g)
+        self.assertEqual(len(color), 4)
+        expect = [[4], [3, 1], [2, 0], [5]]
+        self.assertEqual(expect, color)
+
     def testCombineColorClique(self):
         coloring = [[3], [2]]
         clique = [[0], [1]]
