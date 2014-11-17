@@ -59,6 +59,16 @@ def make_cycle(n):
         cycle.add_edge(vertex, (vertex-1) % n)
     return cycle
 
+def make_co_cycle(n):
+    '''
+    a function the creates an complement of a cycle of size n
+    Parameters:
+        n: the size of the anti cycle
+    Returns:
+        co_cycle: a networkx graph (networkx)
+    '''
+    return nx.complement(make_cycle(n))
+
 def make_wheel(n):
     '''
     make_wheel
