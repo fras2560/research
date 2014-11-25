@@ -34,21 +34,24 @@ FAMILY = "(Diamond-C4-Claw-K4)-free"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
 FORBIDDEN = [Diamond, C4, Claw, K4]
 STARTING = make_cycle(5)
-
-logging.basicConfig(level=logging.INFO,
+BASE = "C5"
+logging.basicConfig(filename=FAMILY + BASE + ".log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
 # processing work 
 generator = Generator2(STARTING, 5, FORBIDDEN)
 index = 0
 print("Started")
+checked = 0
 for graph in generator.iterate():
-    LOGGER.info("Number of Nodes: %d" % len(graph.nodes()))
     if len(coloring(graph, logger=LOGGER)) == 4:
         f = File(DIRECTORY, G=graph, logger=LOGGER, base="C5-")
         fp = f.save()
         if fp is not None:
             index += 1
             print("Created Graph: %d" % index)
+    checked += 1
+    if checked % 100 == 0:
+        print("Checked %d Graphs" % checked)
 LOGGER.info("Complete")
 print("Total Graphs Created: %d" % index)
