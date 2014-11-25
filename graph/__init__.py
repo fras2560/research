@@ -361,6 +361,7 @@ class DalGraph():
             g.remove_node(nodes[index])
             check = chromatic_number(g)
             if check != (chromatic -1):
+                self.logger.info(index)
                 self.logger.info("G is not critical")
                 is_critical = False
             index += 1
