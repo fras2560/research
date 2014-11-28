@@ -52,6 +52,10 @@ The coloring of {\FAM}-free graph is in polynomial.
 \section{Introduction}\label{sec:intro}
 Deterimining the chromatic number of a graph is a NP-hard problem. For some graphs families the problem can be solved in polynomial time. This paper looks at $\overline{K_4}$ and $line$-free graphs. For a graph to be $line$-free is has no induced subgraph of the following graphs: $claw$, $K_5$ - $e$, $\overline{Twin-C5}$, $\overline{Twin-House}$, etc..
 
+\begin{Lemma}\label{lem:cliqueCutset}
+A critical graph that is not a clique does not contain a clique
+cutset.
+\end{Lemma}
 
 \section{Oberservations}\label{sec:observations}
 In this section, we conclude some observations used to prove that there polytime algorithm for {\FAM}-free graphs. For the following let $G$ be a graph that is {\FAM}-free.
@@ -71,7 +75,7 @@ If $G$ contains $C_5$ then $G$ has no $k$-vertex $\in {1,3,5}$
 \end{Lemma}
 \noindent {\it Proof.} Let $G$ contain a $C_5$. Then $G$ has no $k$-vertex for $k = 1$ since $G$ is $line$-free ($claw$), $k = 3$ since $G$ is $line$-free ($\overline{Twin-C5}$), $k = 5$ since $G$ is $line$-free ($W_5$). 
 
-For the following let $G$ contain a $C_5$. Let the $0$-vertex set be denoted by $R$, let the $2$-vertex set on vertices $i, i+1$ be denoted by $X_i$, and let the $4$-vertex set on the vertices $i, i+1, i+2, i+3$ be denoted by $Y_i$. 
+For the following let $G$ contain a $C_5$. Let the $0$-vertex set be denoted by $R$, let the $2$-vertex set on vertices $i, i+1$ be denoted by $X_i$, and let the $4$-vertex set on the vertices $i, i+1, i+2, i+3$ be denoted by $Y_i$. Let $X$ denote the set of $2$-vertex and $Y$ denote the set of $4$-vertex.
 
 \begin{Lemma}\label{lem:c5-4vertex-bounded}
 $|Y_i| \leq 1$
@@ -83,15 +87,41 @@ $X_i$ forms a clique
 \end{Lemma}
 \noindent {\it Proof.} Let $x_1$ and $x_2$ be vertices $\in X_i,\; x_1 \neq x_2$. If $x_1x_2 \not \in E$ then there is a $claw (ii-1, ix_1, ix_2)$. So $x_1x_2 \in E$ and $X_i$ forms a clique.
 
+\begin{Lemma}\label{lem:r-clique}
+$R$ forms a clique
+\end{Lemma}
+\noindent {\it Proof.} Let $r_1$ and $r_2$ be vertices from $R$. If $r_1r_2 \not \in E$ then there is a $\overline{K_4} (0, 2, r_1, r_1)$.
+
 \begin{Lemma}\label{lem:r-join-xi}
 $R \; \circled{1} \; X_i$
 \end{Lemma}
 \noindent {\it Proof.} Let $x$ be a vertex $\in X_i$ and $r$ be a vertex $\in R$. If $rx \not \in E$ then there is a $\overline{K_4} (r, x, i-1, i+2)$.
 
-\begin{Lemma}\label{lem:r-limis-xi}
+\begin{Lemma}\label{lem:r-limits-xi}
 If $R \neq \phi$ then $|X_i| \leq 2$
 \end{Lemma}
 \noindent {\it Proof.} Suppose $|X_i| \geq 3$ and $R \neq \phi$. Let $x_1,\; x_2,\;$ and $x_3$ be vertices from $X_i,\; x_1 \neq x_2,\; x_1 \neq x_3,\; x_2 \neq x_3$. By Lemma \ref{lem:xi-clique} $x_1,\; x_2,\;$ and $x_3$ forms a clique. By Lemma \ref{lem:r-join-xi} there is a $K_5$ - $e$ but $G$ is $line$-free.
+
+\begin{Lemma}\label{lem:2xi-cojoins-xj}
+If $|X_i| \geq 2$ then $x_j$ cannot $ join \; X_i$
+\end{Lemma}
+\noindent {\it Proof.} Suppose $|X_i| \geq 2$ with vertices $x_1$ and $x_2$. Let $x_j$ be a vertex from $X_{i+1} \cup X_{i+2}$. If $x_j \; \circled{1} \; X_i$ then there is a $\overline{Twin-House}$.
+
+\begin{Lemma}\label{lem:xi-limits-r}
+If $X \neq \phi$ then $|R| \leq 2$ or $R \in$ a clique cutset 
+\end{Lemma}
+\noindent {\it Proof.} If $X_i \neq \phi,\;$ then by Lemma \ref{lem:r-join-xi} $R$ joins $X_i$ and is a cutset. If $X_i \neq \phi,\; X_j \neq \phi,\; i \neq j$. If $|R| \geq 3$ then by Lemma \ref{lem:r-join-xi} and $X_i \; \circled{1} \; X_j$ else there is a $K_5 - e$. Then by Lemma \ref{lem:2xi-cojoins-xj} $|X_i| = 1$ and $|X_j| = 1$. Then $R$ is part of a clique cutset.
+
+\begin{Lemma}\label{lem:r-bounded}
+If $R \neq \phi$ then $ |v| \leq 17$ or $G$ has a clique cutset
+\end{Lemma}
+\noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:c5-4vertex-bounded} the number of $4$-vertex$ \leq 5$. Then $|V| \leq 2 + 5 + 5 + 5$ or $|R| \geq 3$ and $G$ contains a clique cutset.
+
+\begin{Lemma}\label{lem:r-polynomial}
+If $R \neq \phi$ then $G$ can be colored in polynomial time
+\end{Lemma}
+\noindent {\it Proof.} If $|R| \leq 2$ then by Lemma \ref{lem:r-bounded} is bounded and if $|R| \geq 3$ then by Lemma \ref{lem:cliqueCutset} $G$ cannot be critical and can be colored in polynomial time.
+
 
 
 \begin{center}
