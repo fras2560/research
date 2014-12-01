@@ -82,6 +82,11 @@ $|Y_i| \leq 1$
 \end{Lemma}
 \noindent {\it Proof.} Let $y_1$ and $y_2$ be vertices $\in Y_i,\; y_1 \neq y_2$. If $y_1y_2 \not \in E$ then there is a $claw (ii-1, iy_1,iy_2)$. If $y_1y_2 \in E$ then there is a $\overline{Twin-House} (i,i+1,i+2,y_1,y_2)$. So $|Y_i| \leq 5$.
 
+\begin{Lemma}\label{lem:one-4vertex}
+There can only be one $4$-vertex
+\end{Lemma}
+\nonindent {\it Proof.} Suppose there was two $4$-vertex denoted by $y_1$ and $y_2$. Then by Lemma \ref{lem:c5-4vertex-bounded} $y_1 \in Y_i,\; y_2 \in Y_j,\; i \neq j$. There are two $j=i+1$ and $j=i+2$. For case one if $y_1y_2 \not \in E$ then there is a $W_4 (i+1,i+2,i+3,y_1,y_2)$ but if $y_1y_2 \in E$ there is a $K_5 - e (i+1,i+2,i+3,y_1,y_2)$. For case two if $y_1y_2 \not \in E$ then there is a $\overline{A} (i+1,i+2,i+3,i+4,y_1,y_2)$ but if $y_1y_2 \in E$ there is a $W_4(i,i+1,i+2,i+3,y_1,y_2)$. So there can only be one $4$-vertex
+
 \begin{Lemma}\label{lem:xi-clique}
 $X_i$ forms a clique
 \end{Lemma}
@@ -103,9 +108,10 @@ If $R \neq \phi$ then $|X_i| \leq 2$
 \noindent {\it Proof.} Suppose $|X_i| \geq 3$ and $R \neq \phi$. Let $x_1,\; x_2,\;$ and $x_3$ be vertices from $X_i,\; x_1 \neq x_2,\; x_1 \neq x_3,\; x_2 \neq x_3$. By Lemma \ref{lem:xi-clique} $x_1,\; x_2,\;$ and $x_3$ forms a clique. By Lemma \ref{lem:r-join-xi} there is a $K_5$ - $e$ but $G$ is $line$-free.
 
 \begin{Lemma}\label{lem:2xi-cojoins-xj}
+A vertex $\in X_i$ cannot have two neighbors in $X_j,\; i \neq ij$.
 If $|X_i| \geq 2$ then $x_j$ cannot $ join \; X_i$
 \end{Lemma}
-\noindent {\it Proof.} Suppose $|X_i| \geq 2$ with vertices $x_1$ and $x_2$. Let $x_j$ be a vertex from $X_{i+1} \cup X_{i+2}$. If $x_j \; \circled{1} \; X_i$ then there is a $\overline{Twin-House}$.
+\noindent {\it Proof.} Suppose $|X_j| \geq 2$ with vertices $x_1$ and $x_2$. Let $x_i$ be a vertex from $X_{i}$. If $x_ix_1 \in E$ and $x_ix_2 \in E$ then there is a $\overline{Twin-House}$.
 
 \begin{Lemma}\label{lem:xi-limits-r}
 If $X \neq \phi$ then $|R| \leq 2$ or $R \in$ a clique cutset 
@@ -115,12 +121,17 @@ If $X \neq \phi$ then $|R| \leq 2$ or $R \in$ a clique cutset
 \begin{Lemma}\label{lem:r-bounded}
 If $R \neq \phi$ then $ |v| \leq 17$ or $G$ has a clique cutset
 \end{Lemma}
-\noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:c5-4vertex-bounded} the number of $4$-vertex$ \leq 5$. Then $|V| \leq 2 + 5 + 5 + 5$ or $|R| \geq 3$ and $G$ contains a clique cutset.
+\noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:one-4vertex} the number of $4$-vertex$ \leq 1$. Then $|V| \leq 2 + 5 + 5 + 1$ or $|R| \geq 3$ and $G$ contains a clique cutset.
 
 \begin{Lemma}\label{lem:r-polynomial}
 If $R \neq \phi$ then $G$ can be colored in polynomial time
 \end{Lemma}
 \noindent {\it Proof.} If $|R| \leq 2$ then by Lemma \ref{lem:r-bounded} is bounded and if $|R| \geq 3$ then by Lemma \ref{lem:cliqueCutset} $G$ cannot be critical and can be colored in polynomial time.
+
+\begin{Lemma}\label{lem:xi-neighbor-adjacent}
+$X_i$ cannot have two neighbors $\not \in X_i$ who are non-adjacent
+\end{Lemma}
+\noindent{\it Proof.} Let $x_i$ denote a vertex $\in X_i$. Let $x_1$ and $x_2$ neighbors of $x_i$. By Lemma \ref{lem:xi-clique} $x_1 \in X_j,\; x_2 \in X_k,\; j \neq k$. If $j=i-1$ and $k=i+1$ then there is a $\overline{A}$ if $x_1x_2 \not in E$. If $j \neq i-1$ and $k \neq j$ then there is a $claw (ix_i, x_1x_i,x_2x_i)$.
 
 
 
