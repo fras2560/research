@@ -13,7 +13,7 @@ Version: 2014-10-16
 """
 
 from graph.helper import make_claw, make_cycle, make_clique
-from graph.helper import make_diamond
+from graph.helper import make_diamond, forbidden_line_subgraphs
 from os import getcwd
 from os.path import join
 from generator import Generator2 
@@ -21,18 +21,18 @@ from file import File
 import logging
 from pprint import PrettyPrinter
 from graph.colorable import coloring
+from networkx import complement
 pp = PrettyPrinter(indent = 4)
+XCHROMATIC = 4
 
 # create forbidden graph
-Diamond = make_diamond()
-C4 = make_cycle(4)
-Claw = make_claw()
-K4 = make_clique(4)
+k4 = make_clique(XCHROMATIC)
+co_k4 = complement(make_clique(4))
 
 # these constants are what should change
-FAMILY = "(Diamond-C4-Claw-K4)-free"
+FAMILY = "Line(Co-K4)-free"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
-FORBIDDEN = [Diamond, C4, Claw, K4]
+FORBIDDEN = forbidden_line_subgraphs() + [co_k4, k4]
 STARTING = make_cycle(5)
 BASE = "C5"
 logging.basicConfig(filename=FAMILY + BASE + ".log", level=logging.INFO,
@@ -44,7 +44,7 @@ index = 0
 print("Started")
 checked = 0
 for graph in generator.iterate():
-    if len(coloring(graph, logger=LOGGER)) == 4:
+    if len(coloring(graph, logger=LOGGER)) == XCHROMATIC:
         f = File(DIRECTORY, G=graph, logger=LOGGER, base="C5-")
         fp = f.save()
         if fp is not None:
