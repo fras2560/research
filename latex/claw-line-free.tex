@@ -82,15 +82,22 @@ $|Y_i| \leq 1$
 \end{Lemma}
 \noindent {\it Proof.} Let $y_1$ and $y_2$ be vertices $\in Y_i,\; y_1 \neq y_2$. If $y_1y_2 \not \in E$ then there is a $claw (ii-1, iy_1,iy_2)$. If $y_1y_2 \in E$ then there is a $\overline{Twin-House} (i,i+1,i+2,y_1,y_2)$. So $|Y_i| \leq 5$.
 
-\begin{Lemma}\label{lem:one-4vertex}
-There can only be one $4$-vertex
+\begin{Lemma}\label{lem:yi-cojoin-yi1}
+$Y_i \;\circled{0}\; Y_{i+1}$
 \end{Lemma}
-\noindent {\it Proof.} Suppose there was two $4$-vertex denoted by $y_1$ and $y_2$. Then by Lemma \ref{lem:c5-4vertex-bounded} $y_1 \in Y_i,\; y_2 \in Y_j,\; i \neq j$. There are two $j=i+1$ and $j=i+2$. For case one if $y_1y_2 \not \in E$ then there is a $W_4 (i+1,i+2,i+3,y_1,y_2)$ but if $y_1y_2 \in E$ there is a $K_5 - e (i+1,i+2,i+3,y_1,y_2)$. For case two if $y_1y_2 \not \in E$ then there is a $\overline{A} (i+1,i+2,i+3,i+4,y_1,y_2)$ but if $y_1y_2 \in E$ there is a $W_4(i,i+1,i+2,i+3,y_1,y_2)$. So there can only be one $4$-vertex
+\noindent {\it Proof.} Let $y_1$ be a vertex from $Y_i$ and $y_2$ be a vertex from $Y_{i+1}$. If $y_1y_2 \in E$ then there is a $K_5 - e (i+1, i+2, i+3, y_1, y_2)$.
+
+\begin{Lemma}\label{lem:yi-join-yi2}}
+$Y_i \;\circled{1}\; Y_{i+2}$
+\end{Lemma}
+\noindent {\it Proof.} Let $y_1$ be a vertex from $Y_i$ and $y_2$ be a vertex from $Y_{i+2}$. If $y_1y_2 \in E$ then there is $\overline{A} (i+1, i+2, i+3, i+4, y_1, y_2)$.
 
 \begin{Lemma}\label{lem:xi-clique}
 $X_i$ forms a clique
 \end{Lemma}
 \noindent {\it Proof.} Let $x_1$ and $x_2$ be vertices $\in X_i,\; x_1 \neq x_2$. If $x_1x_2 \not \in E$ then there is a $claw (ii-1, ix_1, ix_2)$. So $x_1x_2 \in E$ and $X_i$ forms a clique.
+
+
 
 \begin{Lemma}\label{lem:r-clique}
 $R$ forms a clique
@@ -121,19 +128,36 @@ If $X \neq \phi$ then $|R| \leq 2$ or $R \in$ a clique cutset
 \begin{Lemma}\label{lem:r-bounded}
 If $R \neq \phi$ then $ |v| \leq 17$ or $G$ has a clique cutset
 \end{Lemma}
-\noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:one-4vertex} the number of $4$-vertex$ \leq 1$. Then $|V| \leq 2 + 5 + 5 + 1$ or $|R| \geq 3$ and $G$ contains a clique cutset.
+\noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:one-4vertex} the number of $4$-vertex$ \leq 1$. Then $|V| \leq 2 + 5 + 5 + 5$ or $|R| \geq 3$ and $G$ contains a clique cutset.
 
 \begin{Lemma}\label{lem:r-polynomial}
 If $R \neq \phi$ then $G$ can be colored in polynomial time
 \end{Lemma}
 \noindent {\it Proof.} If $|R| \leq 2$ then by Lemma \ref{lem:r-bounded} is bounded and if $|R| \geq 3$ then by Lemma \ref{lem:cliqueCutset} $G$ cannot be critical and can be colored in polynomial time.
 
+For the following assume $R = \phi$. 
+
 \begin{Lemma}\label{lem:xi-neighbor-adjacent}
 $X_i$ cannot have two neighbors $\not \in X_i$ who are non-adjacent
 \end{Lemma}
-\noindent{\it Proof.} Let $x_i$ denote a vertex $\in X_i$. Let $x_1$ and $x_2$ neighbors of $x_i$. By Lemma \ref{lem:xi-clique} $x_1 \in X_j,\; x_2 \in X_k,\; j \neq k$. If $j=i-1$ and $k=i+1$ then there is a $\overline{A}$ if $x_1x_2 \not in E$. If $j \neq i-1$ and $k \neq j$ then there is a $claw (ix_i, x_1x_i,x_2x_i)$.
+\noindent {\it Proof.} Let $x_i$ denote a vertex $\in X_i$. Let $x_1$ and $x_2$ neighbors of $x_i$. By Lemma \ref{lem:xi-clique} $x_1 \in X_j,\; x_2 \in X_k,\; j \neq k$. If $j=i-1$ and $k=i+1$ then there is a $\overline{A}$ if $x_1x_2 \not in E$. If $j \neq i-1$ and $k \neq j$ then there is a $claw (ix_i, x_1x_i,x_2x_i)$.
 
+\begin{Lemma}\label{lem:one-clique}
+If only one $X_i \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G)$.
+\end{Lemma}
+\noindent {\it Proof.} $X_i$, $i$ and $i+1$ forms a clique. Vertex $i+2$ can share a color with a vertex from $X_i$, vertex $i+3$ can share a color with $i$ and vertex $i+4$ can a color with $i+1$.
 
+\begin{Lemma}\label{lem:xi-xi2-clique}
+If only $X_i \neq \phi,\; X_{i+1} \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G)$.
+\end{Lemma}
+\noindent {\it Proof.} $X_i$, $i$, and $i+1$ forms a clique.$|X_i| \geq |X_{i+1}$ then $X_{i+1}$ can be colored with vertices from $X_i$ since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adjacent to one vertex in $\in X_{i}$. Vertex $i+2$ can be colored with same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
+
+For the following assume there are three $X_i \neq \phi$ for three distinct $i$.
+
+\begin{Lemma}\label{lem:xi-xi2-xi3-clique}
+If $|X_i| \geq 3$ then $|X_j| = 1$ and 
+\end{Lemma}
+\noindent {\it Proof.}
 
 \begin{center}
 {\bf Acknowledgement}
