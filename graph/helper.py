@@ -243,6 +243,125 @@ def make_2K2():
     '''
     return nx.complement(make_cycle(4))
 
+def make_co_twin_c5():
+    '''
+    a function to assemble a co-Twin-C5
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = make_cycle(5)
+    g.add_node(5)
+    g.add_edge(5, 0)
+    g.add_edge(5, 2)
+    g.add_edge(5, 1)
+    return g
+
+def make_co_twin_house():
+    '''
+    a function to assemble a co-Twin-House
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = make_diamond()
+    g.add_node(4)
+    g.add_node(5)
+    g.add_edge(2, 4)
+    g.add_edge(3, 5)
+    return g
+
+def make_co_p2_p3():
+    '''
+    a function to assemble a co p2-p3 graph
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = make_diamond()
+    g.add_node(4)
+    g.add_edge(2, 4)
+    g.add_edge(3, 4)
+    return g
+
+def make_co_A():
+    '''
+    a function to assemble a co-A graph
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = nx.Graph()
+    for i in range(0, 5):
+        g.add_node(i)
+    g.add_edge(0, 1)
+    g.add_edge(0, 3)
+    g.add_edge(0, 4)
+    g.add_edge(1, 2)
+    g.add_edge(1, 4)
+    g.add_edge(1, 5)
+    g.add_edge(2, 5)
+    g.add_edge(3, 4)
+    g.add_edge(4, 5)
+    return g
+
+def make_co_R():
+    '''
+    a method to assemble a co-R graph
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = make_diamond()
+    g.add_node(4)
+    g.add_node(5)
+    g.add_edge(0, 4)
+    g.add_edge(1, 4)
+    g.add_edge(2, 4)
+    g.add_edge(3, 5)
+    return g
+
+def make_bridge():
+    '''
+    a method to assemble a bridge graph
+    Parameters:
+        None
+    Returns:
+        g: the graph g (networkx)
+    '''
+    g = make_co_R()
+    g.add_edge(0, 5)
+    g.add_edge(1, 5)
+    return g
+
+def forbidden_line_subgraphs():
+    '''
+    a method to assemble all 9 of the forbidden subgraphs
+    of line graphs
+    Parameters:
+        None
+    Returns:
+        graphs: a list of graphs (networkx)
+    '''
+    graphs = []
+    graphs.append(make_claw()) # claw
+    graphs.append(make_wheel(6)) # W5
+    graphs.append(make_bridge()) # Bridge
+    graphs.append(make_co_R) # Co-R
+    graphs.append(make_co_A()) # Co-A
+    graphs.append(make_co_p2_p3())
+    graphs.append(make_co_twin_house())
+    graphs.append(make_co_twin_c5())
+    k5_e = make_clique(5)
+    k5_e.remove_edge(3, 4)
+    graphs.append(k5_e)
+    return graphs
+
 import unittest
 import os
 class tester(unittest.TestCase):
@@ -350,7 +469,6 @@ class tester(unittest.TestCase):
                 lines = content.replace("\r", "")
                 lines = lines.split("\n")
                 result = text_to_networkx(lines)
-                print(f)
                 self.assertEqual(expect.nodes() ,result.nodes() ,
                                  "Text to Networkx Failed Nodes: %s" % f)
                 self.assertEqual(expect.edges() ,result.edges() ,
@@ -375,3 +493,47 @@ class tester(unittest.TestCase):
         self.assertEqual(g.nodes(), expect)
         expect = [(0, 2), (1, 3)]
         self.assertEqual(g.edges(), expect)
+
+    def testMakeCoTwinC5(self):
+        result = make_co_twin_c5()
+        self.assertEqual(len(result.nodes()), 6)
+        expect = [(0, 1), (0, 4), (0, 5), (1, 2), (1, 5),
+                  (2, 3), (2, 5), (3, 4)]
+        self.assertEqual(expect, result.edges())
+
+    def testMakeCoTwinHouse(self):
+        result = make_co_twin_house()
+        self.assertEqual(len(result.nodes()), 6)
+        expect = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 4), (3, 5)]
+        self.assertEqual(expect, result.edges())
+
+    def testMakeCoP2P3(self):
+        result = make_co_p2_p3()
+        self.assertEqual(len(result.nodes()), 5)
+        expect = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 4), (3, 4)]
+        self.assertEqual(expect, result.edges())
+
+    def testMakeCoA(self):
+        result = make_co_A()
+        self.assertEqual(len(result.nodes()), 6)
+        expect = [(0, 1), (0, 3), (0, 4), (1, 2), (1, 4),
+                  (1, 5), (2, 5), (3, 4), (4, 5)]
+        self.assertEqual(result.edges(), expect)
+
+    def testMakeCoR(self):
+        result = make_co_R()
+        self.assertEqual(len(result.nodes()), 6)
+        expect = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 2),
+                  (1, 3), (1, 4), (2, 4), (3, 5)]
+        self.assertEqual(result.edges(), expect)
+
+    def testMakeBridge(self):
+        result = make_bridge()
+        self.assertEqual(len(result.nodes()), 6)
+        expect = [(0, 1), (0, 2), (0, 3), (0, 4),(0, 5), (1, 2),
+                  (1, 3), (1, 4),(1, 5), (2, 4), (3, 5)]
+        self.assertEqual(result.edges(), expect)
+
+    def testForbiddenLineSubgraphs(self):
+        result = forbidden_line_subgraphs()
+        self.assertEqual(len(result), 9)
