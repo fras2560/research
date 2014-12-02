@@ -352,7 +352,7 @@ def forbidden_line_subgraphs():
     graphs.append(make_claw()) # claw
     graphs.append(make_wheel(6)) # W5
     graphs.append(make_bridge()) # Bridge
-    graphs.append(make_co_R) # Co-R
+    graphs.append(make_co_R()) # Co-R
     graphs.append(make_co_A()) # Co-A
     graphs.append(make_co_p2_p3())
     graphs.append(make_co_twin_house())

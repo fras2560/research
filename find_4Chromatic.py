@@ -33,18 +33,19 @@ co_k4 = complement(make_clique(4))
 FAMILY = "Line(Co-K4)-free"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
 FORBIDDEN = forbidden_line_subgraphs() + [co_k4, k4]
+print(FORBIDDEN)
 STARTING = make_cycle(5)
 BASE = "C5"
 logging.basicConfig(filename=FAMILY + BASE + ".log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
 # processing work 
-generator = Generator2(STARTING, 5, FORBIDDEN)
+generator = Generator2(STARTING, 2, FORBIDDEN)
 index = 0
 print("Started")
 checked = 0
 for graph in generator.iterate():
-    if len(coloring(graph, logger=LOGGER)) == XCHROMATIC:
+    if len(coloring(graph, logger=LOGGER)) >= XCHROMATIC:
         f = File(DIRECTORY, G=graph, logger=LOGGER, base="C5-")
         fp = f.save()
         if fp is not None:
