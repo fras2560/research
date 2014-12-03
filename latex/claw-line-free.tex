@@ -97,8 +97,6 @@ $X_i$ forms a clique
 \end{Lemma}
 \noindent {\it Proof.} Let $x_1$ and $x_2$ be vertices $\in X_i,\; x_1 \neq x_2$. If $x_1x_2 \not \in E$ then there is a $claw (ii-1, ix_1, ix_2)$. So $x_1x_2 \in E$ and $X_i$ forms a clique.
 
-
-
 \begin{Lemma}\label{lem:r-clique}
 $R$ forms a clique
 \end{Lemma}
@@ -116,7 +114,6 @@ If $R \neq \phi$ then $|X_i| \leq 2$
 
 \begin{Lemma}\label{lem:2xi-cojoins-xj}
 A vertex $\in X_i$ cannot have two neighbors in $X_j,\; i \neq ij$.
-If $|X_i| \geq 2$ then $x_j$ cannot $ join \; X_i$
 \end{Lemma}
 \noindent {\it Proof.} Suppose $|X_j| \geq 2$ with vertices $x_1$ and $x_2$. Let $x_i$ be a vertex from $X_{i}$. If $x_ix_1 \in E$ and $x_ix_2 \in E$ then there is a $\overline{Twin-House}$.
 
@@ -150,9 +147,28 @@ If only one $X_i \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G
 \begin{Lemma}\label{lem:xi-xi2-clique}
 If only $X_i \neq \phi,\; X_{i+1} \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G)$.
 \end{Lemma}
-\noindent {\it Proof.} $X_i$, $i$, and $i+1$ forms a clique.$|X_i| \geq |X_{i+1}$ then $X_{i+1}$ can be colored with vertices from $X_i$ since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adjacent to one vertex in $\in X_{i}$. Vertex $i+2$ can be colored with same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
+\noindent {\it Proof.} $X_i$, $i$, and $i+1$ forms a clique.$|X_i| \geq |X_{i+1}$ then $X_{i+1}$ can be colored with vertices from the clique $X_i$ since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adjacent to one vertex in $\in X_{i}$. Vertex $i+2$ can be colored with same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
 
-For the following assume there are three $X_i \neq \phi$ for three distinct $i$.
+\begin{Lemma}\label{lem:xi-xi3-clique}
+If only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; i \in {0, 1, 2, 3,4}$ then $\omega(G) = \varphi(G)$
+\end{Lemma}
+\noindent {\it Proof.} If $|X_i| \geq |X_{i+2}|$ then $X_i$, $i$, and $i+1$ forms the largest clique. All of $X_{i+2}$ can be colored with $|X_i|$ colors since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adacent to one vertex $\in X_{i}$. Vertex $i+2$ can be colored with the same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
+
+For the following assume that at least three consectutive $X_i \neq \phi$.
+\begin{Lemma}\label{lem:three-consecutive-xi}
+If $|X_j| \geq 3$ then $|X_k| = |X_\ell| = 1,\; j,k,\ell \in {i,i+1,i+2}$
+\end{Lemma}
+\noindent {\it Proof.} All vertices $\in X_j \cup X_k \cup X_\ell$ are non-adjacent to vertex $i+4$. The $\chi(X_j \cup X_k \cup X_\ell) \leq 2$ else a $\overline{K_4}$ would form. Let $x_a_b$ denote a vertex from set $X_a$ where $b \in {1,..., |X_a|}.$. Suppose $|X_j| = 3$ and $|X_k| = |X_\ell| = 1$.  Then $x_k_1x_\ell_1 \in E$ otherwise there is a $\overline{K_4}$. Now try to add a vertex to either $X_k$ or $X_\ell$ without loss of generality assume adding to $X_k$. Then $x_j_1,\;x_k_2,\;x_\ell_1$ and $i+4$ forms a $\overline{K_4}$. $x_k_2x+\ell_1 \not \in E$ by Lemma \ref{lem:2xi-cojoins-xj}  so $x_j_1x_\ell_1 \in E$. Now $x_k_1x_\ell_1 \in E$ by Lemma \ref{lem:xi-neighbor-adjacent}. Still $x_j_2,\;x_k_2,\;x_\ell_1$, and $i+4$ forms a $\overline{K_4}$ so $x_j_2x_k_2 \in E$. However $x_j_3,\;x_k_2,\;x_\ell_1,\;$, and $i+4$ forms a $\overline{K_4}$ but by Lemma \ref{lem:xi-neighbor-adjacent} $x_j_3x_k_2 \not \in E$ and $x_j_3x_\ell_1 \not \in E$. Therefor $x_k_2$ cannont be added.
+
+The following Lemma follows as a result of Lemma \ref{lem:three-consecutive-xi}
+\begin{Lemma}\label{lem:f-three-consecutive-xi}
+If $|X_j| = 2$ then $|X_k| \leq |X_\ell| \leq 2,\; j,k,\ell \in {i,i+1,i+2}$
+\end{Lemma}
+
+
+
+
+
 
 \begin{Lemma}\label{lem:xi-xi2-xi3-clique}
 If $|X_i| \geq 3$ then $|X_j| = 1$ and 
