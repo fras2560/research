@@ -22,9 +22,9 @@
 \def\lc{\left\lceil}   
 \def\rc{\right\rceil}
 \def\inst#1{$^{#1}$}
-\def\FAM{($\overline{K_4}$, $line$)}
+\def\FAM{($\overline{K_4}$)}
 
-\title{On k-critical ({\FAM})-free graphs}
+\title{On k-critical {\FAM}-free line graphs}
 
 \author{
 	Dallas J. Fraser\inst{1}
@@ -43,14 +43,14 @@ University, \\Waterloo, Ontario, Canada}
 \end{center}
 
 \begin{abstract}
-The coloring of {\FAM}-free graph is in polynomial.
+The coloring of {\FAM}-free $line$ graph is in polynomial.
 
 \noindent{\em Keywords}: Graph coloring, $claw$, $K_5$ - $e$, $\overline{K_4}$, $line$-$graph$ 
 \end{abstract}
 
 
 \section{Introduction}\label{sec:intro}
-Deterimining the chromatic number of a graph is a NP-hard problem. For some graphs families the problem can be solved in polynomial time. This paper looks at $\overline{K_4}$ and $line$-free graphs. For a graph to be $line$-free is has no induced subgraph of the following graphs: $claw$, $K_5$ - $e$, $\overline{Twin-C5}$, $\overline{Twin-House}$, etc..
+Deterimining the chromatic number of a graph is a NP-hard problem. For some graphs families the problem can be solved in polynomial time. This paper looks at $\overline{K_4}$ $line$-graphs. For a graph to be a $line$-graph is has no induced subgraph of the following graphs: $claw$, $K_5$ - $e$, $\overline{Twin-C5}$, $\overline{Twin-House}$, etc..
 
 \begin{Lemma}\label{lem:cliqueCutset}
 A critical graph that is not a clique does not contain a clique
@@ -58,7 +58,7 @@ cutset.
 \end{Lemma}
 
 \section{Oberservations}\label{sec:observations}
-In this section, we conclude some observations used to prove that there polytime algorithm for {\FAM}-free graphs. For the following let $G$ be a graph that is {\FAM}-free.
+In this section, we conclude some observations used to prove that there polytime algorithm for {\FAM}-free line-graphs. For the following let $G$ be a line-graph that is {\FAM}-free.
 
 \begin{Lemma}\label{lem:cl-free}
 $G$ contains no $C_\ell,\; \ell \geq 8$
@@ -68,12 +68,12 @@ $G$ contains no $C_\ell,\; \ell \geq 8$
 \begin{Lemma}\label{lem:c7-bounded}
 If $G$ contains a $C_7$ then $|G| \leq 14$
 \end{Lemma}
-\noindent {\it Proof.} Let $G$ contain a $C_7$. Then $G$ has no $k$-vertex for $k \in {0, 1, 2}$ since $G$ is $\overline{K_4}$-free, has no $k$-vertex for $k \in {5, 6,7}$ since $G$ is $line$-free ($claw$), and $G$ has no $k$-vertex for $k \in {3}$ since $G$ is $line$-free ($\overline{Twin-House}$). $G$ only has a $4$-vertex denoted by $Y_i$ on vertices $i,i+1,i+2,i+4$. Let $y_1$ and $y_2$ be vertices $\in Y_i,\; y_1 \neq y_2$. If $y_1y_2 \not \in E$ then there is a $claw (i+4i+5,i+4y_1,i+4y_2)$ and if $y_1y_2 \in E$ then there is a $\overline{Twin-House}(i,i+1,i+2,y_1,y_2)$ so $|Y_i| \leq 1$. Since $|Y_i| \leq 1$ $G$ can contain at most $14$ vertices.
+\noindent {\it Proof.} Let $G$ contain a $C_7$. Then $G$ has no $k$-vertex for $k \in {0, 1, 2}$ since $G$ is $\overline{K_4}$-free, has no $k$-vertex for $k \in {5, 6,7}$ since $G$ is $line$-free ($claw$), and $G$ has no $k$-vertex for $k \in {3}$ since $G$ is $line$-graph ($\overline{Twin-House}$). $G$ only has a $4$-vertex denoted by $Y_i$ on vertices $i,i+1,i+2,i+4$. Let $y_1$ and $y_2$ be vertices $\in Y_i,\; y_1 \neq y_2$. If $y_1y_2 \not \in E$ then there is a $claw (i+4i+5,i+4y_1,i+4y_2)$ and if $y_1y_2 \in E$ then there is a $\overline{Twin-House}(i,i+1,i+2,y_1,y_2)$ so $|Y_i| \leq 1$. Since $|Y_i| \leq 1$ $G$ can contain at most $14$ vertices.
 
 \begin{Lemma}\label{lem:c5-kvertex}
 If $G$ contains $C_5$ then $G$ has no $k$-vertex $\in {1,3,5}$
 \end{Lemma}
-\noindent {\it Proof.} Let $G$ contain a $C_5$. Then $G$ has no $k$-vertex for $k = 1$ since $G$ is $line$-free ($claw$), $k = 3$ since $G$ is $line$-free ($\overline{Twin-C5}$), $k = 5$ since $G$ is $line$-free ($W_5$). 
+\noindent {\it Proof.} Let $G$ contain a $C_5$. Then $G$ has no $k$-vertex for $k = 1$ since $G$ is $line$-graph ($claw$), $k = 3$ since $G$ is $line$-graph ($\overline{Twin-C5}$), $k = 5$ since $G$ is $line$-graph ($W_5$). 
 
 For the following let $G$ contain a $C_5$. Let the $0$-vertex set be denoted by $R$, let the $2$-vertex set on vertices $i, i+1$ be denoted by $X_i$, and let the $4$-vertex set on the vertices $i, i+1, i+2, i+3$ be denoted by $Y_i$. Let $X$ denote the set of $2$-vertex and $Y$ denote the set of $4$-vertex.
 
@@ -87,7 +87,7 @@ $Y_i \;\circled{0}\; Y_{i+1}$
 \end{Lemma}
 \noindent {\it Proof.} Let $y_1$ be a vertex from $Y_i$ and $y_2$ be a vertex from $Y_{i+1}$. If $y_1y_2 \in E$ then there is a $K_5 - e (i+1, i+2, i+3, y_1, y_2)$.
 
-\begin{Lemma}\label{lem:yi-join-yi2}}
+\begin{Lemma}\label{lem:yi-join-yi2}
 $Y_i \;\circled{1}\; Y_{i+2}$
 \end{Lemma}
 \noindent {\it Proof.} Let $y_1$ be a vertex from $Y_i$ and $y_2$ be a vertex from $Y_{i+2}$. If $y_1y_2 \in E$ then there is $\overline{A} (i+1, i+2, i+3, i+4, y_1, y_2)$.
@@ -113,17 +113,17 @@ If $R \neq \phi$ then $|X_i| \leq 2$
 \noindent {\it Proof.} Suppose $|X_i| \geq 3$ and $R \neq \phi$. Let $x_1,\; x_2,\;$ and $x_3$ be vertices from $X_i,\; x_1 \neq x_2,\; x_1 \neq x_3,\; x_2 \neq x_3$. By Lemma \ref{lem:xi-clique} $x_1,\; x_2,\;$ and $x_3$ forms a clique. By Lemma \ref{lem:r-join-xi} there is a $K_5$ - $e$ but $G$ is $line$-free.
 
 \begin{Lemma}\label{lem:2xi-cojoins-xj}
-A vertex $\in X_i$ cannot have two neighbors in $X_j,\; i \neq ij$.
+A vertex $\in X_i$ cannot have two neighbors in $X_j,\; i \neq j$.
 \end{Lemma}
 \noindent {\it Proof.} Suppose $|X_j| \geq 2$ with vertices $x_1$ and $x_2$. Let $x_i$ be a vertex from $X_{i}$. If $x_ix_1 \in E$ and $x_ix_2 \in E$ then there is a $\overline{Twin-House}$.
 
 \begin{Lemma}\label{lem:xi-limits-r}
-If $X \neq \phi$ then $|R| \leq 2$ or $R \in$ a clique cutset 
+If $X \neq \phi$ then $|R| \leq 2$ or $G$ contains a clique cutset 
 \end{Lemma}
 \noindent {\it Proof.} If $X_i \neq \phi,\;$ then by Lemma \ref{lem:r-join-xi} $R$ joins $X_i$ and is a cutset. If $X_i \neq \phi,\; X_j \neq \phi,\; i \neq j$. If $|R| \geq 3$ then by Lemma \ref{lem:r-join-xi} and $X_i \; \circled{1} \; X_j$ else there is a $K_5 - e$. Then by Lemma \ref{lem:2xi-cojoins-xj} $|X_i| = 1$ and $|X_j| = 1$. Then $R$ is part of a clique cutset.
 
 \begin{Lemma}\label{lem:r-bounded}
-If $R \neq \phi$ then $ |v| \leq 17$ or $G$ has a clique cutset
+If $R \neq \phi$ then $ |v| \leq 17$ or $G$ contains a clique cutset
 \end{Lemma}
 \noindent {\it Proof.} If $|R| \geq 3$ then by Lemma \ref{lem:xi-limits-r} is a clique cutset. If $|R| \leq 2$ then by Lemmas \ref{lem:r-limits-xi} and \ref{lem:2xi-cojoins-xj} $|X_i| \leq,\; i \in {0,1,2,3,4}$. By Lemma \ref{lem:one-4vertex} the number of $4$-vertex$ \leq 1$. Then $|V| \leq 2 + 5 + 5 + 5$ or $|R| \geq 3$ and $G$ contains a clique cutset.
 
@@ -140,33 +140,47 @@ $X_i$ cannot have two neighbors $\not \in X_i$ who are non-adjacent
 \noindent {\it Proof.} Let $x_i$ denote a vertex $\in X_i$. Let $x_1$ and $x_2$ neighbors of $x_i$. By Lemma \ref{lem:xi-clique} $x_1 \in X_j,\; x_2 \in X_k,\; j \neq k$. If $j=i-1$ and $k=i+1$ then there is a $\overline{A}$ if $x_1x_2 \not in E$. If $j \neq i-1$ and $k \neq j$ then there is a $claw (ix_i, x_1x_i,x_2x_i)$.
 
 \begin{Lemma}\label{lem:one-clique}
-If only one $X_i \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G)$.
+If only $X_i \neq \phi,\; i \in ({0, 1, 2, 3, 4})$ then $\omega(G) = \varphi(G)$.
 \end{Lemma}
 \noindent {\it Proof.} $X_i$, $i$ and $i+1$ forms a clique. Vertex $i+2$ can share a color with a vertex from $X_i$, vertex $i+3$ can share a color with $i$ and vertex $i+4$ can a color with $i+1$.
 
 \begin{Lemma}\label{lem:xi-xi2-clique}
-If only $X_i \neq \phi,\; X_{i+1} \neq \phi,\; i \in {0, 1, 2, 3, 4}$ then $\omega(G) = \varphi(G)$.
+If only $X_i \neq \phi,\; X_{i+1} \neq \phi,\; i \in ({0, 1, 2, 3, 4})$ then $\omega(G) = \varphi(G)$.
 \end{Lemma}
 \noindent {\it Proof.} $X_i$, $i$, and $i+1$ forms a clique.$|X_i| \geq |X_{i+1}$ then $X_{i+1}$ can be colored with vertices from the clique $X_i$ since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adjacent to one vertex in $\in X_{i}$. Vertex $i+2$ can be colored with same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
 
 \begin{Lemma}\label{lem:xi-xi3-clique}
-If only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; i \in {0, 1, 2, 3,4}$ then $\omega(G) = \varphi(G)$
+If only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; i \in ({0, 1, 2, 3,4})$ then $\omega(G) = \varphi(G)$
 \end{Lemma}
 \noindent {\it Proof.} If $|X_i| \geq |X_{i+2}|$ then $X_i$, $i$, and $i+1$ forms the largest clique. All of $X_{i+2}$ can be colored with $|X_i|$ colors since by Lemma \ref{lem:2xi-cojoins-xj} each vertex $\in X_{i+1}$ can only be adacent to one vertex $\in X_{i}$. Vertex $i+2$ can be colored with the same color as vertex $i$, vertex $i+3$ can be colored with the same color as vertex $i+1$, and vertex $i+4$ can be colored with a vertex from $X_i$.
 
 For the following assume that at least three consectutive $X_i \neq \phi$.
 \begin{Lemma}\label{lem:three-consecutive-xi}
-If $|X_j| \geq 3$ then $|X_k| = |X_\ell| = 1,\; j,k,\ell \in {i,i+1,i+2}$
+If $|X_j| \geq 3$ then $|X_k| = |X_\ell| = 1,\; j,k,\ell \in ({i,i+1,i+2})$
 \end{Lemma}
-\noindent {\it Proof.} All vertices $\in X_j \cup X_k \cup X_\ell$ are non-adjacent to vertex $i+4$. The $\chi(X_j \cup X_k \cup X_\ell) \leq 2$ else a $\overline{K_4}$ would form. Let $x_a_b$ denote a vertex from set $X_a$ where $b \in {1,..., |X_a|}.$. Suppose $|X_j| = 3$ and $|X_k| = |X_\ell| = 1$.  Then $x_k_1x_\ell_1 \in E$ otherwise there is a $\overline{K_4}$. Now try to add a vertex to either $X_k$ or $X_\ell$ without loss of generality assume adding to $X_k$. Then $x_j_1,\;x_k_2,\;x_\ell_1$ and $i+4$ forms a $\overline{K_4}$. $x_k_2x+\ell_1 \not \in E$ by Lemma \ref{lem:2xi-cojoins-xj}  so $x_j_1x_\ell_1 \in E$. Now $x_k_1x_\ell_1 \in E$ by Lemma \ref{lem:xi-neighbor-adjacent}. Still $x_j_2,\;x_k_2,\;x_\ell_1$, and $i+4$ forms a $\overline{K_4}$ so $x_j_2x_k_2 \in E$. However $x_j_3,\;x_k_2,\;x_\ell_1,\;$, and $i+4$ forms a $\overline{K_4}$ but by Lemma \ref{lem:xi-neighbor-adjacent} $x_j_3x_k_2 \not \in E$ and $x_j_3x_\ell_1 \not \in E$. Therefor $x_k_2$ cannont be added.
+\noindent {\it Proof.} All vertices $\in X_j \cup X_k \cup X_\ell$ are non-adjacent to vertex $i+4$. The $\chi(X_j \cup X_k \cup X_\ell) \leq 2$ else a $\overline{K_4}$ would form. Let $x_a,_b$ denote a vertex from set $X_a$ where $b \in {1,..., |X_a|}.$. Suppose $|X_j| = 3$ and $|X_k| = |X_\ell| = 1$.  Then $x_k,_1x_\ell,_1 \in E$ otherwise there is a $\overline{K_4}$. Now try to add a vertex to either $X_k$ or $X_\ell$ without loss of generality assume adding to $X_k$. Then $x_j,_1,\;x_k,_2,\;x_\ell,_1$ and $i+4$ forms a $\overline{K_4}$. $x_k,_2x_\ell,_1 \not \in E$ by Lemma \ref{lem:2xi-cojoins-xj}  so $x_j,_1x_\ell,_1 \in E$. Now $x_k,_1x_\ell,_1 \in E$ by Lemma \ref{lem:xi-neighbor-adjacent}. Still $x_j,_2,\;x_k,_2,\;x_\ell,_1$, and $i+4$ forms a $\overline{K_4}$ so $x_j,_2x_k,_2 \in E$. However $x_j,_3,\;x_k,_2,\;x_\ell,_1,\;$, and $i+4$ forms a $\overline{K_4}$ but by Lemma \ref{lem:xi-neighbor-adjacent} $x_j,_3x_k,_2 \not \in E$ and $x_j,_3x_\ell,_1 \not \in E$. Therefor $x_k,_2$ cannont be added.
 
 The following Lemma follows as a result of Lemma \ref{lem:three-consecutive-xi}
 \begin{Lemma}\label{lem:f-three-consecutive-xi}
-If $|X_j| = 2$ then $|X_k| \leq |X_\ell| \leq 2,\; j,k,\ell \in {i,i+1,i+2}$
+If $|X_j| = 2$ then $|X_k| \leq |X_\ell| \leq 2,\; j,k,\ell \in ({i,i+1,i+2})$
 \end{Lemma}
 
+For the following let $x_a$ denote a vertex $\in X_a$
+\begin{Lemma}\label{lem:g-bounded}
+If $x_ix_{i+1} \in E$, and $x_{i+2}x_{i+3} \in E$ then $G$ is bounded or $x_i \cup x_{i+1} \cup x_{i+2} \cup x_{i+3}$ forms a clique
+\end{Lemma}
+\noindent {\it Proof.} Suppose $x_ix_{i+1} \in E$ and $x_{i+2}x_{i+3} \in E$. If $x_{i+1}x_{i+2} \not in E$ then there is a $C_7 (i,x_i,x_{i+1}, i+2, x_{i+2}, x_{i+3}, i+4)$ which by Lemma \ref{lem:c7-bounded} $G$ is bounded to at most 14 vertices. If $x_{i+1}x_{i+2} \in E$ then by Lemmas \ref{lem:xi-neighbor-adjacent} and \ref{lem:2xi-cojoins-xj} $x_{i+1}x_{i+3} \in E,\; x_{i}x_{i+3} \in E$ and $x_{i}x_{i+2} \in E$ so now $x_i \cup x_{i+1} \cup x_{i+2} \cup x_{i+3}$ forms a clique.
 
 
+For the following assume that only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; X_{i+3} \neq \phi$. Let $x_a$ denote a vertex $\in X_a$.
+\begin{Lemma}\label{lem:coloring-xi-xi2-xi3}
+If only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; X_{i+3} \neq \phi$ then $ \omega(G) = \varphi(G)$
+\end{Lemma}
+\noindent {\it Proof.} 
+
+Suppose $|X_k| > |X_j| \geq |X_\ell|$ for $k,j,\ell \in ({i,i+2,i+3})$. If $k=i$ then $X_{i+1} \cup X_{i+2}$ can be colored with $|X_i| + 1$ colors since by Lemma \ref{lem:2xi-cojoins-xj} and \ref{lem:xi-neighbor-adjacent}. $X_i \cup i \cup i+1$ forms a clique and $|X_i \cup i \cup i+1| = \omega(G)$. Assume $X_{i+1} \cup X_{i+2}$ used colors $X_i \cup i+1$. Vertex $i+3$ can be colored with vertex $i$. Vertex $i+2$ can use a color from $X_i$since $|X_i| > |X_i+2|$. Vertex $i+4$ can use a color from $X_i$ since $|X_i| > |X_{i+3}|$. If $k=i+2$ then $X_{i} \cup X_{i+3}$ can be colored with $|X_i| + 1$ colors since by Lemma \ref{lem:2xi-cojoins-xj} and \ref{lem:xi-neighbor-adjacent}. $X_{i+2} \cup i+2 \cup i+3$ forms a clique and $|X_i \cup i \cup i+1| = \omega(G)$. Assume $X_{i} \cup X_{i+3}$ uses colors $X_{i+2} \cup i+2$. Vertex $i$ can be colored with vertex $i+3$. Vertex $i+1$ can use a color from $X_{i+2}$ since $|X_{i+2}| > |X_i+2|$. Vertex $i+4$ can use a color from $X_{i+2}$ since $|X_{i+2}| > |X_{i+3}|$. In both cases $G$ was colored with $\omega(G)$ colors so $\omega(G) = \varphi(G)$.
+
+Now suppose $|X_i| = |X_{i+2}| = |X_{i+3}|$ for $k,j,\ell \in ({i,i+2,i+3})$. Starting with the base case when $|X_i| = |X_{i+2}| = |X_{i+3}| = 1$. Worse case $x_i \cup x_{i+2} \cup x_{i+3}$ forms a clique but can color vertex $i$ with color $x_{i+3}$, vertex $i+1$ with color $x_{i+2}$, vertex $i+2$ with color $x_{i+3}$, vertex $i+3$ with color $x_i$ and vertex $i+4$ with color $i+2$. Now adding a vertex $v_1$ to $X_i \cup X_{i+2} \cup X_{i+3}$ will be part of a $K_4$ and will increase $\omega(G)$ by 1. $v_1$ can use the new color added. Without loss of generality assume $v_1$ was added to $X_i$. Adding another vertex to $X_i$ will just continue to add a new color in which that vertex can be assigned the new color. Now add a vertex $v_2$ to $X_{i+2} \cup X_{i+3}$ without loss of generality assume $v_2$ was added to $X_{i+2}$. If $v_1v_2 \not E$ then $v_2$ can be assigned the same color as $v_1$, however if $v_1v_2 \in E$ then $v_2$ can use the same color as $x_i$ or $x_{i+3}$ since by Lemma \ref{lem:2xi-cojoins-xj} $v_2x_i \not \in E$ and $x_{i+3} \not \in E$. Assign $v_2$ the same color as $x_{i+3}$ but $i+2v_2 \in E$ but $i+2$ can use color $v_1$. Now adding a third vertex $v_3$ to $X_{i+3}$. If $v_3v_1 \not \in E$ then by $v_3$ can use the same color as $v_1$. If $v_3v_1 \in E$ then by Lemma \ref{lem:xi-neighbor-adjacent} $v_2v_3 \in E$. $v_3$ can use color $x_{i+2}$ but $v_3i+4 \in E$ however $i+4$ cau use the same color as $v_1$. You can keep adding vertices and this pattern will continue.
 
 
 
