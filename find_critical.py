@@ -22,14 +22,14 @@ pp = PrettyPrinter(indent = 4)
 from multiprocessing import Process, Lock, Queue
 from queue import Empty
 import time
-FORBIDDEN = forbidden_line_subgraphs() + [make_cok4()]
+FORBIDDEN = forbidden_line_subgraphs() + [make_cok4(), make_cycle(7)]
 DIRECTORY=os.path.join(os.getcwd(), "GraphFamilies", "Line(Co-K4)-free")
 STARTING = make_cycle(5)
 VERTICES = 2
 logging.basicConfig(filename="finding_critical.log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
-GENERATOR = Generator2(STARTING, 3, FORBIDDEN, logger=LOGGER).iterate()
+DROPS = 1
 FOUND = 0
 class Counter():
     def __init__(self):
@@ -60,12 +60,12 @@ def consume(lock, graphs, done, critical):
 
 def work(lock, graphs, done):
     added = 0
-    for graph in Generator2(STARTING, 3, FORBIDDEN, logger=LOGGER).iterate():
+    for graph in Generator2(STARTING, 1, FORBIDDEN, logger=LOGGER).iterate():
         while graphs.full():
             time.sleep(1)
         graphs.put(graph)
         added += 1
-        if added % 10 == 0:
+        if added % 1000 == 0:
             print("Checked %d" % added)
     done.put("Done Baby")
     print("Closing the graph pool")
@@ -79,7 +79,7 @@ def go():
     consumers = []
     worker = Process(target=work, args=[lock, graphs, done])
     worker.start()
-    for i in range(5):
+    for _i in range(5):
         pid = Process(target=consume, args=[lock, graphs,
                                              done, critical_graphs])
         pid.start()
@@ -90,6 +90,8 @@ def go():
     for p in consumers:
         p.terminate()
     worker.terminate()
+    created = critical_graphs.qsize()
+    print("Total Critical Graphs found: %d" % created)
 
 if __name__ == '__main__':
     go()
