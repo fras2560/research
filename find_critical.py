@@ -19,7 +19,9 @@ from file import File
 import logging
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent = 4)
-from multiprocessing import Process, Lock
+from multiprocessing import Process, Lock, Queue
+from queue import Empty
+import time
 FORBIDDEN = forbidden_line_subgraphs() + [make_cok4()]
 DIRECTORY=os.path.join(os.getcwd(), "GraphFamilies", "Line(Co-K4)-free")
 STARTING = make_cycle(5)
@@ -27,49 +29,67 @@ VERTICES = 2
 logging.basicConfig(filename="finding_critical.log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
-GENERATOR = Generator2(STARTING, 2, FORBIDDEN, logger=LOGGER).iterate()
+GENERATOR = Generator2(STARTING, 3, FORBIDDEN, logger=LOGGER).iterate()
 FOUND = 0
-def process(lock):
-    work = True
-    print("Process")
-    while work:
+class Counter():
+    def __init__(self):
+        self.count = 0
+
+    def increment(self):
+        self.count += 1
+
+    def get(self):
+        return self.count
+
+COUNTER = Counter()
+
+def consume(lock, graphs, done, critical):
+    while done.empty():
         try:
-            lock.acquire()
-            g = next(GENERATOR)
-            lock.release()
+            g = graphs.get(block=True, timeout=5)
             d = DalGraph(graph=g, logger=LOGGER)
             if d.is_critical():
                 f = File(DIRECTORY, G=g, logger=LOGGER)
                 fp = f.save()
                 if fp is not None:
-                    lock.acquire()
-                    FOUND += 1
-                    lock.release()
-        except StopIteration:
-            lock.release()
-            work = False
-        except:
-            lock.release()
-            print('''
-                    -------------------
-                    Weird error
-                    -------------------
-                ''')
-            work = False
-    print("Done")
+                    critical.put(fp)
+        except Empty:
+            print("Empty")
+            pass
+    return
+
+def work(lock, graphs, done):
+    added = 0
+    for graph in Generator2(STARTING, 3, FORBIDDEN, logger=LOGGER).iterate():
+        while graphs.full():
+            time.sleep(1)
+        graphs.put(graph)
+        added += 1
+        if added % 10 == 0:
+            print("Checked %d" % added)
+    done.put("Done Baby")
+    print("Closing the graph pool")
     return
 
 def go():
     lock = Lock()
-    processes = []
+    graphs = Queue()
+    done = Queue()
+    critical_graphs = Queue()
+    consumers = []
+    worker = Process(target=work, args=[lock, graphs, done])
+    worker.start()
     for i in range(5):
-        pid = Process(target=process, args=[lock])
+        pid = Process(target=consume, args=[lock, graphs,
+                                             done, critical_graphs])
         pid.start()
-        processes.append(pid)
-    for p in processes:
+        consumers.append(pid)
+    worker.join()
+    for p in consumers:
         p.join()
-    for p in processes:
+    for p in consumers:
         p.terminate()
+    worker.terminate()
 
 if __name__ == '__main__':
     go()
