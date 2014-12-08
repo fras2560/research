@@ -16,6 +16,7 @@ import math
 from graph.colorable import chromatic_number
 from graph.helper import text_to_networkx
 from graph.classify import classify
+from graph.dcolor import Dcolor
 import logging
 
 class DalGraph():
@@ -341,6 +342,30 @@ class DalGraph():
                 if n not in neighbors:
                     neighbors.append(n)
         return neighbors
+
+    def critical_aprox(self):
+        '''
+        a method that approximates if the graph is critical
+        Parameters:
+            None
+        Returns:
+            True if graph is critical
+            False otherwise
+        '''
+        critical = True
+        nodes = self._g.nodes()
+        index = 0
+        chromatic = len(Dcolor(self._g).color())
+        self.logger.info("Chromatic number of G is %d" % chromatic)
+        while critical  and index < len(nodes):
+            g = self._g.copy()
+            g.remove_node(nodes[index])
+            check = len(Dcolor(g).color())
+            if check != (chromatic - 1):
+                self.logger.info("G is not critical: %d", index)
+                critical = False
+            index += 1
+        return critical
 
     def is_critical(self):
         '''

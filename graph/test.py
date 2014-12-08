@@ -207,6 +207,30 @@ class testDalGraph(unittest.TestCase):
         result = d.is_critical()
         self.assertEqual(result, False)
 
+    def testCriticalAprox(self):
+        # is_critical graphs
+        g = nx.Graph()
+        g.add_node(0)
+        g = join(g, g)
+        g = join(g, g)
+        d = DalGraph(g)
+        result = d.critical_aprox()
+        self.assertEqual(result, True)
+        g = make_wheel(6)
+        d = DalGraph(g)
+        result = d.critical_aprox()
+        self.assertEqual(result, True)
+        d = DalGraph(make_cycle(5))
+        result = d.critical_aprox()
+        self.assertEqual(result, True)
+        # test non is_critical
+        d = DalGraph(make_claw())
+        result = d.critical_aprox()
+        self.assertEqual(result, False)
+        d = DalGraph(make_co_claw())
+        result = d.critical_aprox()
+        self.assertEqual(result, False)
+
 class testK4CoDiamond(unittest.TestCase):
     def setUp(self):
         self.dal = DalGraph(make_cycle(5))
