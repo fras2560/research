@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\usetikzlibrary{shapes}
+
+\parskip=3pt
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Observation}[Theorem]{Observation}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\inst#1{$^{#1}$}
+\def\FAM{($\overline{K_4}$)}
+
+\title{On k-critical {\FAM}-free line graphs}
+
+\author{
+	Dallas J. Fraser\inst{1}
+	\and Ang\`ele M. Hamel'\inst{1}
+	\and Ch\'inh T. Ho\`ang\inst{1}
+}
+\begin{document}
+\maketitle
+
+\begin{center}
+{\footnotesize
+
+\inst{1}, Department of Physics and Computer Science, Wilfrid Laurier
+University, \\Waterloo, Ontario, Canada}
+
+\end{center}
+
+\begin{abstract}
+All the cases for $(\overline{K_4})$-free line graphs with $Y_i$ vertices
+
+\noindent{\em Keywords}: Graph coloring, $claw$, $K_5$ - $e$, $\overline{K_4}$, $line$-$graph$ 
+\end{abstract}
+
+
+\section{Notation}\label{sec:intro}
+Assume $G$ is $\overline{K_4}$-free line graph. Let $X_i$ denote the set of $2$-vertices on vertices $i,i+1$ of a $C_5$ and $x_i$ denote some vertex $\in X_i$. Let $Y$ denote the set of $4$-vertex and $Y_i$ denote the set of $4$-vertices on vertices $i, i+1,i+2,i+3$. The following Lemmas were already proven.
+
+\begin{Lemma}\label{lem:c5-4vertex-bounded}
+$|Y_i| \leq 1$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:yi-cojoin-yi1}
+$Y_i \;\circled{0}\; Y_{i+1}$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:yi-join-yi2}
+$Y_i \;\circled{1}\; Y_{i+2}$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:xi-clique}
+$X_i$ forms a clique
+\end{Lemma}
+
+\begin{Lemma}\label{lem:2xi-cojoins-xj}
+A vertex $\in X_i$ cannot have two neighbors in $X_j,\; i \neq j$.
+\end{Lemma}
+
+\begin{Lemma}\label{lem:xi-neighbor-adjacent}
+$X_i$ cannot have two neighbors $\not \in X_i$ who are non-adjacent
+\end{Lemma}
+
+\begin{Lemma}\label{lem:three-consecutive-xi}
+If $|X_j| \geq 3$ then $|X_k| = |X_\ell| = 1,\; j,k,\ell \in ({i,i+1,i+2})$
+\end{Lemma}
+
+\begin{Lemma}\label{lem:coloring-xi-xi2-xi3}
+If only $X_i \neq \phi,\; X_{i+2} \neq \phi,\; X_{i+3} \neq \phi$ then $ \omega(G) = \varphi(G)$
+\end{Lemma}
+
+\section{Observations}\label{sec:obs}
+\begin{Observation}\label{obs:xj-uses-xi-one}
+If $|X_i| > |X_j|$ then $X_j$ can be colored using at most $|X_i| -1$ colors
+\end{Observation} 
+\noindent {\it Proof.} Suppose $|X_i| > |X_j|,\; i \neq j$. By Lemma \ref{lem:xi-clique} and have at least $|X_i|$ colors for $G$. Since by Lemma \ref{lem:2xi-cojoins-xj} no vertex $\in X_j$ can have two neighbors $\in X_i$ and cannot share a neighbor with another vertex $\in X_j$. Let $x_j_a$ denote a vertex from $X_j,\; a \in {0, 1,..|X_j|}$ and $x_i_a$ denote a vertex from $X_i,\; a \in {0, 1,.., |X_i}$. Assume that $x_i_ax_j_a \in E$ then  $x_j_a$ can share a color with $x_i_{a+1}$ since $|X_i| > |X_j|$ then $x_i_0$ color was not used hence $X_j$ was colored with $|X_i| - 1$ colors.
+
+\begin{Observation}\label{obs:xi-joins-yi}
+$X_i \; \circled{1} \; Y_i \cup Y_{i+3}$
+\end{Observation}
+\noindent {\it Proof.} Suppoe $x_iy_i \not \in E$ then there is a $claw (ii+4, ix_i, y_i)$. Suppose $x_iy_{i+3} \not \in E$ then there is a $claw (i+1i+2, i+1x_i, i+1y_i)$.
+
+\begin{Observation}\label{obs:xi-cojoins-yi}
+$X_i \; \circled{0} \; Y_{i+1} \cup Y_{i+2} \cup Y_{i+4}$
+\end{Observation}
+\noindent {\it Proof.} Suppose $x_iy_{i+1} \in E$ then there is a $claw (y_{i+1}x_i, y_{i+1}i+2,y_{i+1}i+4)$. Suppose $x_iy_{i+4} \in E$ then there is a $claw (y_{i+4}i+4, y_{i+4}i+2, y_{i+4}x_i)$. Suppose $x_iy_{i+2} \in E$ then there is a $claw (y_{i+2}i+2, y_{i+2}i+4, y_{i+2}x_i)$.
+
+For the following assume $|X_i| \geq 3,\, j \in {0,1,2,3,4}$ otherwise $d(x_i) \leq 1 + 2 + 2$ since by Lemma \ref{lem:xi-neighbor-adjacent} $x_i$ can have one neighbor in each $X_j,\; i+j$, and by Observation \ref{obs:xi-cojoins-yi} $x_i$ has two nieghbors who are a $4$-vertex and has one neighbor $\in X_i$. By Lemma \ref{lem:three-consecutive-xi} the case with the most $|X_i| \geq 3$ is when $X_i \neq \phi,\; X_{i+1} \neq \phi,\; X_{i+2} = \phi,\; X_{i+3} \neq \phi$ and $X_{i+4} = \phi$. In this case $d(y_{i+2}) \leq 2 + 4$ since by Lemma \ref{lem:yi-cojoin-yi1} is adajacent to $y_{i}$ and $y_{i+4}$ and by Observation \ref{obs:xi-cojoins-yi} $y_{i+2} \; \cirled{0} X_i \cup X_{i+1} \cup X_{i+3}$. Since assuming $\omega (G) \geq 10$ then dis-regard $y_{i+2}$.
+
+\begin{Case}\label{obs:four-yi} 
+$|Y_i| = |Y_{i+1}| = |Y_{i+3}| = |Y_{i+4} =  1$
+\end{Case}
+\noindent {\it Proof.} By Lemma \ref{lem:coloring-xi-xi2-xi3} $G - Y$ can be colored with $\omega(G - Y)$ colors. By Observations \ref{obs:xi-joins-yi} and \ref{obs:yi-cojoins-yi} then $\omega(G) = \omega(G - Y) + 2$ Since $\varphi(G) = \varphi(G - Y) + \varphi(Y) = (\omega(G) - 2) + 2$ then $\varphi(G) = \omega(G)$.
+
+\begin{Case}\label{cas:yi1-yi3-yi4} 
+$|Y_{i+1}| = |Y_{i+3}| =  |Y_{i+4}| = 1$ and $|Y_{i}| = 0$
+\end{Case}
+\noindent {\it Proof.} If $|X_i| \geq |X_{i+1}|$ or $|X_{i+3}| \geq |X_{i+1}$ then $\omage(G - Y) = \omega(G) - 2$ and $\varphi(G) = \omega(G)$. The other case is $|X_i| < |X_{i+1}$ and $|X_{i+3}| < |X_{i+1}|$ then $\omeaga(G- Y) = \omega(G) - 1$. By Observation \ref{obs:xj-uses-xi-one} both $X_{i}$ and $X_{i+3}$ can be colored using $|X_{i+1}| - 1$ colors with a reserve color $k$ from $X_{i+1}$. Vertices $i \cup i+3$ can use color $k$, vertex $i+4$ can use color $i+1$, vertex $y_i$ can use color $y_{i+1}$, and vertex $y_{i+3}$ can use color $i+2$. 
+
+\begin{Case}\label{cas:yi1-yi3-yi} 
+$|Y_{i+1}| = |Y_{i+3}| =  |Y_{i}| = 1$ and $|Y_{i+4}| = 0$
+\end{Case}
+\noindent {\it Proof.} By symmetry this case is equivalent to Case \ref{cas:yi1-yi3-yi4}.
+
+\begin{Case}\label{cas:yi-yi4-yi1} 
+$|Y_{i}| = |Y_{i+4}| =  |Y_{i+1}| = 1$ and $|Y_{i+3}| = 0$
+\end{Case} If 
+
+\begin{Case}\label{cas:yi-yi4-yi3} 
+$|Y_{i}| = |Y_{i+4}| =  |Y_{i+3}| = 1$ and $|Y_{i+1}| = 0$
+\end{Case}
+\noindent {\it Proof.} By symmetry this case is equivalent to Case \ref{cas:yi-yi4-yi4}.
+
+
+
+\noindent {\it Proof.} The cases are
+\begin{Case}\label{cas:two-yi} 
+There are two distinct $y_i$
+\end{Case}
+
+\begin{Case}\label{obs:one-yi} 
+There are one distinct $y_i$
+\end{Case}
+
+
+
+\begin{center}
+{\bf Acknowledgement}
+\end{center}
+This work was done by authors  Laurier University. The authors A.M.H. and C.T.H. were each supported by individual NSERC Discovery Grants. D.J.F was supported by an NSERC Undergraduate Student Research Award.
+
+
+\clearpage
+\begin{thebibliography}{99}
+
+\end{thebibliography}
+
+\end{document}
