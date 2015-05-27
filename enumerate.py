@@ -45,7 +45,7 @@ class Enumerate():
                 self.g.add_edge(vertex, i)
                 self.g.add_edge(vertex, (i+1) % 7)
                 self.g.add_edge(vertex, (i+4) % 7)
-                #Give this Y vertex a unique identifier
+                #Give this Y vertex a unique identifier and draw edges between new vertices if needed
                 for x in range(i, -1, -1):
                     if ypositions[x] > 0 and vertex - x != 2 :
                         self.g.add_edge(vertex, ypositions[x])
@@ -62,7 +62,7 @@ class Enumerate():
                 self.g.add_edge(vertex, (i+2) % 7)
                 self.g.add_edge(vertex, (i+3) % 7)
                 self.g.add_edge(vertex, (i+4) % 7)
-                #Give this Y vertex a unique identifier
+                #Give this Y vertex a unique identifier and draw edges between new vertices if needed
                 for x in range(i, -1, -1):
                     if ypositions[x] > 0:
                         self.g.add_edge(vertex, ypositions[x])
@@ -77,6 +77,8 @@ class Enumerate():
         for x in combo:
             if x == YIVALUE or x ==  ZIVALUE:
                 verticesAdded += 1
+            if x == BOTH:
+                verticesAdded += 2
         return verticesAdded
 
     def process(self):
@@ -88,7 +90,7 @@ class Enumerate():
             if self.count(add) > 5:
                 break
             for thisPermutation in permutations(add):
-                #copy initial graph (c7) and add vetices
+                #copy initial graph (c7) and add vertices
                 #self.g = BASE.copy()
                 self.g = make_cycle(7)
                 self.add_vertices(thisPermutation)
