@@ -63,3 +63,4 @@ target/
 #ignore text files
 *.pdf
 *.txt
+/find_4Chromatic.py

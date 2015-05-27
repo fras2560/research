@@ -23,7 +23,7 @@ from pprint import PrettyPrinter
 from graph.colorable import coloring
 from networkx import complement
 pp = PrettyPrinter(indent = 4)
-XCHROMATIC = 4
+XCHROMATIC = 5
 
 # create forbidden graph
 k4 = make_clique(XCHROMATIC)
@@ -34,13 +34,13 @@ FAMILY = "Line(Co-K4)-free"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
 FORBIDDEN = forbidden_line_subgraphs() + [co_k4, k4]
 print(FORBIDDEN)
-STARTING = make_cycle(5)
+STARTING = make_cycle(7)
 BASE = "C5"
 logging.basicConfig(filename=FAMILY + BASE + ".log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
 # processing work 
-generator = Generator2(STARTING, 2, FORBIDDEN)
+generator = Generator2(STARTING, 10, FORBIDDEN)
 index = 0
 print("Started")
 checked = 0

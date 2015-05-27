@@ -85,9 +85,9 @@ $N_i$ at least cross joins $N_j$
 \noindent {\it Proof.} If $|N_i| = 1$ and $|N_j| = 1$ then $N_iN_j \in E$ by Observation \ref{obs:ni-join-1}. If $|N_i| = 2$ and $|N_j| = 2$ then by Observation \ref{obs:ni-1-neighbor} every vertex $v_1 \in N_i$ has a neighbor in $N_j$ and every vertex $v_2 \in N_j$ has a neighbor in $N_i$.
 
 \begin{Observation}\label{obs:nx-clique}
-$\phi(N_x) = I$
+$\omega((N_x) = I$
 \end{Observation} 
-\noindent {\it Proof.} By Observations \ref{obs:ni-join-1}, \ref{obs:ni-1-neighbor}, and \ref{obs:ni-2-neighbor} $\phi(N_x) \geq I$. Since each $N_i$ is a stable set $\phi(N_x) \leq I$. So by Squeeze Theroem $\phi(N_x) = I$.
+\noindent {\it Proof.} By Observations \ref{obs:ni-join-1}, \ref{obs:ni-1-neighbor}, and \ref{obs:ni-2-neighbor} $\phi(N_x) \geq I$. Since each $N_i$ is a stable set $\phi(N_x) \leq I$. So by Squeeze Theroem $\omega(N_x) = I$.
 
 
 
@@ -103,7 +103,7 @@ $\alpha(M_x) \leq 2$
 
 For following let $n_1$ and $n_2$ denote two vertices from $N_i$. Let $m_1$ and $m_2$ denote two vertices from $M_j$.
 \begin{Observation}\label{obs:ni-cant-join-mi}
-$n_1 \not \;\circled{1} m_1 \cup m_2$ 
+$n_1$ can't $\;\circled{1} m_1 \cup m_2$ 
 \end{Observation}
 \noindent {\it Proof.} Suppose $n_1m_2 \in E$ and $n_1m_2 \in E$ then there is a $claw(xn_1, n_1m_1, n_1m_2)$
 
@@ -112,10 +112,6 @@ $|M_x \;\circled{0} N_x| \leq 1$
 \end{Observation}
 \noindent {\it Proof.} Suppose $|M_x \;\circled{0} N_x| > 1$. Then if $|N_x| >= 1$ there is a $co$-$diamond (nx, m_1, m_2)$. If $|N_x| = 0$ then $G$ is disconnected.
 
-\begin{Observation}\label{obs:nx-disjoin}
-$|N_x \;\circled{0} M_x| \leq 1$
-\end{Observation} 
-\noindent {\it Proof.} Suppose $|N_x \;\circled{0} M_x| > 1$. Then if $|M_x| > 1$ there is a $co$-$diamond (n_1, m_1m_2)$. If $|N_x| = 0$ then $G$ is disconnected.
 
 
 \begin{center}

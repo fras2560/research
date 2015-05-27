@@ -16,7 +16,8 @@ from os.path import isfile, join
 from graph import DalGraph
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent = 4)
-
+from config import TO_ADDRESS, CRITICAL_MESSAGE
+from EmailHelper import send_email
 def check_critical_file(mypath, logger):
     # mypath = os.path.join(os.getcwd(),"critical")
     onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
@@ -31,7 +32,7 @@ def check_critical_file(mypath, logger):
             index += 1
             logger.info("Checking file %s" % file)
             d = DalGraph(file=os.path.join(mypath,file), logger=logger)
-            critical = d.is_critical()
+            critical = d.critical_aprox()
             logger.info("File %s is %r" %(file, critical))
             result[file] = critical
         except:
@@ -42,11 +43,12 @@ def check_critical_file(mypath, logger):
     for file, critical in result.items():
         logger.info("File %s is %r" %(file, critical))
     logger.info("-----------------")
+    send_email(CRITICAL_MESSAGE, TO_ADDRESS)
 
 import logging
 if __name__ == "__main__":
-    logging.basicConfig(filename="critical.log", level=logging.INFO,
+    logging.basicConfig(filename="4-Critical.log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
     logger = logging.getLogger(__name__)
-    mypath = os.path.join(os.getcwd(),"critical")
+    mypath = os.path.join(os.getcwd(),"5-Critical")
     check_critical_file(mypath, logger)

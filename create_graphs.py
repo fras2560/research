@@ -11,36 +11,43 @@ Email:   fras2560@mylaurier.ca
 Version: 2014-10-19
 -------------------------------------------------------
 """
-from graph.helper import make_claw, make_cycle, make_cok4
+from graph.helper import make_co_claw, make_cycle, make_clique, make_co_cycle
+from graph.helper import make_2K2, make_co_diamond, make_cok4
+from graph.helper import join as graphjoin
 from os import getcwd
 from os.path import join
-from generator import Generator 
+from generator import Generator2
 from file import File
 import logging
-
+from EmailHelper import send_email
+from config import TO_ADDRESS, CREATE_MESSAGE
 
 # create forbidden graph
-claw = make_claw()
-c4 = make_cycle(4)
+coclaw = make_co_claw()
+k2 = make_2K2()
 cok4 = make_cok4()
+codiamond = make_co_diamond()
 
 # these constants are what should change
-FAMILY = "ClawC4CoK4"
+FAMILY = "Coclaw-Codiamond-Cok4-Coc4"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
-FORBIDDEN = [claw, c4, cok4]
-STARTING = make_cycle(7)
-logging.basicConfig(filename=FAMILY+".log", level=logging.INFO,
+FORBIDDEN = [coclaw, k2, cok4, codiamond]
+STARTING = make_co_cycle(9)
+BASE = "C9-Bar-"
+logging.basicConfig(filename=BASE+FAMILY+".log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
 # processing work 
-generator = Generator(STARTING, 5, FORBIDDEN)
-total = generator.total_graphs()
-print("Total Graphs: %d" % total)
+generator = Generator2(STARTING, 4, FORBIDDEN)
 index = 0
 for graph in generator.iterate():
-    if index % 100 == 0:
-        print("Percentage :{0:.2f}".format(index / total))
-    index += 1
-    f = File(DIRECTORY, G=graph, logger=LOGGER)
-    f.save()
+    f = File(DIRECTORY, G=graph, logger=LOGGER, base=BASE)
+    fp = f.save()
+    if fp is not None:
+        index += 1
+        LOGGER.info("Unique graph found %s" % fp)
+print("Total Graphs Produced: %d" % index)
+print("Complete")
+LOGGER.info("Total Graphs Produced %d" % index)
 LOGGER.info("Complete")
+send_email(CREATE_MESSAGE, TO_ADDRESS)

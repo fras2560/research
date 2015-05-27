@@ -104,7 +104,7 @@ If maximal clique $ = (Y_i \cup i \cup i+1)$ then every $y \in Y_i$ has a non-ne
 \noindent {\it Proof.} Since maximal clique $ = (Y_i \cup i \cup i+1)$ then every vertex $v \in Y_{i-1} \cup Y_{i+1}$ has a non-neighbor in $Y_i$ else $v$ would be part of the maximal clique. By Lemma \ref{lem:yi-miss-two-neighbors} and Lemma \ref{lem:si-no-share-vertex} $Y_{i-1} = \phi$ or $Y_{i+1} = \phi$.
 
 \begin{Lemma}\label{lem:add-2vertex}
-If $|X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4| = 1$ then $\omega(G) =  \phi(G)$
+If $|X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4| = 1$ then $\omega(G) =  \varphi(G)$
 \end{Lemma}
 \noindent {\it Proof.} By Lemma \ref{lem:Xi-Yi-noYi} at least one $Y_i = \phi$, assume $Y_3 = \phi$ and are adding a vertex $k \in X_0$. Let $Z_i$ denote the set of vertices from $Y_i$ with a non-neighbor in $Y_{i+1}$. There are five distinct cases two deal with.
 
@@ -120,7 +120,7 @@ $|Y_2| <= |A|$ else it would be the maximal clique.  If $|Y_2| = |A|$ then by Le
 (V) If the maximal clique $\subset Y_2 \cup Y_1 \cup 2 \cup 1$. Adding $k$ then will result in $\omega(G)$ to remain the same. Let $A$ denote the set of vertices from $Y_1 \cup Y_2 \in$ the maximal clique. By Lemma \ref{lem:yi-force-join} $|Z_4| = 0$.  $|A| > |Y_4| + |Y_0|$, $|A| > |Y_0| + |Y_1| - |Z_0|$, $|A| > |Y_1|$, and $|A| > |Y_2|$ else it is Case I-IV.  $Y_4$ and $Y_0$ can be colored using $|A| - 1$ colors.
 $|Y_2 \not\in A| < |Y_1 \in A|$ $(|A| > |Y_2|)$ and can be colored using colors from $Y_1 \in A$ since every $Y_2 \not \in A$ has a non-neighbor in $Y_1$ and $|A| > |Y_0| + |Y_1| - |Z_0|$ . $|Y_1 \not\in A| < |Y_2 \in A|$ $(|A| > |Y_1|)$ and can be colored using colors from $Y_2 \in A$ since every $Y_1\not \in A$ has a non-neighbor in $Y_2$. Vertex $0$ uses color of vertex $2$ and vertex $3$ uses color of $1$. Vertex $4$ can use the remaining color from $A$. Since $3k \not \in E$ and $1k \not \in E$ $k$ can uses the same color. So $G$ was colored using $\omega(G)$ colors.
 
-Therefore can add $k$ vertex and $\omega(G) = \phi(G)$.
+Therefore can add $k$ vertex and $\omega(G) = \varphi(G)$.
 
 \begin{Lemma}\label{lem:2-xi-2yi-join}
 if $|N_i| = 1,\; |N_{i+1}| = 1,\;$ then all $Y_j \;\circled{1}\; Y_{j+1},\; j \in {i+1, i+2}$

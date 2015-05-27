@@ -90,6 +90,41 @@ $X_i\; \circled{1} X_0 \cup X_1 \cup X_2 \cup X_3 \cup X_4$
 \end{Observation}
 \noindent {\it Proof.} Let $x$ be a vertex from $X_i$. If $y$ is a vertex from $X_{i+1} \cup X_{i-1}$ and $xy \not \in E$ then there is a $2K2 (i-1x, i+2y) or (ix, i-2y)$. If $y$ is a vertex from $X_{i+2} \cup X_{i+3}$ and $xy \not \in E$ then there is a $co$-$diamond (xi+1, i+4, y) or (xi, i+2, y)$.
 
+\begin{Observation}\label{obs:xi-not-max}
+$|N_i,_{i+1},_{i+3}| \leq 5$
+\end{Observation}
+\noindent {\it Proof.} By Observation \ref{obs:one-xi} there can be at most 5 vertices from $N_i,_{i+1},_{i+3}$.
+
+\begin{Observation}\label{obs:xi-not-critical}
+If $C = \phi$ then adding $X_i$ to $G$ will make $\omega(G) = \varphi(G)$
+\end{Observation}
+\noindent {\it Proof.} By Observation \ref{obs:xi-clique} all $N_i,_{i+1},_{i+3}$ forms a clique and by Observation \ref{obs-one-xi} a pair of vertices from $N_i,_{i+1},_{i+3}$ can share one or two vertices on the $C_5$. $X_i$ can share colors with vertices $i+2$ and $i+4$. Determining the following cases:
+(I) Adding one $X_i$ denoted by $x$. Then $x, i,i+1$ forms a clique of size three. Color $x, i+2, i+4$ with the same color and color $i+3$ with $i+1$ then $\omega(G) = \varphi(G)$
+(II) Adding a $X_i$ denoted by $x_1$ and  a $X_j$  denoted by $x_2$. If $x_1$ and $x_2$ share one vertex $y$ then $x_1, x_2, y$ forms a clique of size three and $j = i +-1$. $i+2$ and $i+4$ can share color with $x_1$ and $i+2 +-1$ and $i+4 +- 1$ can share a color with $x_2$. If $x_1$ and $x_2$ share two vertices $y_1$ and $y_2$ then $x_1, x_2, y_1$ and $x_1, x_2, y_1$ forms clique of size three but $y_1y_2 \not \in E$ so $y_1$ can share colors with $y_2$. Note $j = i +- 2$. $i+2$ and  $i+4$ can share a color with $x_1$ and $i + 3 +- 2$ can share a color with $x_2$.
+(III) Adding $k$ $X_i$ will result in a clique of size $k$. Since $i+2$ and $i+4$ can share colors with $X_i$ and by Observation \ref{obs-one-xi} each $X_i$ will have a different $i$ then $\omega(G) = \varphi(G)$.
+
+
+
+\begin{Observation}\label{obs:cop3-pattern}
+$\overline(P_3)$ has no $0$-vertex
+\end{Observation}
+\noindent {\it Proof.} If $G$ is a $\overline(P_3)$ then adding a $0$-vertex $x$ forms a $co$-$diamond (0-2, 1, x)$.
+
+\begin{Observation}\label{obs:cop3-pattern2}
+$\overline(P_3)$ has no $1$-vertex on vertex $1$
+\end{Observation}
+\noindent {\it Proof.} If $G$ is a $\overline(P_3)$ then adding a $1$-vertex $x$ adjacent to only $1$ forms a $2K2 (1x, 0-2)$.
+
+\begin{Observation}\label{obs:cop3-pattern3}
+$\overline(P_3)$ has no $2$-vertex on vertices $0$ and $2$
+\end{Observation}
+\noindent {\it Proof.} If $G$ is a $\overline(P_3)$ then adding a $2$-vertex $x$ adjacent to $0$ and $2$ forms a $co$-$claw (0x,0-2,2x, 1)$
+
+\begin{Observation}\label{obs:copl-pattern}
+$\overline(P_\ell),\; \ell \geq 5$ then $k$-vertex must be adjacent to $i$
+\end{Observation}
+
+
 \begin{center}
 {\bf Acknowledgement}
 \end{center}

@@ -34,4 +34,5 @@ class Tester(unittest.TestCase):
         pass
 
     def testSendEmail(self):
-        send_email("Hey Test", "dallas.j.fraser.laurier@gmail.com")
+        send_email("Hey Test", "dallas_j_frase@hotmail.com")
+
