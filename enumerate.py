@@ -78,7 +78,7 @@ class Enumerate():
             if x == YIVALUE or x ==  ZIVALUE:
                 verticesAdded += 1
             if x == BOTH:
-                verticesAdded += 2
+                verticesAdded += 1 #we already counted one vertex, now we need to count the other too.
         return verticesAdded
 
     def process(self):
