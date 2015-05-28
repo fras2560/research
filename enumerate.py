@@ -11,7 +11,6 @@ Version: 2015-05-26
 """
 
 from graph.helper import make_cycle, make_cok4
-from tqdm import tqdm
 from os import getcwd
 from os.path import join
 from file import File
