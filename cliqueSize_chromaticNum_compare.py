@@ -13,15 +13,16 @@ Version: 2015-06-04
 from graph.helper import make_cycle, make_cok4
 from graph.container import induced_subgraph
 from graph.colorable import chromatic_number
-from itertools import product, repeat
+from itertools import product, repeat, combinations
 import unittest
+import copy
 from networkx.algorithms.clique import graph_clique_number
 
-MAX_Z_SIZE = 10
+MAX_Z_SIZE = 3
 FORBIDDEN = {make_cok4(), make_cycle(4), make_cycle(6)}
 LOG_FILE_NAME = "C5_Z_CliqueSize_ChromaticNum.log"
 
-def chromaticNumberEqualsCLiqueNumber(g):
+def ChromaticNumberEqualsCLiqueNumber(g):
     
     if(chromatic_number(g) == graph_clique_number(g)):
         result = True
@@ -30,7 +31,7 @@ def chromaticNumberEqualsCLiqueNumber(g):
     
     return result
 
-def isHFreeGraph(H,g):
+def IsHFreeGraph(H,g):
     
     result = True
     for thisForbiddenGraph in H:
@@ -40,7 +41,7 @@ def isHFreeGraph(H,g):
         
     return result
 
-def logGraphInfo(str):
+def LogGraphInfo(str):
     
     myLogFile = open(LOG_FILE_NAME, "a+", encoding = 'utf-8')
     thisEntry = myLogFile.readline().strip()
@@ -53,68 +54,86 @@ def logGraphInfo(str):
     myLogFile.close()
     return
 
-def constructGraphs():
+def ConstructGraph(zSize):
+    
+    thisGraph = make_cycle(5)
+    firstZVertices = set()
+    secondZVertices = set()
+    
+    #add the z vertices
+    for i in range(1, zSize + 1):
+        #add the vertices in Zi
+        thisNodeIndex = thisGraph.number_of_nodes()
+        thisGraph.add_node(thisNodeIndex)
+        firstZVertices.add(thisNodeIndex)
+        #add the vertices in Zi+1
+        thisNodeIndex = thisGraph.number_of_nodes()
+        thisGraph.add_node(thisNodeIndex)
+        secondZVertices.add(thisNodeIndex)
+        
+    #add the edges for Zi
+    for vertex in firstZVertices:
+        thisGraph.add_edge(0,vertex)
+        thisGraph.add_edge(1,vertex)
+        thisGraph.add_edge(2,vertex)
+        
+    #zi forms a clique
+    for edge in product(firstZVertices, repeat = 2):
+        #Loops are not allowed
+        if edge[0] != edge[1]:
+            thisGraph.add_edge(edge[0],edge[1])
+        
+    #add the edges for Zi+1
+    for vertex in secondZVertices:
+        thisGraph.add_edge(1,vertex)
+        thisGraph.add_edge(2,vertex)
+        thisGraph.add_edge(3,vertex)
+        
+    #zi+1 forms a clique
+    for edge in product(secondZVertices,repeat = 2):
+        if edge[0] != edge[1]:
+            thisGraph.add_edge(edge[0], edge[1])
+    
+    return thisGraph, firstZVertices, secondZVertices
+
+def Process():
     
     currentZSize = 1
     
     #construct each graph
     while currentZSize <= MAX_Z_SIZE:
         
-        logGraphInfo("Checking graphs with |Z| = " + str(currentZSize))
-        thisGraph = make_cycle(5)
-        firstZVertices = set()
-        secondZVertices = set()
+        LogGraphInfo("Checking graphs with |Zi| = |Zi+1| = " + str(currentZSize))
         
-        #add the z vertices
-        for i in range(1,currentZSize + 1):
-            #add the vertices in Zi
-            thisNodeIndex = thisGraph.number_of_nodes()
-            thisGraph.add_node(thisNodeIndex)
-            firstZVertices.add(thisNodeIndex)
-            #add the vertices in Zi+1
-            thisNodeIndex = thisGraph.number_of_nodes()
-            thisGraph.add_node(thisNodeIndex)
-            secondZVertices.add(thisNodeIndex)
+        thisGraph, firstZVertices, secondZVertices = ConstructGraph(currentZSize)
+        baseGraph = copy.deepcopy(thisGraph)
+        
+        #Look at all possible edge configurations between the two Z sets
+        
+        #Create a set of all edges
+        allPossibleEdges = set()
+        for i in product(firstZVertices, secondZVertices):
+            allPossibleEdges.add(i)
             
-        #add the edges for Zi
-        for vertex in firstZVertices:
-            thisGraph.add_edge(0,vertex)
-            thisGraph.add_edge(1,vertex)
-            thisGraph.add_edge(2,vertex)
-            
-        #zi forms a clique
-        for edge in product(firstZVertices, repeat = 2):
-            if edge[0] != edge[1]:
-                thisGraph.add_edge(edge[0],edge[1])
-            
-        #add the edges for Zi+1
-        for vertex in secondZVertices:
-            thisGraph.add_edge(1,vertex)
-            thisGraph.add_edge(2,vertex)
-            thisGraph.add_edge(3,vertex)
-            
-        #zi+1 forms a clique
-        for edge in product(secondZVertices,repeat = 2):
-            if edge[0] != edge[1]:
-                thisGraph.add_edge(edge[0], edge[1])
-            
-        #Look at all possible edge configurations
-        for vertexI in firstZVertices:
-             for vertexZ in secondZVertices:
-                 thisGraph.add_edge(vertexI, vertexZ)
-                 #check that this graph does not contain a forbidden induced subgraph
-                 if isHFreeGraph(FORBIDDEN, thisGraph):
-                     #check that the clique size is equal to the chromatic number
-                     if chromaticNumberEqualsCLiqueNumber(thisGraph):
-                         logGraphInfo("Graph Passed.")
-                     else:
-                        logGraphInfo("Graph Failed!")
-                        
-                 else:
-                     thisGraph.remove_edge(vertexI, vertexZ)
+        #Now, we need to look at/create all possible graphs we can create from Zi and Zi+1
+        for i in range(1, 2 * currentZSize + 1):
+            for thisCombination in combinations(allPossibleEdges,i):
+                for edge in thisCombination:
+                    thisGraph.add_edge(edge[0], edge[1]) #create the graph for each config
+                    
+                #Now we need to make sure the graph we created is (4k1, C4, C6)-free
+                if IsHFreeGraph(FORBIDDEN, thisGraph):
+                    if ChromaticNumberEqualsCLiqueNumber(thisGraph):
+                        LogGraphInfo("Graph Passed.")
+                    else:
+                        LogGraphInfo("Graph Failed.")
+                
+                thisGraph.clear()
+                thisGraph = copy.deepcopy(baseGraph)
                     
         currentZSize += 1
         thisGraph.clear()
+        baseGraph.clear()
     
     return
 
@@ -125,7 +144,6 @@ class Tester(unittest.TestCase):
         pass
      
     def testProcess(self):
-         
-        constructGraphs()
-         
+        
+        Process()
         return
