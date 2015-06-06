@@ -49,7 +49,7 @@ def LogGraphInfo(str):
     while thisEntry != "":
         thisEntry = myLogFile.readline().strip()
         
-    print(str, file = myLogFile)
+    print("{0}" .format(str), file = myLogFile)
     
     myLogFile.close()
     return
@@ -116,7 +116,7 @@ def Process():
             allPossibleEdges.add(i)
             
         #Now, we need to look at/create all possible graphs we can create from Zi and Zi+1
-        for i in range(1, 2 * currentZSize + 1):
+        for i in range(0, 2 * currentZSize + 1):
             for thisCombination in combinations(allPossibleEdges,i):
                 for edge in thisCombination:
                     thisGraph.add_edge(edge[0], edge[1]) #create the graph for each config
@@ -137,13 +137,8 @@ def Process():
     
     return
 
-class Tester(unittest.TestCase):
-     
-    def setUp(self):
-        print("Starting Tests")
-        pass
-     
-    def testProcess(self):
-        
-        Process()
-        return
+def main():
+    
+    Process()
+    
+    return
