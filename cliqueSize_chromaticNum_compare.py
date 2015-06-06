@@ -22,25 +22,59 @@ MAX_Z_SIZE = 3
 FORBIDDEN = {make_cok4(), make_cycle(4), make_cycle(6)}
 LOG_FILE_NAME = "C5_Z_CliqueSize_ChromaticNum.log"
 
-def ChromaticNumberEqualsCLiqueNumber(g):
+"""
+-------------------------------------------------------
+This function determines if the clique number of some arbitrary
+graph G equals the chromatic number
+-------------------------------------------------------
+Preconditions:
+    G: a Networkx graph
+Postconditions:
+    Returns True if the clique number of G equals the chromatic number
+    of G, False otherwise.
+-------------------------------------------------------
+"""
+def ChromaticNumberEqualsCLiqueNumber(G):
     
-    if(chromatic_number(g) == graph_clique_number(g)):
+    if(chromatic_number(G) == graph_clique_number(G)):
         result = True
     else:
         result = False
     
     return result
 
-def IsHFreeGraph(H,g):
+"""
+-------------------------------------------------------
+This function determines if a given graph is H-free
+-------------------------------------------------------
+Preconditions:
+    G: a Networkx graph
+    H: a set of Networkx graphs
+Postconditions:
+    Returns True if no graph in H is an induced subgraph of G,
+    False otherwise.
+-------------------------------------------------------
+"""
+def IsHFreeGraph(H,G):
     
     result = True
     for thisForbiddenGraph in H:
-        if induced_subgraph(g, thisForbiddenGraph):
+        if induced_subgraph(G, thisForbiddenGraph):
             result = False
             break
         
     return result
 
+"""
+-------------------------------------------------------
+This function writes a message to a log file
+-------------------------------------------------------
+Preconditions:
+    str: a message to output to the log file
+Postconditions:
+    str is written to the log file
+-------------------------------------------------------
+"""
 def LogGraphInfo(str):
     
     myLogFile = open(LOG_FILE_NAME, "a+", encoding = 'utf-8')
@@ -54,6 +88,20 @@ def LogGraphInfo(str):
     myLogFile.close()
     return
 
+
+"""
+-------------------------------------------------------
+This function constructs a base graph, which is a C5 and
+2 3-vertex sets
+-------------------------------------------------------
+Preconditions:
+    zSize: an integer which specifies the size of both 3-vertex
+    sets
+Postconditions:
+    Returns a Networkx graph which models a C5 with Z0, Z1 such
+    that the size of both 3-vertex sets is equal to zSize. 
+-------------------------------------------------------
+"""
 def ConstructGraph(zSize):
     
     thisGraph = make_cycle(5)
@@ -96,6 +144,19 @@ def ConstructGraph(zSize):
     
     return thisGraph, firstZVertices, secondZVertices
 
+"""
+-------------------------------------------------------
+This function constructs all the possible edge combinations between
+a given base graph over a range of Z sizes.
+-------------------------------------------------------
+Preconditions: None
+Postconditions:
+    After constructing each graph, this function checks that it does not
+    contain a forbidden induced subgraph. If it does not, the clique number
+    of the graph in question is compared to the chromatic number. The result
+    of this test is then written to the log file. 
+-------------------------------------------------------
+"""
 def Process():
     
     currentZSize = 1
@@ -137,8 +198,5 @@ def Process():
     
     return
 
-def main():
-    
-    Process()
-    
-    return
+# Initiate graph processing   
+Process()
