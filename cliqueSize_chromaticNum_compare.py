@@ -14,11 +14,18 @@ from graph.helper import make_cycle, make_cok4
 from graph.container import induced_subgraph
 from graph.colorable import chromatic_number
 from itertools import product, repeat, combinations
-import unittest
 import copy
+import logging
+from os import getcwd
+from os.path import join
+from file import File
 from networkx.algorithms.clique import graph_clique_number
 
-MAX_Z_SIZE = 3
+GRAPH_FAMILY = "(C4-C6-4k1)-free-C5-Z0-Z1"
+DIRECTORY = join(getcwd(), 'GraphFamilies', GRAPH_FAMILY)
+LOGGER = logging.getLogger(__name__)
+
+MAX_Z_SIZE = 5
 FORBIDDEN = {make_cok4(), make_cycle(4), make_cycle(6)}
 LOG_FILE_NAME = "C5_Z_CliqueSize_ChromaticNum.log"
 
@@ -188,6 +195,8 @@ def Process():
                         LogGraphInfo("Graph Passed.")
                     else:
                         LogGraphInfo("Graph Failed.")
+                        f = File(DIRECTORY, G = thisGraph, logger = LOGGER, base = "C5-")
+                        fp = f.save()
                 
                 thisGraph.clear()
                 thisGraph = copy.deepcopy(baseGraph)
@@ -198,5 +207,7 @@ def Process():
     
     return
 
-#Initiate graph processing   
+#Initiate graph processing
+LogGraphInfo("Beginning Tests")
 Process()
+LogGrapInfo("Tests Complete")
