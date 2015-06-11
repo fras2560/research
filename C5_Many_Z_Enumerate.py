@@ -116,12 +116,9 @@ addditionalEdges are added to G.
 """
 def AddEdges(G, additionalEdges, allZVertices):
     
-    print("_____________")
-    
     for i in range(0,len(additionalEdges)):
         if additionalEdges[i] != 0:
             G.add_edge(allZVertices[i], allZVertices[(i+1) % len(additionalEdges)])
-            print("({0},{1})".format(allZVertices[i], allZVertices[(i+1) % len(additionalEdges)]))
     return
 
 """
