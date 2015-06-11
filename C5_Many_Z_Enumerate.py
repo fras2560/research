@@ -199,7 +199,6 @@ def Process():
                     
             graphToTest.clear()
             graphToTest = deepcopy(thisGraph)
-        quit()
 
     return
 
