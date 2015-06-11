@@ -166,7 +166,7 @@ def Process():
                 #add the extra node
                 nodeIndex = thisGraph.number_of_nodes()
                 thisGraph.add_node(nodeIndex)
-                Z_SET[thisZ[0]].append(nodeIndex)
+                Z_SETS[thisZ[0]].append(nodeIndex)
                 #Z forms a clique
                 for thisExistingZ in Z_SETS[thisZ[0]]:
                     if nodeIndex != thisExistingZ:
@@ -199,6 +199,8 @@ def Process():
                     
             graphToTest.clear()
             graphToTest = deepcopy(thisGraph)
+            
+        WriteToLogFile("Proceeding to analyze new Z configuration!")
 
     return
 
