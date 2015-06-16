@@ -27,7 +27,7 @@ GRAPH_FAMILY = "(C4-C6-4k1)-free-C5-Many-Zs"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 
-NUMBER_OF_Z_SETS = 7
+NUMBER_OF_Z_SETS = 5
 Z_SETS = []
 FORBIDDEN_INDUCED_SUBGRAPHS = {make_cok4(), make_cycle(4), make_cycle(6)}
 
@@ -133,7 +133,7 @@ unique sets of 3-vertices (of type Z).
 """
 def ConstructBaseGraph():
     
-    baseGraph = make_cycle(7)
+    baseGraph = make_cycle(5)
     
     for i in range(0,NUMBER_OF_Z_SETS):
         #add this Z vertex
