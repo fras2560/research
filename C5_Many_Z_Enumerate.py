@@ -22,12 +22,12 @@ from graph.colorable import chromatic_number
 from networkx.algorithms.clique import graph_clique_number
 import logging
 
-LOG_FILE_NAME = "CS_Many_Z_Enumerate.log"
+LOG_FILE_NAME = "C5_Many_Z_Enumerate.log"
 GRAPH_FAMILY = "(C4-C6-4k1)-free-C5-Many-Zs"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 
-NUMBER_OF_Z_SETS = 5
+NUMBER_OF_Z_SETS = 7
 Z_SETS = []
 FORBIDDEN_INDUCED_SUBGRAPHS = {make_cok4(), make_cycle(4), make_cycle(6)}
 
@@ -133,7 +133,7 @@ unique sets of 3-vertices (of type Z).
 """
 def ConstructBaseGraph():
     
-    baseGraph = make_cycle(5)
+    baseGraph = make_cycle(7)
     
     for i in range(0,NUMBER_OF_Z_SETS):
         #add this Z vertex
@@ -156,10 +156,12 @@ and calls helper functions to carry out graph processing.
 """
 def Process():
 
+    count = 1
     allZSetPossibilities = GenerateZSetPossibilities()
     thisGraph = ConstructBaseGraph()
     
     for thisZConfig in allZSetPossibilities:
+        WriteToLogFile("Current Z Configuration {0}".format(count))
         #add the extra Z's (and appropriate edges) if needed
         for thisZ in enumerate(thisZConfig):
             if thisZ[1] != 1:
@@ -201,6 +203,7 @@ def Process():
             graphToTest = deepcopy(thisGraph)
             
         WriteToLogFile("Proceeding to analyze new Z configuration!")
+        count += 1
 
     return
 
