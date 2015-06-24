@@ -30,7 +30,7 @@ GRAPH_FAMILY = "Onion"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 
-NUMBER_OF_LAYERS = 1
+NUMBER_OF_LAYERS = 2
 CYCLE_LENGTH = 7
 
 def Construct():
