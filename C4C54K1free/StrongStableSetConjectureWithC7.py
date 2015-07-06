@@ -201,11 +201,12 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
         thisXVetexToAdd = G.number_of_nodes()
         currentXAtOffset.append(thisXVetexToAdd)
         G.add_node(thisXVetexToAdd)
+        CURRENT_X_SETS[(offset) % 7].append(thisXVetexToAdd)
         
-        #X is a 3 vertex
+        #X is a 3-vertex
         G.add_edge((X_VERTEX_START_INDEX + offset + 0) % 7, thisXVetexToAdd)
+        G.add_edge((X_VERTEX_START_INDEX + offset - 1) % 7, thisXVetexToAdd)
         G.add_edge((X_VERTEX_START_INDEX + offset + 1) % 7, thisXVetexToAdd)
-        G.add_edge((X_VERTEX_START_INDEX + offset + 2) % 7, thisXVetexToAdd)
         
         #Xi joins X_i+1, X_i+6
         for thisXi1Vertex in CURRENT_X_SETS[(offset + 1) % 7]:
@@ -223,11 +224,6 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
         if addAllOptionalXEdges  == True:
             for thisXi2Vertex in CURRENT_X_SETS[(offset + 2) % 7]:
                 G.add_edge(thisXVetexToAdd, thisXi2Vertex)
-        
-        #Add optional x edges if needed
-#         if addAllOptionalXEdges == True:
-#             for thisCurrentXVertex in currentXAtOffset:
-#                 G.add_edge( (7 + offset + 2) % 14, thisCurrentXVertex)
         
     return deepcopy(G)
 
@@ -263,20 +259,10 @@ def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
             G.add_edge(thisVertexIndex, thisCurrentXi6)
             
         #The user may request optional edges, that is: Yi joins Xi+2
-        for thisCurrentXi2 in CURRENT_X_SETS[(3 + offset) % 7]:
-            G.add_edge(thisVertexIndex, thisCurrentXi2)
-              
-#         #Yi joins Xi, X_i+1
-#         G.add_edge((8 + offset) % 14, thisVertexIndex)
-#         G.add_edge((9 + offset) % 14, thisVertexIndex)
-#     
-#         #We must avoid 4K1
-#         G.add_edge((7 + offset) % 14, thisVertexIndex)
-        
-        #The user may want all optional XY edges
-#         if addAllOptionalXYEdges == True:
-#             G.add_edge((10 + offset) % 14, thisVertexIndex)
-    
+        if addAllOptionalXYEdges == True:
+            for thisCurrentXi2 in CURRENT_X_SETS[(3 + offset) % 7]:
+                G.add_edge(thisVertexIndex, thisCurrentXi2)
+                
     return deepcopy(G)
 
 """
@@ -392,9 +378,16 @@ def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
             baseGraph2 = deepcopy(baseGraph3)           
     return
 
-myGraph = ConstructOnion(2)
-AddXSet(myGraph, 2, True, 2)
-print(FindStrongStableSet(myGraph))
+myGraph = ConstructOnion(1)
+myGraph = AddYSet(myGraph, 1, False, 0)
+myGraph = AddXSet(myGraph, 1, False, 0)
+
+# myGraph = AddXSet(myGraph, 2, False, 2)
+# print(CURRENT_X_SETS)
+# myGraph = AddXSet(myGraph, 2, False, 5)
+# print(CURRENT_X_SETS)
+f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+f.save()
 
 
 
