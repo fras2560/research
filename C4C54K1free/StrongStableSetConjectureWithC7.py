@@ -24,19 +24,31 @@ from os import getcwd
 from os.path import join
 import logging
 from graph.colorable import chromatic_number, valid_coloring
+from graph.container import induced_subgraph
 from copy import deepcopy
-from graph.helper import make_cycle
+from graph.helper import make_cycle, make_cok4
 from itertools import product
 
 GRAPH_FAMILY = "HasStrongStableSet"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
+FORBIDDEN_SUBGRAPHS = {make_cycle(4), make_cycle(5), make_cok4()}
 
 Y_VERTEX_START_INDEX = 0
 X_VERTEX_START_INDEX = 0
 CYCLE_LENGTH = 7
 
 CURRENT_X_SETS = None
+
+def GIsHFree(G, H):
+    
+    result = True
+    
+    for thisForbiddenInducedSubgraph in H:
+        if induced_subgraph(G, thisForbiddenInducedSubgraph):
+            result = False
+            break
+    return result
 
 def UpdateCurrentXSets(newXSet):
     global CURRENT_X_SETS
@@ -376,6 +388,39 @@ def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
                 baseGraph3 = deepcopy(baseGraph3)
             baseGraph2 = deepcopy(baseGraph3)           
     return
+
+def DifferentSizeXAndDifferentSizeY():
+    
+    #ALWAYS ADD X'S ***BEFORE*** adding your Y's!
+    
+    return
+
+def DifferentSizeXSetsNoYSetsTest():
+
+    t = range(1,3)
+    graphConfigSet = set(set(product(set(t),repeat = 7)))
+    print(graphConfigSet)
+     
+    for thisGraphConfiguration in graphConfigSet:
+        myGraph = ConstructOnion(1)
+        for thisSetIndex in range(0,7):
+            if thisGraphConfiguration[thisSetIndex] == 2:
+                myGraph = AddXSet(myGraph, 1, False, thisSetIndex)
+                 
+        thisStrongStableSet = FindStrongStableSet(myGraph)
+        
+        if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
+            print("ERROR!")
+            exit()
+         
+        if thisStrongStableSet == None:
+            print("G does not contain a strong stable set")
+        else:
+            print("G does contain a strong stable set")
+
+    return
+
+DifferentSizeXSetsNoYSetsTest()
 
 
 
