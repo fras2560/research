@@ -27,7 +27,6 @@ from graph.colorable import chromatic_number, valid_coloring
 from copy import deepcopy
 from graph.helper import make_cycle
 from itertools import product
-from http.cookiejar import offset_from_tz_string
 
 GRAPH_FAMILY = "HasStrongStableSet"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
@@ -378,16 +377,6 @@ def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
             baseGraph2 = deepcopy(baseGraph3)           
     return
 
-myGraph = ConstructOnion(1)
-myGraph = AddYSet(myGraph, 1, False, 0)
-myGraph = AddXSet(myGraph, 1, False, 0)
-
-# myGraph = AddXSet(myGraph, 2, False, 2)
-# print(CURRENT_X_SETS)
-# myGraph = AddXSet(myGraph, 2, False, 5)
-# print(CURRENT_X_SETS)
-f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
-f.save()
 
 
 
