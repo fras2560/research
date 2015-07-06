@@ -10,6 +10,8 @@ Email:   lama3790@mylaurier.ca
 Version: 2015-06-04
 -------------------------------------------------------
 """
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_cycle, make_cok4
 from graph.container import induced_subgraph
 from graph.colorable import chromatic_number
@@ -18,7 +20,7 @@ import copy
 import logging
 from os import getcwd
 from os.path import join
-from file import File
+from utility.file import File
 from networkx.algorithms.clique import graph_clique_number
 
 GRAPH_FAMILY = "(C4-C6-4k1)-free-C5-Z0-Z1"

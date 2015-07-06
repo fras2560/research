@@ -17,8 +17,10 @@ Email:   lama3790@mylaurier.ca
 Version: 2015-06-15
 -------------------------------------------------------
 """
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_cycle, make_cok4
-from file import File
+from utility.file import File
 from os import getcwd
 from os.path import join
 import logging
@@ -69,5 +71,5 @@ def Construct():
  
 result = Construct()
 print("Clique number: {0}".format(graph_clique_number(result)))
-f = File(DIRECTORY, G = result, logger = MY_LOGGER, base="C5-")
-f.save()
+# f = File(DIRECTORY, G = result, logger = MY_LOGGER, base="C5-")
+# f.save()

@@ -13,11 +13,13 @@ Email:   lama3790@mylaurier.ca
 Version: 2015-06-15
 -------------------------------------------------------
 """
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_cycle, make_cok4
 from graph.container import induced_subgraph
 from itertools import product, combinations
 from copy import deepcopy
-from file import File
+from utility.file import File
 from os import getcwd
 from os.path import join
 from graph.colorable import chromatic_number

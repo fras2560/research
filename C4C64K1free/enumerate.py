@@ -9,7 +9,8 @@ Email:   fras2560@mylaurier.ca, lama3790@mylaurier.ca
 Version: 2015-05-26
 -------------------------------------------------------
 """
-
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_cycle, make_cok4
 from os import getcwd
 from os.path import join
