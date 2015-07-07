@@ -29,7 +29,7 @@ from copy import deepcopy
 from graph.helper import make_cycle, make_cok4
 from itertools import product
 
-GRAPH_FAMILY = "HasStrongStableSet"
+GRAPH_FAMILY = "NoStrongStableSet"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 FORBIDDEN_SUBGRAPHS = {make_cycle(4), make_cycle(5), make_cok4()}
@@ -316,97 +316,97 @@ contain a strong stable set. If they do not contain a stable set which meet
 all maximal cliques, then AnalysisFunction is called.
 -------------------------------------------------------
 """
-def ProcessGraphStream1(ySize, addAllOptionalXYEdges, AnalysisFunction):
-        
-    for thisGraphYSize in range(1, ySize + 1):
-        baseGraph = ConstructOnion()
-        graphToTest = AddYSet(baseGraph, thisGraphYSize, addAllOptionalXYEdges, 0)
-                
-        if FindStrongStableSet(graphToTest) != None:
-            print("Graph contains a strong stable set.")
-            f = File(DIRECTORY, G = graphToTest, logger = MY_LOGGER, base="C5-")
-            f.save()
-        else:
-            if AnalysisFunction(graphToTest):
-                print("Hoang's Conjectue Holds")
-            else:
-                print("Hoang's Conjectue FAILS!")
-                
-        graphToTest.clear()
-
-    return
-
-def ProcessGraphStream2(ySize, addAllOptionalXYEdges, AnalysisFunction):
-    
-    for thisGraphY1Size in range(1, ySize + 1):
-        baseGraph = ConstructOnion()
-        baseGraph = AddYSet(baseGraph, thisGraphY1Size, addAllOptionalXYEdges, 0)
-        
-        graphToTest = deepcopy(baseGraph)
-        for thisGraphY2Size in range(1, ySize + 1):
-            graphToTest = AddYSet(graphToTest, thisGraphY2Size, addAllOptionalXYEdges, 1)
-            
-            y1Nodes = {i for i in graphToTest.nodes() if (i > 13) and i <= (13 + thisGraphY1Size)}
-            y2Nodes = {i for i in graphToTest.nodes() if i > (13 + thisGraphY1Size)}
-            
-            #remember, Yi joins Y_i+1 forms a clique
-            for thisY1 in y1Nodes:
-                for thisY2 in y2Nodes:
-                    graphToTest.add_edge(thisY1, thisY2)
-            
-            if FindStrongStableSet(graphToTest) != None:
-                print("Graph contains a strong stable set.")
-                f = File(DIRECTORY, G = graphToTest, logger = MY_LOGGER, base="C5-")
-                f.save()
-            else:
-                if AnalysisFunction(graphToTest):
-                    print("Hoang's Conjectue Holds")
-                else:
-                    print("Hoang's Conjectue FAILS!")
-                    
-            graphToTest = deepcopy(baseGraph)
-        baseGraph.clear()   
-    return
-
-def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
-    
-    for thisGraphY1Size in range(1, ySize + 1):
-        baseGraph = ConstructOnion()
-        baseGraph = AddYSet(baseGraph, thisGraphY1Size, addAllOptionalXYEdges, 0)
-        
-        for thisGraphY2Size in range(1, ySize + 1):
-            baseGraph2 = AddYSet(baseGraph, thisGraphY2Size, addAllOptionalXYEdges, 1)
-            
-            y1Nodes = {i for i in baseGraph2.nodes() if (i > 13) and i <= (13 + thisGraphY1Size)}
-            y2Nodes = {i for i in baseGraph2.nodes() if i > (13 + thisGraphY1Size)}
-            
-            #remember, Yi joins Y_i+1 forms a clique
-            for thisY1 in y1Nodes:
-                for thisY2 in y2Nodes:
-                    baseGraph2.add_edge(thisY1, thisY2)
-                    
-            for thisGraphY3Size in range(1, ySize + 1):
-                baseGraph3 = AddYSet(baseGraph2, thisGraphY3Size, addAllOptionalXYEdges, 2)
-                
-                y2Nodes = {i for i in baseGraph3.nodes() if i > (13 + thisGraphY1Size) and i <= (13 + thisGraphY1Size + thisGraphY2Size)}
-                y3Nodes = {i for i in baseGraph3.nodes() if i > (13 + thisGraphY1Size + thisGraphY2Size)}
-                
-                for thisY2 in y2Nodes:
-                    for thisY3 in y3Nodes:
-                        baseGraph3.add_edge(thisY2, thisY3)
-                        
-                if FindStrongStableSet(baseGraph3) != None:
-                    print("Graph contains a strong stable set.")
-                    f = File(DIRECTORY, G = baseGraph3, logger = MY_LOGGER, base="C5-")
-                    f.save()
-                else:
-                    if AnalysisFunction(baseGraph3):
-                        print("Hoang's Conjectue Holds")
-                    else:
-                        print("Hoang's Conjectue FAILS!")
-                baseGraph3 = deepcopy(baseGraph3)
-            baseGraph2 = deepcopy(baseGraph3)           
-    return
+# def ProcessGraphStream1(ySize, addAllOptionalXYEdges, AnalysisFunction):
+#         
+#     for thisGraphYSize in range(1, ySize + 1):
+#         baseGraph = ConstructOnion()
+#         graphToTest = AddYSet(baseGraph, thisGraphYSize, addAllOptionalXYEdges, 0)
+#                 
+#         if FindStrongStableSet(graphToTest) != None:
+#             print("Graph contains a strong stable set.")
+#             f = File(DIRECTORY, G = graphToTest, logger = MY_LOGGER, base="C5-")
+#             f.save()
+#         else:
+#             if AnalysisFunction(graphToTest):
+#                 print("Hoang's Conjectue Holds")
+#             else:
+#                 print("Hoang's Conjectue FAILS!")
+#                 
+#         graphToTest.clear()
+# 
+#     return
+# 
+# def ProcessGraphStream2(ySize, addAllOptionalXYEdges, AnalysisFunction):
+#     
+#     for thisGraphY1Size in range(1, ySize + 1):
+#         baseGraph = ConstructOnion()
+#         baseGraph = AddYSet(baseGraph, thisGraphY1Size, addAllOptionalXYEdges, 0)
+#         
+#         graphToTest = deepcopy(baseGraph)
+#         for thisGraphY2Size in range(1, ySize + 1):
+#             graphToTest = AddYSet(graphToTest, thisGraphY2Size, addAllOptionalXYEdges, 1)
+#             
+#             y1Nodes = {i for i in graphToTest.nodes() if (i > 13) and i <= (13 + thisGraphY1Size)}
+#             y2Nodes = {i for i in graphToTest.nodes() if i > (13 + thisGraphY1Size)}
+#             
+#             #remember, Yi joins Y_i+1 forms a clique
+#             for thisY1 in y1Nodes:
+#                 for thisY2 in y2Nodes:
+#                     graphToTest.add_edge(thisY1, thisY2)
+#             
+#             if FindStrongStableSet(graphToTest) != None:
+#                 print("Graph contains a strong stable set.")
+#                 f = File(DIRECTORY, G = graphToTest, logger = MY_LOGGER, base="C5-")
+#                 f.save()
+#             else:
+#                 if AnalysisFunction(graphToTest):
+#                     print("Hoang's Conjectue Holds")
+#                 else:
+#                     print("Hoang's Conjectue FAILS!")
+#                     
+#             graphToTest = deepcopy(baseGraph)
+#         baseGraph.clear()   
+#     return
+# 
+# def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
+#     
+#     for thisGraphY1Size in range(1, ySize + 1):
+#         baseGraph = ConstructOnion()
+#         baseGraph = AddYSet(baseGraph, thisGraphY1Size, addAllOptionalXYEdges, 0)
+#         
+#         for thisGraphY2Size in range(1, ySize + 1):
+#             baseGraph2 = AddYSet(baseGraph, thisGraphY2Size, addAllOptionalXYEdges, 1)
+#             
+#             y1Nodes = {i for i in baseGraph2.nodes() if (i > 13) and i <= (13 + thisGraphY1Size)}
+#             y2Nodes = {i for i in baseGraph2.nodes() if i > (13 + thisGraphY1Size)}
+#             
+#             #remember, Yi joins Y_i+1 forms a clique
+#             for thisY1 in y1Nodes:
+#                 for thisY2 in y2Nodes:
+#                     baseGraph2.add_edge(thisY1, thisY2)
+#                     
+#             for thisGraphY3Size in range(1, ySize + 1):
+#                 baseGraph3 = AddYSet(baseGraph2, thisGraphY3Size, addAllOptionalXYEdges, 2)
+#                 
+#                 y2Nodes = {i for i in baseGraph3.nodes() if i > (13 + thisGraphY1Size) and i <= (13 + thisGraphY1Size + thisGraphY2Size)}
+#                 y3Nodes = {i for i in baseGraph3.nodes() if i > (13 + thisGraphY1Size + thisGraphY2Size)}
+#                 
+#                 for thisY2 in y2Nodes:
+#                     for thisY3 in y3Nodes:
+#                         baseGraph3.add_edge(thisY2, thisY3)
+#                         
+#                 if FindStrongStableSet(baseGraph3) != None:
+#                     print("Graph contains a strong stable set.")
+#                     f = File(DIRECTORY, G = baseGraph3, logger = MY_LOGGER, base="C5-")
+#                     f.save()
+#                 else:
+#                     if AnalysisFunction(baseGraph3):
+#                         print("Hoang's Conjectue Holds")
+#                     else:
+#                         print("Hoang's Conjectue FAILS!")
+#                 baseGraph3 = deepcopy(baseGraph3)
+#             baseGraph2 = deepcopy(baseGraph3)           
+#     return
 
 def DifferentSizeXAndDifferentSizeY():
     
@@ -447,14 +447,14 @@ def DifferentSizeXAndDifferentSizeY():
         
             if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
                 print("ERROR!")
-                print("x config: {0}".format(thisXConfig))
-                print("y config: {0}".format(thisYConfig))
                 f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
                 f.save()
                 exit()
              
             if thisStrongStableSet == None:
                 print("G does not contain a strong stable set")
+                f = File(DIRECTORY + "X_and_Y", G = myGraph, logger = MY_LOGGER, base="C5-")
+                f.save()
             else:
                 print("G does contain a strong stable set")
                 
@@ -477,17 +477,22 @@ def DifferentSizeXSetsNoYSetsTest():
         
         if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
             print("ERROR!")
+            f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
             exit()
          
         if thisStrongStableSet == None:
             print("G does not contain a strong stable set")
+            f = File(DIRECTORY + "_X_only", G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
         else:
             print("G does contain a strong stable set")
         myGraph.clear()
 
     return
 
-# DifferentSizeXAndDifferentSizeY()
+DifferentSizeXSetsNoYSetsTest()
+#DifferentSizeXAndDifferentSizeY()
 
 
 
