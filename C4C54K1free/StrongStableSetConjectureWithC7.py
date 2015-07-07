@@ -39,6 +39,7 @@ X_VERTEX_START_INDEX = 0
 CYCLE_LENGTH = 7
 
 CURRENT_X_SETS = None
+CURRENT_Y_SETS = None
 
 def GIsHFree(G, H):
     
@@ -50,6 +51,11 @@ def GIsHFree(G, H):
             break
     return result
 
+def UpdateCurrentYSets(newYSet):
+    global CURRENT_Y_SETS
+    CURRENT_Y_SETS = newYSet
+    return
+
 def UpdateCurrentXSets(newXSet):
     global CURRENT_X_SETS
     CURRENT_X_SETS = newXSet
@@ -60,6 +66,7 @@ def ConstructOnion(number_of_layers):
     resultGraph = make_cycle(CYCLE_LENGTH)
     
     x_sets = [ [] for i in range(0,CYCLE_LENGTH)]
+    y_sets = [ [] for i in range(0,CYCLE_LENGTH)]
     
     #Add the nodes
     for vertexIndex in range(0, number_of_layers * CYCLE_LENGTH):
@@ -87,7 +94,8 @@ def ConstructOnion(number_of_layers):
             for vertexJ in x2:
                 resultGraph.add_edge(vertexI,vertexJ)
 
-    UpdateCurrentXSets(x_sets)          
+    UpdateCurrentXSets(x_sets)
+    UpdateCurrentYSets(y_sets)        
     return resultGraph
 
 """
@@ -240,11 +248,14 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
 
 def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
     
+    y_sets = [ [] for i in range(0,CYCLE_LENGTH)]
+    
     yNodes  =  list()
     for i in range(0, setSize):
         thisVertexIndex = G.number_of_nodes()
         yNodes.append(thisVertexIndex)
         G.add_node(thisVertexIndex)
+        CURRENT_Y_SETS[(offset) % 7].append(thisVertexIndex)
         
         #Because Stream1 has only 1 Y set (by definition), its
         #placement does not matter. All other placements are isomorphic
@@ -258,10 +269,18 @@ def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
             if thisYNode != thisVertexIndex:
                 G.add_edge(thisYNode, thisVertexIndex)
         
-        #Y1 joins ALL Xi, X_i+1
+        #yi joins Y_i+1
+        for thisCurrentYi1 in CURRENT_Y_SETS[(offset + 1) % 7]:
+            G.add_edge(thisCurrentYi1, thisVertexIndex)
+        #Yi joins Y_i+6    
+        for thisCurrentYi6 in CURRENT_Y_SETS[(offset + 6) % 7]:
+            G.add_edge(thisCurrentYi6, thisVertexIndex)
+        
+        #Y1 joins Xi
         for thisCurrentXi in CURRENT_X_SETS[(1 + offset) % 7]:
             G.add_edge(thisVertexIndex, thisCurrentXi)
             
+        #Yi joins X_i+1    
         for thisCurrentXi2 in CURRENT_X_SETS[(2 + offset) % 7]:
             G.add_edge(thisVertexIndex, thisCurrentXi2)
             
@@ -392,15 +411,62 @@ def ProcessGraphStream3(ySize, addAllOptionalXYEdges, AnalysisFunction):
 def DifferentSizeXAndDifferentSizeY():
     
     #ALWAYS ADD X'S ***BEFORE*** adding your Y's!
+    t = range(1,3)
+    xConfigSet = set(set(product(set(t),repeat = 7)))
+    yConfigSet = set(set(product(set(t),repeat = 7)))
     
+    badYConfigurations = set()
+    #Now we need to sift through our Y sets and remove illegal ones
+    #No more than 3 Y's
+    for thisYConfig in yConfigSet:
+        numberYSets = 0
+        for i in range(0,7):
+            if thisYConfig[i] == 2:
+                numberYSets += 1;
+                if thisYConfig[(i + 3) % 7] == 2 or thisYConfig[(i + 4) % 7] == 2:
+                    badYConfigurations = badYConfigurations.union({thisYConfig})
+                    break 
+            if numberYSets > 3:
+                badYConfigurations = badYConfigurations.union(set(thisYConfig))
+                break
+
+    yConfigSet.difference_update(badYConfigurations)
+            
+    # now we may construct our graphs!
+    for thisXConfig in xConfigSet:
+        for thisYConfig in yConfigSet:
+            myGraph = ConstructOnion(1)
+            for i in range(0,7):
+                if thisXConfig[i] == 2:
+                    myGraph = AddXSet(myGraph, 1, False, i)
+            for i in range(0,7):
+                if thisYConfig[i] == 2:
+                    myGraph = AddYSet(myGraph, 1, False, i)
+                    
+            thisStrongStableSet = FindStrongStableSet(myGraph)
+        
+            if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
+                print("ERROR!")
+                print("x config: {0}".format(thisXConfig))
+                print("y config: {0}".format(thisYConfig))
+                f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+                f.save()
+                exit()
+             
+            if thisStrongStableSet == None:
+                print("G does not contain a strong stable set")
+            else:
+                print("G does contain a strong stable set")
+                
+            myGraph.clear()
+
     return
 
 def DifferentSizeXSetsNoYSetsTest():
 
     t = range(1,3)
     graphConfigSet = set(set(product(set(t),repeat = 7)))
-    print(graphConfigSet)
-     
+
     for thisGraphConfiguration in graphConfigSet:
         myGraph = ConstructOnion(1)
         for thisSetIndex in range(0,7):
@@ -417,11 +483,11 @@ def DifferentSizeXSetsNoYSetsTest():
             print("G does not contain a strong stable set")
         else:
             print("G does contain a strong stable set")
+        myGraph.clear()
 
     return
 
-DifferentSizeXSetsNoYSetsTest()
-
+# DifferentSizeXAndDifferentSizeY()
 
 
 
