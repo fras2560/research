@@ -16,6 +16,7 @@ Version: 2015-06-15
 import sys
 sys.path.append("..") # Adds higher directory to python modules path.
 from networkx.algorithms.clique import find_cliques
+import networkx as nx
 from networkx.algorithms import maximal_independent_set
 from networkx.exception import NetworkXUnfeasible
 from math import ceil
@@ -455,8 +456,13 @@ def DifferentSizeXAndDifferentSizeY():
             for i in range(0,7):
                 if thisYConfig[i] == 2:
                     myGraph = AddYSet(myGraph, 1, False, i)
-                    
-            thisStrongStableSet = FindStrongStableSet(myGraph)
+            
+            #Since the strong stable set is probabilistic, run it a few times just in case
+            #it returns None when in fact a strong stable set exists!
+            for i in range(0,10):        
+                thisStrongStableSet = FindStrongStableSet(myGraph)
+                if thisStrongStableSet != None:
+                    break
         
             if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
                 print("ERROR!")
