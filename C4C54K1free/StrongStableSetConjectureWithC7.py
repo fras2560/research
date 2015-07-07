@@ -29,6 +29,7 @@ from copy import deepcopy
 from graph.helper import make_cycle, make_cok4
 from itertools import product
 
+LOG_FILE_NAME = "C7_Many_X_Enumerate.log"
 GRAPH_FAMILY = "NoStrongStableSet"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
@@ -40,6 +41,18 @@ CYCLE_LENGTH = 7
 
 CURRENT_X_SETS = None
 CURRENT_Y_SETS = None
+
+def WriteToLogFile(strMsg):
+    
+    logFileHandle = open(LOG_FILE_NAME, "a+", encoding = "utf-8")
+    thisLine = logFileHandle.readline().strip()
+    while thisLine != "":
+        thisLine =  logFileHandle.readline().strip()
+
+    print(strMsg, file = logFileHandle)
+    logFileHandle.close()
+    
+    return
 
 def GIsHFree(G, H):
     
@@ -453,10 +466,11 @@ def DifferentSizeXAndDifferentSizeY():
              
             if thisStrongStableSet == None:
                 print("G does not contain a strong stable set")
+                WriteToLogFile("X Config: {0}    Y Config: {1}".format(thisXConfig, thisYConfig))
                 f = File(DIRECTORY + "X_and_Y", G = myGraph, logger = MY_LOGGER, base="C5-")
                 f.save()
             else:
-                print("G does contain a strong stable set")
+                print("G does contain a strong stable set: {0}".format(thisStrongStableSet))
                 
             myGraph.clear()
 
@@ -483,16 +497,19 @@ def DifferentSizeXSetsNoYSetsTest():
          
         if thisStrongStableSet == None:
             print("G does not contain a strong stable set")
+            WriteToLogFile("X Config: {0}".format(thisGraphConfiguration))
             f = File(DIRECTORY + "_X_only", G = myGraph, logger = MY_LOGGER, base="C5-")
             f.save()
         else:
-            print("G does contain a strong stable set")
+            print("G does contain a strong stable set: {0}".format(thisStrongStableSet))
         myGraph.clear()
 
     return
 
+WriteToLogFile("Testing: C7 with only X sets")
 DifferentSizeXSetsNoYSetsTest()
-#DifferentSizeXAndDifferentSizeY()
+WriteToLogFile("Testing: C7 with both X and Y sets")
+DifferentSizeXAndDifferentSizeY()
 
 
 
