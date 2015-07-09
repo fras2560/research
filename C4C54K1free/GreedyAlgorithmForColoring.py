@@ -210,12 +210,71 @@ def GenerateAllGraphsWithManyXNoY(xCardinalityUpperBound):
             print("Valid coloring")
         else:
             print("INVALID coloring!")
+            f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
             
         myGraph.clear()
 
     return
 
-GenerateAllGraphsWithManyXNoY(3)
+def GenerateAllGraphsWithManyXManyY(xyCardinalityUpperBound):
+    
+    #ALWAYS ADD X'S ***BEFORE*** adding your Y's!
+    t = range(1,xyCardinalityUpperBound)
+    xConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
+    yConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
+    
+    badYConfigurations = set()
+    #Now we need to sift through our Y sets and remove illegal ones
+    #No more than 3 Y's
+    for thisYConfig in yConfigSet:
+        numberYSets = 0
+        for i in range(0,CYCLE_LENGTH):
+            if thisYConfig[i] >= 2:
+                numberYSets += 1;
+                if thisYConfig[(i + 3) % CYCLE_LENGTH] == 2 or thisYConfig[(i + 4) % CYCLE_LENGTH] >= 2:
+                    badYConfigurations = badYConfigurations.union({thisYConfig})
+                    break 
+            if numberYSets > 3:
+                badYConfigurations = badYConfigurations.union(set(thisYConfig))
+                break
+
+    yConfigSet.difference_update(badYConfigurations)
+
+    graphsAnalyzedSoFar = 0
+    # now we may construct our graphs!
+    for thisXConfig in xConfigSet:
+        for thisYConfig in yConfigSet:
+            myGraph = ConstructBaseGraph()
+            for i in range(0,CYCLE_LENGTH):
+                if thisXConfig[i] >= 2:
+                    myGraph = AddXSet(myGraph, thisXConfig[i] - 1, False, i)
+            for i in range(0,CYCLE_LENGTH):
+                if thisYConfig[i] >= 2:
+                    myGraph = AddYSet(myGraph, thisXConfig[i] - 1, False, i)
+         
+            if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
+                print("ERROR!")
+                f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+                f.save()
+                exit()
+              
+            coloring = GreedyColoring(myGraph)
+             
+            if valid_coloring(coloring, myGraph):
+                print("Valid Coloring")
+            else:
+                print("INVALID coloring!")
+                f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+                f.save()
+                 
+            myGraph.clear()
+            graphsAnalyzedSoFar += 1
+            print("Graphs Analyzed: {0}:" .format(graphsAnalyzedSoFar))
+
+    return
+
+GenerateAllGraphsWithManyXManyY(3)
 
 
 
