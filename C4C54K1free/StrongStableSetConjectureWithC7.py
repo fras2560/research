@@ -36,6 +36,7 @@ DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 FORBIDDEN_SUBGRAPHS = {make_cycle(4), make_cycle(5), make_cok4()}
 
+STABLE_SET_SEARCH_ITERATIONS = 10
 Y_VERTEX_START_INDEX = 0
 X_VERTEX_START_INDEX = 0
 CYCLE_LENGTH = 7
@@ -228,24 +229,24 @@ def FindStrongStableSetWithY(G):
 def AddXSet(G, setSize, addAllOptionalXEdges, offset):
     
     currentXAtOffset = list()
-    currentXAtOffset.append( (7 + offset) % 14 )
+    currentXAtOffset.append( (CYCLE_LENGTH + offset) % 14 )
     
     for i in range(0, setSize):
         thisXVetexToAdd = G.number_of_nodes()
         currentXAtOffset.append(thisXVetexToAdd)
         G.add_node(thisXVetexToAdd)
-        CURRENT_X_SETS[(offset) % 7].append(thisXVetexToAdd)
+        CURRENT_X_SETS[(offset) % CYCLE_LENGTH].append(thisXVetexToAdd)
         
         #X is a 3-vertex
-        G.add_edge((X_VERTEX_START_INDEX + offset + 0) % 7, thisXVetexToAdd)
-        G.add_edge((X_VERTEX_START_INDEX + offset - 1) % 7, thisXVetexToAdd)
-        G.add_edge((X_VERTEX_START_INDEX + offset + 1) % 7, thisXVetexToAdd)
+        G.add_edge((X_VERTEX_START_INDEX + offset + 0) % CYCLE_LENGTH, thisXVetexToAdd)
+        G.add_edge((X_VERTEX_START_INDEX + offset - 1) % CYCLE_LENGTH, thisXVetexToAdd)
+        G.add_edge((X_VERTEX_START_INDEX + offset + 1) % CYCLE_LENGTH, thisXVetexToAdd)
         
         #Xi joins X_i+1, X_i+6
-        for thisXi1Vertex in CURRENT_X_SETS[(offset + 1) % 7]:
+        for thisXi1Vertex in CURRENT_X_SETS[(offset + 1) % CYCLE_LENGTH]:
             G.add_edge(thisXVetexToAdd, thisXi1Vertex)
             
-        for thisXi6Vertex in CURRENT_X_SETS[(offset + 6) % 7]:
+        for thisXi6Vertex in CURRENT_X_SETS[(offset + 6) % CYCLE_LENGTH]:
             G.add_edge(thisXVetexToAdd, thisXi6Vertex)
         
         #X is a clique
@@ -255,7 +256,7 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
         
         #Add optional X edges if needed, that is: xi joins xi+2
         if addAllOptionalXEdges  == True:
-            for thisXi2Vertex in CURRENT_X_SETS[(offset + 2) % 7]:
+            for thisXi2Vertex in CURRENT_X_SETS[(offset + 2) % CYCLE_LENGTH]:
                 G.add_edge(thisXVetexToAdd, thisXi2Vertex)
         
     return deepcopy(G)
@@ -269,14 +270,14 @@ def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
         thisVertexIndex = G.number_of_nodes()
         yNodes.append(thisVertexIndex)
         G.add_node(thisVertexIndex)
-        CURRENT_Y_SETS[(offset) % 7].append(thisVertexIndex)
+        CURRENT_Y_SETS[(offset) % CYCLE_LENGTH].append(thisVertexIndex)
         
         #Because Stream1 has only 1 Y set (by definition), its
         #placement does not matter. All other placements are isomorphic
-        G.add_edge((Y_VERTEX_START_INDEX + offset + 0) % 7, thisVertexIndex)
-        G.add_edge((Y_VERTEX_START_INDEX + offset + 1) % 7, thisVertexIndex)
-        G.add_edge((Y_VERTEX_START_INDEX + offset + 2) % 7, thisVertexIndex)
-        G.add_edge((Y_VERTEX_START_INDEX + offset + 3) % 7, thisVertexIndex)
+        G.add_edge((Y_VERTEX_START_INDEX + offset + 0) % CYCLE_LENGTH, thisVertexIndex)
+        G.add_edge((Y_VERTEX_START_INDEX + offset + 1) % CYCLE_LENGTH, thisVertexIndex)
+        G.add_edge((Y_VERTEX_START_INDEX + offset + 2) % CYCLE_LENGTH, thisVertexIndex)
+        G.add_edge((Y_VERTEX_START_INDEX + offset + 3) % CYCLE_LENGTH, thisVertexIndex)
         
         #Yi forms a clique
         for thisYNode in yNodes:
@@ -284,47 +285,47 @@ def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
                 G.add_edge(thisYNode, thisVertexIndex)
         
         #yi joins Y_i+1
-        for thisCurrentYi1 in CURRENT_Y_SETS[(offset + 1) % 7]:
+        for thisCurrentYi1 in CURRENT_Y_SETS[(offset + 1) % CYCLE_LENGTH]:
             G.add_edge(thisCurrentYi1, thisVertexIndex)
         #Yi joins Y_i+6    
-        for thisCurrentYi6 in CURRENT_Y_SETS[(offset + 6) % 7]:
+        for thisCurrentYi6 in CURRENT_Y_SETS[(offset + 6) % CYCLE_LENGTH]:
             G.add_edge(thisCurrentYi6, thisVertexIndex)
         
         #Y1 joins Xi
-        for thisCurrentXi in CURRENT_X_SETS[(1 + offset) % 7]:
+        for thisCurrentXi in CURRENT_X_SETS[(1 + offset) % CYCLE_LENGTH]:
             G.add_edge(thisVertexIndex, thisCurrentXi)
             
         #Yi joins X_i+1    
-        for thisCurrentXi2 in CURRENT_X_SETS[(2 + offset) % 7]:
+        for thisCurrentXi2 in CURRENT_X_SETS[(2 + offset) % CYCLE_LENGTH]:
             G.add_edge(thisVertexIndex, thisCurrentXi2)
             
         #We must avoid 4k1
-        for thisCurrentXi6 in CURRENT_X_SETS[(0 + offset) % 7]:
+        for thisCurrentXi6 in CURRENT_X_SETS[(0 + offset) % CYCLE_LENGTH]:
             G.add_edge(thisVertexIndex, thisCurrentXi6)
             
         #The user may request optional edges, that is: Yi joins Xi+2
         if addAllOptionalXYEdges == True:
-            for thisCurrentXi2 in CURRENT_X_SETS[(3 + offset) % 7]:
+            for thisCurrentXi2 in CURRENT_X_SETS[(3 + offset) % CYCLE_LENGTH]:
                 G.add_edge(thisVertexIndex, thisCurrentXi2)
                 
     return deepcopy(G)
 
-def DifferentSizeXAndDifferentSizeY():
+def DifferentSizeXAndDifferentSizeY(xyCardinalityUpperBound):
     
     #ALWAYS ADD X'S ***BEFORE*** adding your Y's!
-    t = range(1,3)
-    xConfigSet = set(set(product(set(t),repeat = 7)))
-    yConfigSet = set(set(product(set(t),repeat = 7)))
+    t = range(1,xyCardinalityUpperBound)
+    xConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
+    yConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
     
     badYConfigurations = set()
     #Now we need to sift through our Y sets and remove illegal ones
     #No more than 3 Y's
     for thisYConfig in yConfigSet:
         numberYSets = 0
-        for i in range(0,7):
+        for i in range(0,CYCLE_LENGTH):
             if thisYConfig[i] == 2:
                 numberYSets += 1;
-                if thisYConfig[(i + 3) % 7] == 2 or thisYConfig[(i + 4) % 7] == 2:
+                if thisYConfig[(i + 3) % CYCLE_LENGTH] == 2 or thisYConfig[(i + 4) % CYCLE_LENGTH] == 2:
                     badYConfigurations = badYConfigurations.union({thisYConfig})
                     break 
             if numberYSets > 3:
@@ -337,16 +338,16 @@ def DifferentSizeXAndDifferentSizeY():
     for thisXConfig in xConfigSet:
         for thisYConfig in yConfigSet:
             myGraph = ConstructOnion(1)
-            for i in range(0,7):
-                if thisXConfig[i] == 2:
-                    myGraph = AddXSet(myGraph, 1, False, i)
-            for i in range(0,7):
-                if thisYConfig[i] == 2:
-                    myGraph = AddYSet(myGraph, 1, False, i)
+            for i in range(0,CYCLE_LENGTH):
+                if thisXConfig[i] >= 2:
+                    myGraph = AddXSet(myGraph, thisXConfig[i] - 1, False, i)
+            for i in range(0,CYCLE_LENGTH):
+                if thisYConfig[i] >= 2:
+                    myGraph = AddYSet(myGraph, thisXConfig[i] - 1, False, i)
             
             #Since the strong stable set is probabilistic, run it a few times just in case
             #it returns None when in fact a strong stable set exists!
-            for i in range(0,10):        
+            for i in range(0,STABLE_SET_SEARCH_ITERATIONS):        
                 thisStrongStableSet = FindStrongStableSet(myGraph)
                 if thisStrongStableSet != None:
                     break
@@ -369,16 +370,16 @@ def DifferentSizeXAndDifferentSizeY():
 
     return
 
-def DifferentSizeXSetsNoYSetsTest():
+def DifferentSizeXSetsNoYSetsTest(xCardinalityUpperBound):
 
-    t = range(1,3)
-    graphConfigSet = set(set(product(set(t),repeat = 7)))
+    t = range(1,xCardinalityUpperBound)
+    graphConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
 
     for thisGraphConfiguration in graphConfigSet:
         myGraph = ConstructOnion(1)
-        for thisSetIndex in range(0,7):
-            if thisGraphConfiguration[thisSetIndex] == 2:
-                myGraph = AddXSet(myGraph, 1, False, thisSetIndex)
+        for thisSetIndex in range(0,CYCLE_LENGTH):
+            if thisGraphConfiguration[thisSetIndex] >= 2:
+                myGraph = AddXSet(myGraph, thisGraphConfiguration[thisSetIndex] - 1, False, thisSetIndex)
                  
         thisStrongStableSet = FindStrongStableSet(myGraph)
         
@@ -400,7 +401,7 @@ def DifferentSizeXSetsNoYSetsTest():
     return
 
 WriteToLogFile("Testing: C7 with only X sets")
-DifferentSizeXSetsNoYSetsTest()
+DifferentSizeXSetsNoYSetsTest(3)
 WriteToLogFile("Testing: C7 with both X and Y sets")
 DifferentSizeXAndDifferentSizeY()
 
