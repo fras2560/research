@@ -12,91 +12,45 @@ Version: 2015-06-15
 import sys
 sys.path.append("..")
 from copy import deepcopy
-from graph.helper import make_cycle
+from graph.helper import make_cycle, make_cok4
 from graph.colorable import valid_coloring
+from graph.container import induced_subgraph
 from networkx.algorithms import find_cliques, maximal_independent_set
+from utility.file import File
 from math import ceil
+from itertools import product
+from os import getcwd
+from os.path import join
+import logging
 
 CYCLE_LENGTH = 7
 CURRENT_X_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
 CURRENT_Y_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
+FORBIDDEN_SUBGRAPHS = {make_cycle(4), make_cycle(5), make_cok4()}
+
+GRAPH_FAMILY = "GreedyColoring"
+DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
+MY_LOGGER = logging.getLogger(__name__)
 
 def ConstructBaseGraph():
     global CURRENT_X_SETS, CURRENT_Y_SETS
     
-    CURRENT_X_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
+    CURRENT_X_SETS = [ [i] for i in range(0, CYCLE_LENGTH)]
     CURRENT_Y_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
     
     result = make_cycle(CYCLE_LENGTH)
     
     return deepcopy(result)
 
-# """
-# -------------------------------------------------------
-# This function finds the largest clique in a NetworkX graph.
-# 
-# Preconditions: G, a NetworkX graph.
-# 
-# Postconditions: This function returns a list of lists, where each list entry
-# contains a list of vertices which comprise the largest clique(s)
-# in G.
-# -------------------------------------------------------
-# """
-# def findLargestCliques(G):
-#     maximalCliques = list(find_cliques(G))
-#     
-#     if maximalCliques == []:
-#         result  = []
-#     else:
-#         largestSoFar = len(maximalCliques[0])
-#         
-#         for thisClique in maximalCliques:
-#             if len(thisClique) > largestSoFar:
-#                 largestSoFar = len(thisClique)
-#                 
-#         result = list()
-#         
-#         for thisClique in maximalCliques:
-#             if len(thisClique) == largestSoFar:
-#                 result.append(thisClique)
-#                   
-#     return result
-# 
-# """
-# -------------------------------------------------------
-# This function takes a NetworkX graph G and returns a strong
-# stable set belonging to G, if such a stable set exists, and
-# returns None otherwise.
-# -------------------------------------------------------
-# """
-# def FindStrongStableSet(G):
-#     result = None
-#     maximalCliques = findLargestCliques(G)
-#     
-#     if maximalCliques !=  []:
-#         V = G.nodes()
-#     
-#         for thisVertex in V:
-#             #Find maximum stable sets which contain each vertex of G
-#              try:
-#                 verticesToInclude = list()
-#                 verticesToInclude.append(thisVertex)
-#                 thisMaximalStableSet = maximal_independent_set(G, verticesToInclude)
-#              except NetworkXUnfeasible:
-#                 thisMaximalStableSet = []
-#              #Now determine if thisMaximumStableSet is strong, that is, meets every maximal clique
-#              foundStrongStableSet = True
-#             
-#              for thisMaximalClique in maximalCliques:
-#                 if set(thisMaximalStableSet).isdisjoint(set(thisMaximalClique)):
-#                     foundStrongStableSet = False
-#                     break
-#                        
-#              if foundStrongStableSet == True:
-#                 result = thisMaximalStableSet
-#                 break
-# 
-#     return result
+def GIsHFree(G, H):
+    
+    result = True
+    
+    for thisForbiddenInducedSubgraph in H:
+        if induced_subgraph(G, thisForbiddenInducedSubgraph):
+            result = False
+            break
+    return result
 
 def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
     
@@ -150,7 +104,7 @@ def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
 def AddXSet(G, setSize, addAllOptionalXEdges, offset):
     
     currentXAtOffset = list()
-    currentXAtOffset.append( (7 + offset) % 14 )
+    currentXAtOffset.append( offset % 7)
     
     for i in range(0, setSize):
         thisXVetexToAdd = G.number_of_nodes()
@@ -185,7 +139,7 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
 def FindGoodStableSet(G):
 
     graphToSearch = deepcopy(G)
-    for i in range(0,6):
+    for i in range(0, CYCLE_LENGTH):
         graphToSearch.remove_node(i)
 
     for i in range(0,10):
@@ -232,13 +186,36 @@ def GreedyColoring(G):
                     result[color].append(thisUncoloredNode)
     return result
 
-G = ConstructBaseGraph()
-for i in range(0,7):
-    G = AddXSet(G, 1, False, i)
-G = AddYSet(G, 1, False, 0)
+def GenerateAllGraphsWithManyXNoY(xCardinalityUpperBound):
 
-coloring = GreedyColoring(G)
-print(valid_coloring(coloring,G))
+    t = range(1, xCardinalityUpperBound)
+    graphConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
+
+    for thisGraphConfiguration in graphConfigSet:
+        myGraph = ConstructBaseGraph()
+        for thisSetIndex in range(0,CYCLE_LENGTH):
+            if thisGraphConfiguration[thisSetIndex] >= 2:
+                myGraph = AddXSet(myGraph, thisGraphConfiguration[thisSetIndex] - 1, False, thisSetIndex)
+                       
+        if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
+            print("ERROR!")
+            print(myGraph.edges())
+            f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
+            exit()
+            
+        coloring = GreedyColoring(myGraph)
+        
+        if(valid_coloring(coloring, myGraph)):
+            print("Valid coloring")
+        else:
+            print("INVALID coloring!")
+            
+        myGraph.clear()
+
+    return
+
+GenerateAllGraphsWithManyXNoY(3)
 
 
 
