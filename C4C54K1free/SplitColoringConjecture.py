@@ -14,7 +14,7 @@ Version: 2015-09-15
 """
 import sys
 sys.path.append("..")
-from graph.helper import make_cycle
+from graph.helper import make_cycle, make_cok4
 from graph.container import induced_subgraph
 from graph.dcolor import Dcolor
 from networkx.algorithms import maximal_independent_set
@@ -27,12 +27,14 @@ from itertools import product
 import networkx as nx
 from networkx import convert_node_labels_to_integers
 from networkx.algorithms import find_cliques
+from graph.colorable import chromatic_number
 
 GRAPH_FAMILY = "SplitConjecture"
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 
 CYCLE_LENGTH = 7
+FORBIDDEN_SUBGRAPHS = {make_cycle(4), make_cycle(5), make_cok4()}
 CURRENT_X_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
 CURRENT_Y_SETS = [ [] for i in range(0, CYCLE_LENGTH)]
 
@@ -45,6 +47,16 @@ def ConstructBaseGraph():
     result = make_cycle(CYCLE_LENGTH)
     
     return deepcopy(result)
+
+def GIsHFree(G, H):
+    
+    result = True
+    
+    for thisForbiddenInducedSubgraph in H:
+        if induced_subgraph(G, thisForbiddenInducedSubgraph):
+            result = False
+            break
+    return result
 
 def AddYSet(G, setSize, addAllOptionalXYEdges, offset):
     
@@ -130,15 +142,15 @@ def AddXSet(G, setSize, addAllOptionalXEdges, offset):
         
     return deepcopy(G)
 
-# def FindGoodStableSet(G):
-# 
-#     result = None
-#     
-#     while result == None:
-#             result = maximal_independent_set(G)
-#             if len(result) != 3:
-#                 result = None
-#     return result
+def FindSimpleStableSet(G):
+ 
+    result = None
+     
+    while result == None:
+            result = maximal_independent_set(G)
+            if len(result) != 3:
+                result = None
+    return result
 
 def findLargestCliques(G):
     maximalCliques = list(find_cliques(G))
@@ -188,26 +200,43 @@ def FindStrongStableSet(G):
     return result
 
 def TheAlgorithm(G):
-    
     dColor = Dcolor(G)
     partialColoring = list()
-    
+     
     #Compute chi(G) (using brute force)
     k = len(dColor.color())
     
-    stillHasInducedC7 = True
-    while stillHasInducedC7 == True:
-        #Since G has an induced C7, a strong stable set of size 3 must exist. Find it.
-        thisStableSet = FindStrongStableSet(G)
+    hasStrongStableSet = False
+    thisStableSet = FindStrongStableSet(G)
+    if thisStableSet != None:
+        hasStrongStableSet = True
+    while hasStrongStableSet:
+        #thisStableSet = FindStrongStableSet(G)
         partialColoring.append(list(thisStableSet))
-        
         #Remove this stable set from the graph
         for thisStableVertex in thisStableSet:
             G.remove_node(thisStableVertex)
             
-        #check for induced C7
+        thisStableSet = FindStrongStableSet(G)
+        if thisStableSet == None:
+            hasStrongStableSet = False
+              
+    #check for induced C7
+    graphToTest = convert_node_labels_to_integers(G, 0, ordering='default', label_attribute = None)
+    if induced_subgraph(graphToTest, make_cycle(CYCLE_LENGTH)) == None:
+        stillHasInducedC7 = False
+    else:
+        stillHasInducedC7 = True
+    graphToTest.clear()
+    
+    while stillHasInducedC7 == True:
+        thisStableSet = FindSimpleStableSet(G)
+        partialColoring.append(thisStableSet)
+        for thisStableVertex in thisStableSet:
+            G.remove_node(thisStableVertex)
+            
         graphToTest = convert_node_labels_to_integers(G, 0, ordering='default', label_attribute = None)
-        if induced_subgraph(graphToTest, make_cycle(7)) == None:
+        if induced_subgraph(graphToTest, make_cycle(CYCLE_LENGTH)) == None:
             stillHasInducedC7 = False
         graphToTest.clear()
             
@@ -215,41 +244,48 @@ def TheAlgorithm(G):
     At this point, there does not exist a strong stable set of size 3, because there is no C7.
     This means that G is now a perfect graph.
     """
-    dColor2 = Dcolor(deepcopy(G))
-    t = len(dColor2.color())
-
+    t = chromatic_number(G)
+ 
     #Find the chromatic number of our partial graph of stable sets
     s = len(partialColoring)
-
+     
     if k == (s + t):
-        print("Conjecture Holds!")
-        print(partialColoring)
-        print(s,t)
-        print(G.nodes())
-        print(G.edges())
+        result = True
     else:
-        print('Conjecture fails.')
-        print(partialColoring)
-        print(s,t)
-        print(G.nodes())
-        print(G.edges())
+        result = False
+
+    return result
+
+def GenerateAllGraphsWithManyXNoY(xCardinalityUpperBound):
+
+    t = range(1, xCardinalityUpperBound)
+    graphConfigSet = set(set(product(set(t),repeat = CYCLE_LENGTH)))
+
+    for thisGraphConfiguration in graphConfigSet:
+        myGraph = ConstructBaseGraph()
+        for thisSetIndex in range(0,CYCLE_LENGTH):
+            if thisGraphConfiguration[thisSetIndex] >= 2:
+                myGraph = AddXSet(myGraph, thisGraphConfiguration[thisSetIndex] - 1, False, thisSetIndex)
+                       
+        if not (GIsHFree(myGraph, FORBIDDEN_SUBGRAPHS)):
+            print("ERROR!")
+            f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
+            exit()
+            
+        result = TheAlgorithm(myGraph)
+        
+        if(result == True):
+            print("Conjecture Holds.")
+        else:
+            print("Conjecture Fails!")
+            G = convert_node_labels_to_integers(G, 0, ordering='default', label_attribute = None)
+            f = File(DIRECTORY, G = myGraph, logger = MY_LOGGER, base="C5-")
+            f.save()
+            
+        myGraph.clear()
 
     return
 
-myGraph = ConstructBaseGraph()
-for i in range(0,CYCLE_LENGTH):
-    myGraph = AddXSet(myGraph, 1, False, i)
-myGraph = AddYSet(myGraph, 1, False, 0)
-myGraph = AddYSet(myGraph, 1, False, 1)
+GenerateAllGraphsWithManyXNoY(3)
 
-TheAlgorithm(myGraph)
-
-# thisStrongStableSet = FindStrongStableSet(myGraph)
-# 
-# while thisStrongStableSet != None:
-#     print(thisStrongStableSet)
-#     for thisStableVertex in thisStrongStableSet:
-#         myGraph.remove_node(thisStableVertex)
-#     thisStrongStableSet = FindStrongStableSet(myGraph)
-# 
-# print(chromatic_number(myGraph))
