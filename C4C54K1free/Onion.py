@@ -71,5 +71,5 @@ def Construct():
  
 result = Construct()
 print("Clique number: {0}".format(graph_clique_number(result)))
-# f = File(DIRECTORY, G = result, logger = MY_LOGGER, base="C5-")
-# f.save()
+f = File(DIRECTORY, G = result, logger = MY_LOGGER, base="C5-")
+f.save()
