@@ -20,6 +20,7 @@ from copy import deepcopy
 from networkx.algorithms.clique import find_cliques
 from networkx.exception import NetworkXUnfeasible
 from networkx.algorithms import maximal_independent_set
+from itertools import combinations_with_replacement
 from itertools import product
 
 #Program constants
@@ -160,7 +161,7 @@ def FindStrongStableSetFast(G):
     -------------------------------------------------------
     """
     
-    if W_SET != []:
+    if W_SET != [] and T_SETS != [[] for i in range(0,3)]:
         result = [W_SET[0]]
         
         #Find the T set which joins W
@@ -176,9 +177,9 @@ def FindStrongStableSetFast(G):
                         break
                 if joinedWithW == True:
                     foundTWhichJoinsW = True #W joins T[i]
-                else:
-                    i += 1
-                
+            if foundTWhichJoinsW == False:
+                i += 1
+                    
         #Pick 1 vertex from the other 2 T sets which do not see W
         for k in range(0, len(T_SETS)):
             
@@ -194,17 +195,15 @@ def FindStrongStableSetFast(G):
                             result.append(t)
                             foundGoodTInThisSet = True
                             break
+                        
+    elif W_SET != [] and T_SETS == [[] for i in range(0,3)]:
+        result = [W_SET[0]]
             
-    elif W_SET == [] and T_SETS != []:
+    elif W_SET == [] and T_SETS != [[] for i in range(0,3)]:
         result = list()
         for thisTSet in T_SETS:
-            reuslt.append(thisTSet[0])
-
-    elif len(X_SETS) == 5:
-        result = ()
-        result.append(X_SETS[0][0])
-        result.append(X_SETS[2][0])
-        result.append(X_SETS[4][0])
+            if thisTSet != []:
+                result.append(thisTSet[0])
     else:
         result = FindStrongStableSet(G) #Do this manually, it would be pretty trivial in this case.
         
@@ -346,21 +345,71 @@ def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
     
     return G
 
+def TestGraph(G):
+    
+    """
+    -------------------------------------------------------
+    This function tests if a graph has the strong stable set we expect, and that the
+    stable set we believe always exists is indeed valid.
+    -------------------------------------------------------
+    Preconditions:
+        G - a NetworkX graph.
+    
+    Postconditions: 
+        returns: returns True if the graph has a strong stable set defined 
+        by our claim and if this stable is in fact stable, false otherwise.
+    -------------------------------------------------------
+    """
+    
+    strongStableSet = FindStrongStableSetFast(G)
+    
+    result = IsStrongStableSet(G, strongStableSet)
+    
+    return result
+
 def Process():
     
-    G = Construct([1,2,1,2,2,1], [2,1,2], 2)
+    #Generate all X combos up to cardinality 1
+    allXConfigs = combinations_with_replacement(range(2), r = BASE_CYCLE_LENGTH)
+    #Generate all T combos up to cardinality 1
+    allTConfigs = combinations_with_replacement(range(2), r = 3)
+    #Generate all W combos up to cardinality 1
+    allWConfigs = range(2)
     
-    #W must join 1 T in order to avoid a 4k1
-    print(X_SETS)
-    print(T_SETS)
-    print(W_SET)
-    edgesToAdd = [(u,v) for (u,v) in product(T_SETS[0], W_SET) if u != v]
-    G = AddOptionalEdges(G, edgesToAdd)
+    #Do it
+    for thisXConfig in allXConfigs:
+        #Test graphs with just X sets
+        baseGraph = Construct(thisXConfig, [0,0,0], 0)  
+        print(TestGraph(baseGraph))
+        for thisTConfig in allTConfigs:
+            #Test graphs with just T sets
+            baseGraph = Construct([0,0,0,0,0,0], thisTConfig, 0)
+            print(TestGraph(baseGraph))
+            #Test graphs with only X,T sets
+            baseGraph = Construct(thisXConfig, thisTConfig, 0)
+            print(TestGraph(baseGraph))
+            for thisWConfig in allWConfigs:
+                #Test graphs with only X,W sets
+                baseGraph = Construct(thisXConfig, [0,0,0], thisWConfig)
+                print(TestGraph(baseGraph))
+                #Test graphs with only W,T sets
+                baseGraph = Construct([0,0,0,0,0,0], thisTConfig, thisWConfig)
+                print(thisTConfig)
+                print(thisWConfig)
+                print(TestGraph(baseGraph))
+                print("999")
+                #Test graphs with X,W,T sets
+                baseGraph = Construct(thisXConfig, thisTConfig, thisWConfig)
+                #print(TestGraph(baseGraph))
     
-    print(FindLargestCliques(G))
-    result  = FindStrongStableSetFast(G)
-    print(result)
-    print(IsStrongStableSet(G, result))
     return
 
-Process()
+#Process()
+
+baseGraph = Construct([0,0,0,0,0,0], [0, 0, 1], 1)
+print(X_SETS)
+print(T_SETS)
+print(W_SET)
+print(baseGraph.neighbors(7))
+print(baseGraph.edges())
+print(FindStrongStableSetFast(baseGraph))
