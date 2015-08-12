@@ -30,12 +30,6 @@ X_SETS = None
 T_SETS = None
 W_SET = None
 
-def FindStrongStableSetFast(G):
-    
-  
-    
-    return result
-
 def FindLargestCliques(G):
     
     """
@@ -65,6 +59,46 @@ def FindLargestCliques(G):
         if len(thisClique) == largestSoFar:
             result.append(thisClique)
             
+    return result
+
+def IsStrongStableSet(G, strongStableSet):
+    
+    """
+    -------------------------------------------------------
+    This function verifies that a set of vertices is a strong
+    stable set in some NetworkX graph.
+    -------------------------------------------------------
+    Preconditions:
+        G - a NetworkX graph.
+        strongStableSet - a Python list of vertices in G
+    
+    Postconditions: 
+        returns: True if the vertices of strongStableSet are in fact
+        pairwise non-adjacent and meet every maximum clique, False otherwise.
+    -------------------------------------------------------
+    """
+    
+    #Verify that the vertices are pairwise non-adjacent
+    verticesArePairwiseNonAdjacent = True
+    for thisNonEdge in product(strongStableSet, strongStableSet):
+        if thisNonEdge[0] != thisNonEdge[1]:
+            if thisNonEdge in G.edges():
+                verticesArePairwiseNonAdjacent = False
+                
+    #Verify that the vertices meet every maximum clique
+    verticesMeetEveryMaxClique = False
+    maximumCliques = FindLargestCliques(G)
+    for thisStableVertex in strongStableSet:
+        for thisMaximumClique in maximumCliques:
+            if thisStableVertex in thisMaximumClique:
+                verticesMeetEveryMaxClique = True
+                
+    #Compute the result
+    if verticesArePairwiseNonAdjacent == True and verticesMeetEveryMaxClique == True:
+        result = True
+    else:
+        result = False
+    
     return result
 
 def FindStrongStableSet(G):
@@ -106,6 +140,74 @@ def FindStrongStableSet(G):
             result = thisMaximalStableSet
             break
 
+    return result
+
+def FindStrongStableSetFast(G):
+    
+    """
+    -------------------------------------------------------
+    This function finds a strong stable set in a NetworkX graph.
+    Since it uses our conjecture, it is significantly faster than
+    the brute force method provided above.
+    -------------------------------------------------------
+    Preconditions:
+        G - a NetworkX graph.
+    
+    Postconditions: 
+        returns: result - a strong stable set in G if one exists,
+        an.
+        d returns [] otherwise. 
+    -------------------------------------------------------
+    """
+    
+    if W_SET != []:
+        result = [W_SET[0]]
+        
+        #Find the T set which joins W
+        i = 0
+        foundTWhichJoinsW = False
+        while i < len(T_SETS) and foundTWhichJoinsW == False:
+            
+            for t in T_SETS[i]:
+                joinedWithW = True
+                for w in W_SET:
+                    if (t, w) not in G.edges() and (w, t) not in G.edges():
+                        joinedWithW = False
+                        break
+                if joinedWithW == True:
+                    foundTWhichJoinsW = True #W joins T[i]
+                else:
+                    i += 1
+                
+        #Pick 1 vertex from the other 2 T sets which do not see W
+        for k in range(0, len(T_SETS)):
+            
+            if k != i:
+                for t in T_SETS[k]:
+                    foundGoodTInThisSet = False
+                    if foundGoodTInThisSet == False and (t not in result):
+                        goodT = True
+                        for v in result:
+                            if (t,v) in G.edges() or (v,t) in G.edges():
+                                goodT = False
+                        if goodT == True:
+                            result.append(t)
+                            foundGoodTInThisSet = True
+                            break
+            
+    elif W_SET == [] and T_SETS != []:
+        result = list()
+        for thisTSet in T_SETS:
+            reuslt.append(thisTSet[0])
+
+    elif len(X_SETS) == 5:
+        result = ()
+        result.append(X_SETS[0][0])
+        result.append(X_SETS[2][0])
+        result.append(X_SETS[4][0])
+    else:
+        result = FindStrongStableSet(G) #Do this manually, it would be pretty trivial in this case.
+        
     return result
 
 def AddOptionalEdges(G, edgesToAdd):
@@ -256,7 +358,9 @@ def Process():
     G = AddOptionalEdges(G, edgesToAdd)
     
     print(FindLargestCliques(G))
-    print(G.neighbors(20))
+    result  = FindStrongStableSetFast(G)
+    print(result)
+    print(IsStrongStableSet(G, result))
     return
 
 Process()
