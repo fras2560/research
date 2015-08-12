@@ -18,6 +18,9 @@ sys.path.append("..")
 from graph.helper import make_cycle
 from copy import deepcopy
 from networkx.algorithms.clique import find_cliques
+from networkx.exception import NetworkXUnfeasible
+from networkx.algorithms import maximal_independent_set
+from itertools import product
 
 #Program constants
 BASE_CYCLE_LENGTH = 6
@@ -58,16 +61,23 @@ def FindLargestCliques(G):
             
     return result
 
-"""
--------------------------------------------------------
-This function takes a NetworkX graph G and returns a strong
-stable set belonging to G, if such a stable set exists, and
-returns None otherwise.
--------------------------------------------------------
-"""
 def FindStrongStableSet(G):
+    
+    """
+    -------------------------------------------------------
+    This function finds a strong stable set in a NetworkX graph.
+    -------------------------------------------------------
+    Preconditions:
+        G - a NetworkX graph.
+    
+    Postconditions: 
+        returns: result - a strong stable set in G if one exists,
+        and returns [] otherwise. 
+    -------------------------------------------------------
+    """
+    
     result = None
-    maximalCliques = findLargestCliques(G)
+    maximalCliques = FindLargestCliques(G)
     V = G.nodes()
 
     for thisVertex in V:
@@ -222,13 +232,15 @@ def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
     
     return G
 
-G = Construct([1,2,1,2,2,1], [2,1,2], 2)
-print(X_SETS)
-print(T_SETS)
-print(W_SET)
-print(G.neighbors(18))
-print(FindLargestCliques(G))
+def Process():
+    
+    G = Construct([1,2,1,2,2,1], [2,1,2], 2)
+    
+    #W must join 1 T in order to avoid a 4k1
+    edgesToAdd = [(u,v) for (u,v) in product(T_SETS[0], W_SET) if u != v]
+    G = AddOptionalEdges(G, edgesToAdd)
+    
+    print(FindStrongStableSet(G))
+    return
 
-
-
-
+Process()
