@@ -16,6 +16,8 @@ Version: 2015-08-11
 import sys
 sys.path.append("..")
 from graph.helper import make_cycle
+from copy import deepcopy
+from networkx.algorithms.clique import find_cliques
 
 #Program constants
 BASE_CYCLE_LENGTH = 6
@@ -24,6 +26,93 @@ BASE_CYCLE_LENGTH = 6
 X_SETS = None
 T_SETS = None
 W_SET = None
+
+def FindLargestCliques(G):
+    
+    """
+    -------------------------------------------------------
+    This function finds the largest clique in a NetworkX graph.
+    -------------------------------------------------------
+    Preconditions:
+        G - a NetworkX graph.
+    
+    Postconditions: 
+        returns: result - a list of lists, where each list entry
+        contains a list of vertices which comprise the largest clique(s)
+        in G.
+    -------------------------------------------------------
+    """
+    
+    maximalCliques = list(find_cliques(G))
+    largestSoFar = len(maximalCliques[0])
+    
+    for thisClique in maximalCliques:
+        if len(thisClique) > largestSoFar:
+            largestSoFar = len(thisClique)
+            
+    result = list()
+    
+    for thisClique in maximalCliques:
+        if len(thisClique) == largestSoFar:
+            result.append(thisClique)
+            
+    return result
+
+"""
+-------------------------------------------------------
+This function takes a NetworkX graph G and returns a strong
+stable set belonging to G, if such a stable set exists, and
+returns None otherwise.
+-------------------------------------------------------
+"""
+def FindStrongStableSet(G):
+    result = None
+    maximalCliques = findLargestCliques(G)
+    V = G.nodes()
+
+    for thisVertex in V:
+        #Find maximum stable sets which contain each vertex of G
+         try:
+            verticesToInclude = list()
+            verticesToInclude.append(thisVertex)
+            thisMaximalStableSet = maximal_independent_set(G, verticesToInclude)
+         except NetworkXUnfeasible:
+            thisMaximalStableSet = []
+         #Now determine if thisMaximumStableSet is strong, that is, meets every maximal clique
+         foundStrongStableSet = True
+        
+         for thisMaximalClique in maximalCliques:
+            if set(thisMaximalStableSet).isdisjoint(set(thisMaximalClique)):
+                foundStrongStableSet = False
+                break
+                   
+         if foundStrongStableSet == True:
+            result = thisMaximalStableSet
+            break
+
+    return result
+
+def AddOptionalEdges(G, edgesToAdd):
+    
+    """
+    -------------------------------------------------------
+    This function adds optional edges to a graph.
+    -------------------------------------------------------
+    Preconditions:
+        G- a NetworkX graph.
+        edgesToAdd - a list of edge tuples
+    Postconditions:
+        returns:
+        G - a NetworkX graph which is a copy of the input graph
+            with the optional edges added.
+        
+    -------------------------------------------------------
+    """
+    
+    for thisNewEdge in edgesToAdd:
+        G.add_edge(thisNewEdge[0], thisNewEdge[1])
+    
+    return deepcopy(G)
 
 def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
     """
@@ -106,7 +195,14 @@ def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
         for v in thisXSet:
             for u in thisXSet:
                 if u != v:
-                    G.add_edge(u,v) 
+                    G.add_edge(u,v)
+                    
+    #Every T is a clique
+    for thisTset in T_SETS:
+        for v in thisTset:
+            for u in thisTset:
+                if u != v:
+                    G.add_edge(u,v)
     
     #If Ti is non-empty:
     currentIndex = 0
@@ -125,3 +221,14 @@ def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
         currentIndex += 2
     
     return G
+
+G = Construct([1,2,1,2,2,1], [2,1,2], 2)
+print(X_SETS)
+print(T_SETS)
+print(W_SET)
+print(G.neighbors(18))
+print(FindLargestCliques(G))
+
+
+
+
