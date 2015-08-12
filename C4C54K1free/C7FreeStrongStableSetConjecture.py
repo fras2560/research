@@ -30,6 +30,12 @@ X_SETS = None
 T_SETS = None
 W_SET = None
 
+def FindStrongStableSetFast(G):
+    
+  
+    
+    return result
+
 def FindLargestCliques(G):
     
     """
@@ -213,6 +219,12 @@ def Construct(xVertexCardanility, tVertexCardinality, wCardinality):
             for u in thisTset:
                 if u != v:
                     G.add_edge(u,v)
+                    
+    #Every W is a clique
+    for u in W_SET:
+        for v in W_SET:
+            if u != v:
+                G.add_edge(u,v)
     
     #If Ti is non-empty:
     currentIndex = 0
@@ -237,10 +249,14 @@ def Process():
     G = Construct([1,2,1,2,2,1], [2,1,2], 2)
     
     #W must join 1 T in order to avoid a 4k1
+    print(X_SETS)
+    print(T_SETS)
+    print(W_SET)
     edgesToAdd = [(u,v) for (u,v) in product(T_SETS[0], W_SET) if u != v]
     G = AddOptionalEdges(G, edgesToAdd)
     
-    print(FindStrongStableSet(G))
+    print(FindLargestCliques(G))
+    print(G.neighbors(20))
     return
 
 Process()
