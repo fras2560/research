@@ -121,27 +121,3 @@ class Tester(unittest.TestCase):
 
     def testProcess(self):
         self.e.process()
-
-#    def testAddVertices(self):
-#         # test one
-#         self.e.add_vertices((0, 0, 0, 0, 0, 0, 1))
-#         self.assertEqual([0, 1, 2, 3, 4, 5, 6, 7], self.e.g.nodes())
-#         expect = [(0, 1), (0, 6), (0, 7), (1, 2), (2, 3), (3, 4), (3, 7),
-#                   (4, 5), (5, 6), (6, 7)]
-#         self.assertEqual(expect, self.e.g.edges())
-#         self.e.g = make_cycle(7)
-#         #test two
-#         self.e.add_vertices((2, 0, 0, 0, 0, 0, 1))
-#         self.assertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8], self.e.g.nodes())
-#         expect  = [(0, 8), (0, 1), (0, 6), (0, 7), (1, 2), (1, 7),
-#                    (2, 3), (2, 7), (3, 8), (3, 4), (3, 7), (4, 5),
-#                    (4, 7), (5, 6), (6, 8), (7, 8)]
-#         self.assertEqual(expect, self.e.g.edges())
-#         self.e.g = make_cycle(7)
-#         # test three
-#         self.e.add_vertices((0, 0, 0, 1, 0, 0, 3))
-#         self.assertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], self.e.g.nodes())
-#         expect = [(0, 8), (0, 1), (0, 9), (0, 6), (0, 7), (1, 9), (1, 2),
-#                   (2, 3), (2, 9), (3, 8), (3, 9), (3, 4), (3, 7), (4, 5),
-#                   (4, 7), (5, 6), (6, 8), (6, 9), (7, 8)]
-#         self.assertEqual(expect, self.e.g.edges())
