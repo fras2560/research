@@ -9,6 +9,8 @@ For these purposes, an "Onion" is a n-cycle with n distinct
 This program generates onions with 3-vertices on cycles of 
 any length with X sets of any cardinality.
 
+
+
 Might be useful. It generates some really cool looking graphs
 when you load the saved ones into our Induced Subgraph program!!!!
 -------------------------------------------------------
@@ -31,6 +33,7 @@ from networkx.algorithms.clique import find_cliques
 from itertools import product
 
 GRAPH_FAMILY = "Onion"
+
 DIRECTORY = join(getcwd(), "GraphFamilies", GRAPH_FAMILY)
 MY_LOGGER = logging.getLogger(__name__)
 
