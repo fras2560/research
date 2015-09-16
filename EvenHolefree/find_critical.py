@@ -38,7 +38,8 @@ def go():
             print("Finished %d of %d" %(i, total))
         if DalGraph(g, logger=LOGGER).critical_aprox():
             f = File(DIRECTORY,G=g).save()
-            print("Found a critical graph")
+            if f is not None:
+                print("Found a critical graph")
     print("Done checked %d" % i)
 import unittest
 class Test(unittest.TestCase):
