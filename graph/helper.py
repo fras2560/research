@@ -11,6 +11,22 @@ Version: 2014-09-10
 """
 import networkx as nx
 
+
+def make_kite():
+    '''
+    
+    make_kite
+    assembles a kite (co-chair)
+    Parameters:
+        None
+    Returns:
+        kite: the kite (Graph)
+    '''
+    kite = make_diamond()
+    kite.add_node(4)
+    kite.add_edge(2, 4)
+    return kite
+
 def make_claw():
     '''
     make_claw
