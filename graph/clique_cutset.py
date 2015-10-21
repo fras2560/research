@@ -48,7 +48,7 @@ def subset(clique):
             yield x
 
 import unittest
-from graph.helper import make_clique, make_diamond, join, make_cycle, make_kite
+from graph.helper import make_clique, make_diamond, make_cycle, make_kite
 class Test(unittest.TestCase):
 
     def testCliqueCutset(self):
