@@ -48,7 +48,8 @@ def subset(clique):
             yield x
 
 import unittest
-from graph.helper import make_clique, make_diamond, make_cycle, make_kite
+from graph.helper import make_clique, make_diamond, make_cycle, make_kite,\
+                        make_bridge
 class Test(unittest.TestCase):
 
     def testCliqueCutset(self):
@@ -64,6 +65,10 @@ class Test(unittest.TestCase):
         # whole graph is a clique
         result = clique_cutset(make_clique(4))
         self.assertEqual(result, (0, 1, 2, 3))
+        # a random graph
+        result = clique_cutset(make_bridge())
+        self.assertEqual(result, (0, 1))
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
