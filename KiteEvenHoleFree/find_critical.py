@@ -1,8 +1,14 @@
-'''
-Created on Oct 14, 2015
-
-@author: Dallas
-'''
+"""
+-------------------------------------------------------
+find_critical
+a program to find graphs critical graphs
+-------------------------------------------------------
+Author:  Dallas Fraser
+ID:      110242560
+Email:   fras2560@mylaurier.ca
+Version: 2015-10-20
+-------------------------------------------------------
+"""
 import sys
 sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_cycle, make_kite, make_clique, make_wheel
@@ -10,7 +16,6 @@ from utility.file import File
 from graph import DalGraph
 import os
 from utility.generator import Generator
-from EvenHoleFree.helper import critical_cycle 
 import logging
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent = 4)
