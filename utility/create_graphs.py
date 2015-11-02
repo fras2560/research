@@ -11,34 +11,44 @@ Email:   fras2560@mylaurier.ca
 Version: 2014-10-19
 -------------------------------------------------------
 """
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
 from graph.helper import make_co_claw, make_cycle, make_clique, make_co_cycle
 from graph.helper import make_2K2, make_co_diamond, make_cok4
 from graph.helper import join as graphjoin
 from os import getcwd
 from os.path import join
-from generator import Generator2
-from file import File
+from utility.generator import Generator2
+from utility.file import File
 import logging
-from EmailHelper import send_email
-from config import TO_ADDRESS, CREATE_MESSAGE
+from utility.EmailHelper import send_email
 
+
+TO_ADDRESS = "fras2560@mylaurier.ca"
+CREATE_MESSAGE = "Create Graphs was completed"
 # create forbidden graph
+c4 = make_cycle(4)
+c6 = make_cycle(6)
+c8 = make_cycle(8)
+c10 = make_cycle(10)
+k4 = make_clique(4)
+
 coclaw = make_co_claw()
 k2 = make_2K2()
 cok4 = make_cok4()
 codiamond = make_co_diamond()
 
 # these constants are what should change
-FAMILY = "Coclaw-Codiamond-Cok4-Coc4"
+FAMILY = "Even-Hole"
 DIRECTORY = join(getcwd(), 'GraphFamilies', FAMILY)
-FORBIDDEN = [coclaw, k2, cok4, codiamond]
-STARTING = make_co_cycle(9)
-BASE = "C9-Bar-"
+FORBIDDEN = [c4, c6, c8, c10, k4]
+STARTING = make_co_cycle(5)
+BASE = "C5"
 logging.basicConfig(filename=BASE+FAMILY+".log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
 # processing work 
-generator = Generator2(STARTING, 4, FORBIDDEN)
+generator = Generator2(STARTING, 5, FORBIDDEN)
 index = 0
 for graph in generator.iterate():
     f = File(DIRECTORY, G=graph, logger=LOGGER, base=BASE)

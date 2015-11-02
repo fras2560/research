@@ -57,9 +57,9 @@ class Generator():
         g = self.G.copy()
         while index  < (self.n + l_nodes - 1):
             # add a node
-            print("----------------")
-            print("Index: %d of %d" % (index, self.n + l_nodes - 1))
-            print("----------------")
+#             print("----------------")
+#             print("Index: %d of %d" % (index, self.n + l_nodes - 1))
+#             print("----------------")
             self.logger.info("Index: %d" % index)
             index += 1
             add_nodes += 1

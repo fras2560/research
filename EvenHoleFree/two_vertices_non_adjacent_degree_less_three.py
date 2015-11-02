@@ -10,6 +10,9 @@ Email:   fras2560@mylaurier.ca
 Version: 2015-09-24
 -------------------------------------------------------
 """
+import sys
+sys.path.append("..") # Adds higher directory to python modules path.
+
 from os import getcwd
 from os.path import join
 import os
@@ -24,7 +27,7 @@ logging.basicConfig(filename="hoang_conjecture.log", level=logging.INFO,
 LOGGER = logging.getLogger(__name__)
 
 REQUIREMENT = 4
-DROPS  = 1
+DROPS  = 10
 FORBIDDEN = [make_clique(4), make_cycle(4), make_clique(6), make_cycle(8)]
 MYPATH = join(getcwd(), "special_graphs", "Non_adjacent")
 GRAPH = make_cycle(5)
@@ -108,4 +111,6 @@ class Test(unittest.TestCase):
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     #unittest.main()
+    print("Starting program")
     go()
+    print("Finished program")

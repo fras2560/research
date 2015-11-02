@@ -11,10 +11,21 @@ Version: 2014-09-10
 """
 import networkx as nx
 
+def make_co_cricket():
+    '''
+    make_co_cricket
+    assembles a co-cricket
+    Parameters:
+        None
+    Returns:
+        g: the co-cricket (Graph)
+    '''
+    g = make_diamond()
+    g.add_node(4)
+    return g
 
 def make_kite():
     '''
-    
     make_kite
     assembles a kite (co-chair)
     Parameters:

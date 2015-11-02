@@ -10,7 +10,7 @@ from utility.file import File
 from graph import DalGraph
 import os
 from utility.generator import Generator
-from EvenHolefree.helper import critical_cycle 
+from EvenHoleFree.helper import critical_cycle 
 import logging
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent = 4)
@@ -18,15 +18,16 @@ FORBIDDEN =  [make_clique(4),
               make_cycle(4),
               make_cycle(6),
               make_cycle(8),
-              critical_cycle(5),
-              make_wheel(6)]
-BASE = "C5"
+              make_cycle(5),
+              make_wheel(6)
+              ]
+BASE = "C&"
 DIRECTORY=os.path.join(os.getcwd(), "Critical-graphs", BASE)
-STARTING = make_cycle(5)
+STARTING = make_cycle(7)
 logging.basicConfig(filename=BASE+"finding_critical.log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
-DROPS = 5
+DROPS = 10
 
 def go():
     gen = Generator(STARTING, DROPS, FORBIDDEN, logger=LOGGER)

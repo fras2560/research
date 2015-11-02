@@ -19,7 +19,7 @@ BASE_NAME = "C5"
 FORBIDDEN = [make_clique(4), make_cycle(4), make_cycle(6), make_cycle(8)]
 
 BASE = make_cycle(5)
-DROPS = 2
+DROPS = 5
 logging.basicConfig(filename=BASE_NAME+"ss_conjecture.log", level=logging.INFO,
                             format='%(asctime)s %(message)s')
 LOGGER = logging.getLogger(__name__)
